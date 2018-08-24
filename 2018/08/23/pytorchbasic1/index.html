@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="pytorch,tutorial," />
 
 
 
@@ -77,16 +77,18 @@
 
 
 
-<meta name="description" content="士不可不弘毅">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Zenroad&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="写在前面首先说一下写作目的，很多时候，看了官网的教程，感觉看懂了，但在实际操作的时候又无从下手，所以我打算整理几篇博文帮助大家迅速入门，如果大家有什么好的意见建议，欢迎在文末留言。 一、pytorch简介现在流行的机器学习框架很多，比如tensorflow、Keras等等，那么我为什么要用pytorch呢？之前我一直在使用Keras，然而毕竟多套了一层，不够灵活。而pytorch又很好学，所以我打">
+<meta name="keywords" content="pytorch,tutorial">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pytorch入门——边学边练01">
+<meta property="og:url" content="http://yoursite.com/2018/08/23/pytorchbasic1/index.html">
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
-<meta property="og:description" content="士不可不弘毅">
+<meta property="og:description" content="写在前面首先说一下写作目的，很多时候，看了官网的教程，感觉看懂了，但在实际操作的时候又无从下手，所以我打算整理几篇博文帮助大家迅速入门，如果大家有什么好的意见建议，欢迎在文末留言。 一、pytorch简介现在流行的机器学习框架很多，比如tensorflow、Keras等等，那么我为什么要用pytorch呢？之前我一直在使用Keras，然而毕竟多套了一层，不够灵活。而pytorch又很好学，所以我打">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-08-24T02:09:20.867Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Zenroad&#39;s Blog">
-<meta name="twitter:description" content="士不可不弘毅">
+<meta name="twitter:title" content="pytorch入门——边学边练01">
+<meta name="twitter:description" content="写在前面首先说一下写作目的，很多时候，看了官网的教程，感觉看懂了，但在实际操作的时候又无从下手，所以我打算整理几篇博文帮助大家迅速入门，如果大家有什么好的意见建议，欢迎在文末留言。 一、pytorch简介现在流行的机器学习框架很多，比如tensorflow、Keras等等，那么我为什么要用pytorch呢？之前我一直在使用Keras，然而毕竟多套了一层，不够灵活。而pytorch又很好学，所以我打">
 
 
 
@@ -116,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/23/pytorchbasic1/"/>
 
 
 
 
 
-  <title>Zenroad's Blog</title>
+  <title>pytorch入门——边学边练01 | Zenroad's Blog</title>
   
 
 
@@ -150,8 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -244,162 +245,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/24/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/24/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T08:34:38+08:00">
-                2018-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/24/hello-world/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/24/hello-world/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/08/24/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -429,9 +277,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/23/pytorchbasic1/" itemprop="url">pytorch入门——边学边练01</a></h1>
+          <h1 class="post-title" itemprop="name headline">pytorch入门——边学边练01</h1>
         
 
         <div class="post-meta">
@@ -525,9 +371,7 @@
       
 
       
-        
-          
-            <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>首先说一下写作目的，很多时候，看了官网的教程，感觉看懂了，但在实际操作的时候又无从下手，所以我打算整理几篇博文帮助大家迅速入门，如果大家有什么好的意见建议，欢迎在文末留言。</p>
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>首先说一下写作目的，很多时候，看了官网的教程，感觉看懂了，但在实际操作的时候又无从下手，所以我打算整理几篇博文帮助大家迅速入门，如果大家有什么好的意见建议，欢迎在文末留言。</p>
 <h1 id="一、pytorch简介"><a href="#一、pytorch简介" class="headerlink" title="一、pytorch简介"></a>一、pytorch简介</h1><p>现在流行的机器学习框架很多，比如<code>tensorflow</code>、<code>Keras</code>等等，那么我为什么要用<code>pytorch</code>呢？之前我一直在使用<code>Keras</code>，然而毕竟多套了一层，不够灵活。而<code>pytorch</code>又很好学，所以我打算把一部分工作迁移到<code>pytorch</code>上来，也算是多掌握一门手艺活。<br>从今天开始，我会和大家一起学习<code>pytorch</code>。<br><code>pytorch</code>的学习资源，文档很详细，github上也有很多代码。<code>pytorch</code>的官网应该没有被墙吧？<a href="https://pytorch.org/" target="_blank" rel="noopener">pytorch</a>官网上有详细的安装教程以及相关文档，所以本文就不讲如何安装<code>pytorch</code>了。有时间我再把安装配置CUDA环境的博文补上，我发现好多博文里基本不讲CUDA编程的知识，其实这部分也十分有趣。<br>我琢磨了一下，从何讲起呢？翻来覆去想了想不如按照github上面的教程<a href="https://github.com/yunjey/pytorch-tutorial" target="_blank" rel="noopener">pytorch-tutorial</a>讲解吧！还是动手敲敲代码学习得快。<br>下面展示一下我的学习过程～～</p>
 <h1 id="二、今天我们要做什么？"><a href="#二、今天我们要做什么？" class="headerlink" title="二、今天我们要做什么？"></a>二、今天我们要做什么？</h1><p>我们首先讲一下<code>pytorch</code>的基本操作，详细代码参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/pytorch_basics/main.py" target="_blank" rel="noopener">PyTorch Basics</a>。如果您已经看过官网的教程，熟知基本的操作，建议您跳过该章节，直接看后面的博文。<br>我们先引入所需的包。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import torch </span><br><span class="line">import torchvision</span><br><span class="line">import torch.nn as nn</span><br><span class="line">import numpy as np</span><br><span class="line">import torchvision.transforms as transforms</span><br></pre></td></tr></table></figure></p>
 <p>在实际工作中，我们常常需要和图片，文本等打交道，这些非结构化的数据在框架里又是怎么体现的呢？正如<code>tensorflow</code>这个框架所暗示的，操作的基本单元就是’tensor’张量。拿到张量后，我们又需要干什么呢？加加减减乘乘除除，经过一系列运算，得到一个结果，然后对这个结果求导。所谓的网络也就是一个复杂点的公式吧！</p>
@@ -547,8 +391,6 @@
 <p>结果如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">loss:  1.4480115175247192</span><br><span class="line">dL/dw:  tensor([[ 0.9242,  0.2026,  0.4504],</span><br><span class="line">        [ 0.6620, -0.2875,  0.1874]])</span><br><span class="line">dL/db:  tensor([-0.0164,  0.1238])</span><br></pre></td></tr></table></figure></p>
 <p>上面的代码中完成了一次求导的工作，如果想更加直观的操作一把，您可以进行如下操作，实际结果上是相近的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 1-step gradient descent.</span><br><span class="line">optimizer.step()</span><br><span class="line"></span><br><span class="line"># You can also perform gradient descent at the low level.</span><br><span class="line"># linear.weight.data.sub_(0.01 * linear.weight.grad.data)</span><br><span class="line"># linear.bias.data.sub_(0.01 * linear.bias.grad.data)</span><br><span class="line"></span><br><span class="line"># Print out the loss after 1-step gradient descent.</span><br><span class="line">pred = linear(x)</span><br><span class="line">loss = criterion(pred, y)</span><br><span class="line">print(&apos;loss after 1 step optimization: &apos;, loss.item())</span><br></pre></td></tr></table></figure></p>
 
-          
-        
       
     </div>
     
@@ -556,6 +398,9 @@
     
 
     <div>
+      
+        
+
       
     </div>
     
@@ -566,164 +411,42 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/22/hellome/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/22/hellome/" itemprop="url">hellome</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-22T21:24:39+08:00">
-                2018-08-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/pytorch/" rel="tag"># pytorch</a>
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/22/hellome/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/22/hellome/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
+            <a href="/tags/tutorial/" rel="tag"># tutorial</a>
           
-
-          
-          
-             <span id="/2018/08/22/hellome/" class="leancloud_visitors" data-flag-title="hellome">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h1 id="sass简介"><a href="#sass简介" class="headerlink" title="sass简介"></a>sass简介</h1><p>来自于官网的简介：<br>Sass is the most mature, stable, and powerful professional grade CSS extension language in the world.</p>
-<font color="red"> Sass 是世界上最成熟的，稳定的，功能强大的专业级 CSS 扩展语言。</font>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/22/hellome/#more" rel="contents">
-              Read more &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/22/hellome/" rel="next" title="hellome">
+                <i class="fa fa-chevron-left"></i> hellome
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    <div>
-      
-    </div>
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/24/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -733,10 +456,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -744,6 +468,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -764,8 +502,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -829,6 +576,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一、pytorch简介"><span class="nav-number">2.</span> <span class="nav-text">一、pytorch简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、今天我们要做什么？"><span class="nav-number">3.</span> <span class="nav-text">二、今天我们要做什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、一个小例子"><span class="nav-number">4.</span> <span class="nav-text">三、一个小例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、复杂一些的例子"><span class="nav-number">5.</span> <span class="nav-text">四、复杂一些的例子</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -960,6 +723,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -977,6 +744,18 @@
       <script id="dsq-count-scr" src="https://zenroad.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://yoursite.com/2018/08/23/pytorchbasic1/';
+          this.page.identifier = '2018/08/23/pytorchbasic1/';
+          this.page.title = 'pytorch入门——边学边练01';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://zenroad.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
