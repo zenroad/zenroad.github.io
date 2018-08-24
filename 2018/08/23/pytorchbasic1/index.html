@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
 <meta property="og:description" content="写在前面首先说一下写作目的，很多时候，看了官网的教程，感觉看懂了，但在实际操作的时候又无从下手，所以我打算整理几篇博文帮助大家迅速入门，如果大家有什么好的意见建议，欢迎在文末留言。 一、pytorch简介现在流行的机器学习框架很多，比如tensorflow、Keras等等，那么我为什么要用pytorch呢？之前我一直在使用Keras，然而毕竟多套了一层，不够灵活。而pytorch又很好学，所以我打">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-24T05:54:43.223Z">
+<meta property="og:updated_time" content="2018-08-24T07:22:53.847Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pytorch入门——边学边练01基础知识">
 <meta name="twitter:description" content="写在前面首先说一下写作目的，很多时候，看了官网的教程，感觉看懂了，但在实际操作的时候又无从下手，所以我打算整理几篇博文帮助大家迅速入门，如果大家有什么好的意见建议，欢迎在文末留言。 一、pytorch简介现在流行的机器学习框架很多，比如tensorflow、Keras等等，那么我为什么要用pytorch呢？之前我一直在使用Keras，然而毕竟多套了一层，不够灵活。而pytorch又很好学，所以我打">
@@ -143,6 +143,8 @@
 
 
 
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -372,7 +374,7 @@
 
       
         <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>首先说一下写作目的，很多时候，看了官网的教程，感觉看懂了，但在实际操作的时候又无从下手，所以我打算整理几篇博文帮助大家迅速入门，如果大家有什么好的意见建议，欢迎在文末留言。</p>
-<h1 id="一、pytorch简介"><a href="#一、pytorch简介" class="headerlink" title="一、pytorch简介"></a>一、pytorch简介</h1><p>现在流行的机器学习框架很多，比如<code>tensorflow</code>、<code>Keras</code>等等，那么我为什么要用<code>pytorch</code>呢？之前我一直在使用<code>Keras</code>，然而毕竟多套了一层，不够灵活。而<code>pytorch</code>又很好学，所以我打算把一部分工作迁移到<code>pytorch</code>上来，也算是多掌握一门手艺活。<br>从今天开始，我会和大家一起学习<code>pytorch</code>。<br><code>pytorch</code>的学习资源，文档很详细，github上也有很多代码。<code>pytorch</code>的官网应该没有被墙吧？<a href="https://pytorch.org/" target="_blank" rel="noopener">pytorch</a>官网上有详细的安装教程以及相关文档，所以本文就不讲如何安装<code>pytorch</code>了。有时间我再把安装配置CUDA环境的博文补上，我发现好多博文里基本不讲CUDA编程的知识，其实这部分也十分有趣。<br>我琢磨了一下，从何讲起呢？翻来覆去想了想不如按照github上面的教程<a href="https://github.com/yunjey/pytorch-tutorial" target="_blank" rel="noopener">pytorch-tutorial</a>讲解吧！还是动手敲敲代码学习得快。<br>下面展示一下我的学习过程～～</p>
+<h1 id="一、pytorch简介"><a href="#一、pytorch简介" class="headerlink" title="一、pytorch简介"></a>一、pytorch简介</h1><p>现在流行的机器学习框架很多，比如<code>tensorflow</code>、<code>Keras</code>等等，那么我为什么要用<code>pytorch</code>呢？之前我一直在使用<code>Keras</code>，然而毕竟多套了一层，不够灵活。而<code>pytorch</code>又很好学，所以我打算把一部分工作迁移到<code>pytorch</code>上来，也算是多掌握一门手艺活。<br>从今天开始，我会和大家一起学习<code>pytorch</code>。<br><code>pytorch</code>的学习资源，文档很详细，github上也有很多代码。<code>pytorch</code>的官网应该没有被墙吧？<a href="https://pytorch.org/" target="_blank" rel="noopener">pytorch</a>官网上有详细的安装教程以及相关文档，所以本文就不讲如何安装<code>pytorch</code>了。有时间我再把安装配置CUDA环境的博文补上，我发现好多博文里基本不讲CUDA编程的知识，其实这部分也十分有趣。<br>我琢磨了一下，从何讲起呢？翻来覆去想了想不如按照github上面的教程<a href="https://github.com/yunjey/pytorch-tutorial" target="_blank" rel="noopener">pytorch-tutorial</a>讲解吧！还是动手敲敲代码学习得快。<br>下面展示一下我的学习过程～～<br><a id="more"></a></p>
 <h1 id="二、今天我们要做什么？"><a href="#二、今天我们要做什么？" class="headerlink" title="二、今天我们要做什么？"></a>二、今天我们要做什么？</h1><p>我们首先讲一下<code>pytorch</code>的基本操作，详细代码参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/pytorch_basics/main.py" target="_blank" rel="noopener">PyTorch Basics</a>。如果您已经看过官网的教程，熟知基本的操作，建议您跳过该章节，直接看后面的博文。<br>我们先引入所需的包。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import torch </span><br><span class="line">import torchvision</span><br><span class="line">import torch.nn as nn</span><br><span class="line">import numpy as np</span><br><span class="line">import torchvision.transforms as transforms</span><br></pre></td></tr></table></figure></p>
 <p>在实际工作中，我们常常需要和图片，文本等打交道，这些非结构化的数据在框架里又是怎么体现的呢？正如<code>tensorflow</code>这个框架所暗示的，操作的基本单元就是’tensor’张量。拿到张量后，我们又需要干什么呢？加加减减乘乘除除，经过一系列运算，得到一个结果，然后对这个结果求导。所谓的网络也就是一个复杂点的公式吧！</p>
 <h1 id="三、一个小例子"><a href="#三、一个小例子" class="headerlink" title="三、一个小例子"></a>三、一个小例子</h1><p>我们给出一个简单的例子，我们先用常量赋值的方式创造一些<code>tensor</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># Create tensors.</span><br><span class="line">x = torch.tensor(1., requires_grad=True)</span><br><span class="line">w = torch.tensor(2., requires_grad=True)</span><br><span class="line">b = torch.tensor(3., requires_grad=True)</span><br><span class="line"></span><br><span class="line"># Build a computational graph.</span><br><span class="line">y = w * x + b    # y = 2 * x + 3</span><br><span class="line"></span><br><span class="line"># Compute gradients.</span><br><span class="line">y.backward()</span><br><span class="line"></span><br><span class="line"># Print out the gradients.</span><br><span class="line">print(x.grad)    # x.grad = 2 </span><br><span class="line">print(w.grad)    # w.grad = 1 </span><br><span class="line">print(b.grad)    # b.grad = 1</span><br></pre></td></tr></table></figure></p>
@@ -554,7 +556,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

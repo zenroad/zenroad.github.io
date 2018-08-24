@@ -77,19 +77,19 @@
 
 
 
-<meta name="description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。1234import torchimport torch.nn as n">
+<meta name="description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。">
 <meta name="keywords" content="pytorch,tutorial">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pytorch入门——边学边练02线性回归">
 <meta property="og:url" content="http://yoursite.com/2018/08/24/pytorch-linear-regression/index.html">
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
-<meta property="og:description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。1234import torchimport torch.nn as n">
+<meta property="og:description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44569144-fd8e2e80-a7ab-11e8-818e-aab486e717ca.png">
-<meta property="og:updated_time" content="2018-08-24T06:48:27.648Z">
+<meta property="og:updated_time" content="2018-08-24T07:22:37.871Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pytorch入门——边学边练02线性回归">
-<meta name="twitter:description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。1234import torchimport torch.nn as n">
+<meta name="twitter:description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。">
 <meta name="twitter:image" content="https://user-images.githubusercontent.com/42510101/44569144-fd8e2e80-a7ab-11e8-818e-aab486e717ca.png">
 
 
@@ -145,6 +145,8 @@
 
 
 
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
@@ -374,7 +376,7 @@
 
       
         <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用<code>pytorch</code>实现呢？接下来我们进行实战操作。完整代码请参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/linear_regression" target="_blank" rel="noopener">linear_regression</a>。</p>
-<h1 id="我们会用到什么包呢？"><a href="#我们会用到什么包呢？" class="headerlink" title="我们会用到什么包呢？"></a>我们会用到什么包呢？</h1><p>本节，我打算要用到<code>Linear</code>那么肯定要引入<code>torch.nn</code>。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br></pre></td></tr></table></figure></p>
+<h1 id="我们会用到什么包呢？"><a href="#我们会用到什么包呢？" class="headerlink" title="我们会用到什么包呢？"></a>我们会用到什么包呢？</h1><p>本节，我打算要用到<code>Linear</code>那么肯定要引入<code>torch.nn</code>。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br></pre></td></tr></table></figure></p>
 <h1 id="数据从哪里来？"><a href="#数据从哪里来？" class="headerlink" title="数据从哪里来？"></a>数据从哪里来？</h1><p>这里我们构造一个简单的数据集合，用<code>x</code>去拟合<code>y</code>吧。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Toy dataset</span><br><span class="line">x_train = np.array([[3.3], [4.4], [5.5], [6.71], [6.93], [4.168], </span><br><span class="line">                    [9.779], [6.182], [7.59], [2.167], [7.042], </span><br><span class="line">                    [10.791], [5.313], [7.997], [3.1]], dtype=np.float32)</span><br><span class="line"></span><br><span class="line">y_train = np.array([[1.7], [2.76], [2.09], [3.19], [1.694], [1.573], </span><br><span class="line">                    [3.366], [2.596], [2.53], [1.221], [2.827], </span><br><span class="line">                    [3.465], [1.65], [2.904], [1.3]], dtype=np.float32)</span><br></pre></td></tr></table></figure></p>
 <h1 id="基本思路说一下"><a href="#基本思路说一下" class="headerlink" title="基本思路说一下"></a>基本思路说一下</h1><p>还记得上一节我们介绍的<a href="https://www.zenroad.club/2018/08/23/pytorchbasic1/" target="_blank" rel="noopener">复杂一些的例子</a>吗？里面提到了如何去构造一组线性关系。我们的思路很简单，确定好输入输出<code>tensor</code>的维度，再利用<code>nn.Linear()</code>算一下就好了。<br>之前的例子里，我们只进行了一次求导，似乎效果不是很好。这次我们就加个循环多做几次。而且本例是线性回归，直接就是一条直线，其实还比前面的例子简单些……</p>
 <h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><p>记住我们的目标就是让预测值与真实值<code>y</code>之间的差距越小越好。预测值是什么？就是<code>x</code>经过<code>Linear</code>后得到的东西吧！让我们先看看代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># Hyper-parameters</span><br><span class="line">input_size = 1</span><br><span class="line">output_size = 1</span><br><span class="line">num_epochs = 60</span><br><span class="line">learning_rate = 0.001</span><br><span class="line"># Linear regression model</span><br><span class="line">model = nn.Linear(input_size, output_size)</span><br><span class="line"></span><br><span class="line"># Loss and optimizer</span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)  </span><br><span class="line"></span><br><span class="line"># Train the model</span><br><span class="line">for epoch in range(num_epochs):</span><br><span class="line">    # Convert numpy arrays to torch tensors</span><br><span class="line">    inputs = torch.from_numpy(x_train)</span><br><span class="line">    targets = torch.from_numpy(y_train)</span><br><span class="line"></span><br><span class="line">    # Forward pass</span><br><span class="line">    outputs = model(inputs)</span><br><span class="line">    loss = criterion(outputs, targets)</span><br><span class="line">    </span><br><span class="line">    # Backward and optimize</span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    if (epoch+1) % 5 == 0:</span><br><span class="line">        print (&apos;Epoch [&#123;&#125;/&#123;&#125;], Loss: &#123;:.4f&#125;&apos;.format(epoch+1, num_epochs, loss.item()))</span><br></pre></td></tr></table></figure></p>
@@ -430,6 +432,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/24/pytorch-logistic-regression/" rel="prev" title="pytorch入门——边学边练03逻辑回归">
+                pytorch入门——边学边练03逻辑回归 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -520,7 +526,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
