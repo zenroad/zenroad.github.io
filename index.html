@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="pytorch" />
 
 
 
@@ -78,6 +78,7 @@
 
 
 <meta name="description" content="士不可不弘毅">
+<meta name="keywords" content="pytorch">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Zenroad&#39;s Blog">
 <meta property="og:url" content="https://www.zenroad.club/index.html">
@@ -169,7 +170,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <h1 class="site-subtitle" itemprop="description"></h1>
       
   </div>
 
@@ -261,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/2018/08/24/pytorch-logistic-regression/">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/91ff9728.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zfish">
@@ -278,9 +279,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/24/pytorch-logistic-regression/" itemprop="url">pytorch入门——边学边练03逻辑回归</a></h1>
+                <a class="post-title-link" href="/archives/91ff9728.html" itemprop="url">pytorch入门——边学边练04一个简单网络</a></h2>
         
 
         <div class="post-meta">
@@ -333,9 +334,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/24/pytorch-logistic-regression/#comments" itemprop="discussionUrl">
+                <a href="/archives/91ff9728.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/24/pytorch-logistic-regression/" itemprop="commentCount"></span>
+                        data-disqus-identifier="archives/91ff9728.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -343,7 +344,7 @@
 
           
           
-             <span id="/2018/08/24/pytorch-logistic-regression/" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练03逻辑回归">
+             <span id="/archives/91ff9728.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练04一个简单网络">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -375,11 +376,11 @@
 
       
         
-          <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>我们来探讨一下逻辑回归的问题吧！顺便把前面的知识点再整合一次！完整代码参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/logistic_regression" target="_blank" rel="noopener">logistic_regression</a></p>
-<h1 id="什么是逻辑回归"><a href="#什么是逻辑回归" class="headerlink" title="什么是逻辑回归"></a>什么是逻辑回归</h1><p>我们先想想逻辑回归问题是什么样的一个问题。简单的说，<code>Logistic Regression</code>是一个解决0/1分类问题的方法。那么再往深处想一想，<code>Logistics Regression</code>的数学模型是什么？为什么我们可以实现0,1分类？逻辑回归（<code>Logistic Regression</code>）与线性回归（<code>Linear Regression</code>）都是一种广义线性模型（<code>generalized linear model</code>）。逻辑回归假设因变量 <code>y</code> 服从伯努利分布，而线性回归假设因变量 <code>y</code> 服从高斯分布。 因此与线性回归有很多相同之处，去除<code>Sigmoid</code>映射函数的话，逻辑回归算法就是一个线性回归。可以说，逻辑回归是以线性回归为理论支持的，但是逻辑回归通过<code>Sigmoid</code>函数引入了非线性因素，因此可以轻松处理0/1分类问题。<br>既然与线性如此相似，那么我们是否可以继续套用上一节使用的模型呢？似乎是可行的。<br>
+          <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>经过前面三节<strong>基础课程</strong>，我们可以来一些更加<strong>复杂</strong>的内容了，今天我们一起来看一个简单的神经网络是如何构成的，并仔细看看神经网络与之前的逻辑回归等课程有什么区别。完整代码参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/feedforward_neural_network" target="_blank" rel="noopener">feedforward_neural_network</a></p>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>前面和大家讨论了线性分类器。但既然是线性的分类器，自然没有办法处理一些非线性结构，比如下图：<br><img src="https://user-images.githubusercontent.com/42510101/44616444-55976480-a882-11e8-8387-3d6f0e312640.jpg" alt="image1"><br>解决办法是多层神经网络，底层神经元的输出是高层神经元的输入。我们可以在中间横着画一条线，再竖着画一条线。每画一条线就是使用了一个神经元。大家还记不记得上一节我们讲到的利用<code>10</code>个<code>sigmod</code>函数加上一个线性结构对手写数字进行识别？如果我们把这些神经元的输出当作输入，后面再连接一个神经元就能达到很强的分类能力。原理性的知识点这里不多做赘述，我们直接来讲怎么做吧！<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/24/pytorch-logistic-regression/#more" rel="contents">
+            <a class="btn" href="/archives/91ff9728.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -433,7 +434,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/2018/08/24/pytorch-linear-regression/">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/e77a54cd.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zfish">
@@ -450,9 +451,181 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/24/pytorch-linear-regression/" itemprop="url">pytorch入门——边学边练02线性回归</a></h1>
+                <a class="post-title-link" href="/archives/e77a54cd.html" itemprop="url">pytorch入门——边学边练03逻辑回归</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T14:56:55+08:00">
+                2018-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/e77a54cd.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/e77a54cd.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/e77a54cd.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练03逻辑回归">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>我们来探讨一下逻辑回归的问题吧！顺便把前面的知识点再整合一次！完整代码参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/logistic_regression" target="_blank" rel="noopener">logistic_regression</a></p>
+<h1 id="什么是逻辑回归"><a href="#什么是逻辑回归" class="headerlink" title="什么是逻辑回归"></a>什么是逻辑回归</h1><p>我们先想想逻辑回归问题是什么样的一个问题。简单的说，<code>Logistic Regression</code>是一个解决0/1分类问题的方法。那么再往深处想一想，<code>Logistics Regression</code>的数学模型是什么？为什么我们可以实现0,1分类？逻辑回归（<code>Logistic Regression</code>）与线性回归（<code>Linear Regression</code>）都是一种广义线性模型（<code>generalized linear model</code>）。逻辑回归假设因变量 <code>y</code> 服从伯努利分布，而线性回归假设因变量 <code>y</code> 服从高斯分布。 因此与线性回归有很多相同之处，去除<code>Sigmoid</code>映射函数的话，逻辑回归算法就是一个线性回归。可以说，逻辑回归是以线性回归为理论支持的，但是逻辑回归通过<code>Sigmoid</code>函数引入了非线性因素，因此可以轻松处理0/1分类问题。<br>既然与线性如此相似，那么我们是否可以继续套用上一节使用的模型呢？似乎是可行的。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/archives/e77a54cd.html#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/83c5e701.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/83c5e701.html" itemprop="url">pytorch入门——边学边练02线性回归</a></h2>
         
 
         <div class="post-meta">
@@ -505,9 +678,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/24/pytorch-linear-regression/#comments" itemprop="discussionUrl">
+                <a href="/archives/83c5e701.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/24/pytorch-linear-regression/" itemprop="commentCount"></span>
+                        data-disqus-identifier="archives/83c5e701.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -515,7 +688,7 @@
 
           
           
-             <span id="/2018/08/24/pytorch-linear-regression/" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练02线性回归">
+             <span id="/archives/83c5e701.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练02线性回归">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -551,7 +724,7 @@
 <h1 id="我们会用到什么包呢？"><a href="#我们会用到什么包呢？" class="headerlink" title="我们会用到什么包呢？"></a>我们会用到什么包呢？</h1><p>本节，我打算要用到<code>Linear</code>那么肯定要引入<code>torch.nn</code>。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/24/pytorch-linear-regression/#more" rel="contents">
+            <a class="btn" href="/archives/83c5e701.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -605,7 +778,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/2018/08/23/pytorchbasic1/">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/1effc38e.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zfish">
@@ -622,9 +795,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/23/pytorchbasic1/" itemprop="url">pytorch入门——边学边练01基础知识</a></h1>
+                <a class="post-title-link" href="/archives/1effc38e.html" itemprop="url">pytorch入门——边学边练01基础知识</a></h2>
         
 
         <div class="post-meta">
@@ -677,9 +850,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/23/pytorchbasic1/#comments" itemprop="discussionUrl">
+                <a href="/archives/1effc38e.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/23/pytorchbasic1/" itemprop="commentCount"></span>
+                        data-disqus-identifier="archives/1effc38e.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -687,7 +860,7 @@
 
           
           
-             <span id="/2018/08/23/pytorchbasic1/" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练01基础知识">
+             <span id="/archives/1effc38e.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练01基础知识">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -723,7 +896,7 @@
 <h1 id="一、pytorch简介"><a href="#一、pytorch简介" class="headerlink" title="一、pytorch简介"></a>一、pytorch简介</h1><p>现在流行的机器学习框架很多，比如<code>tensorflow</code>、<code>Keras</code>等等，那么我为什么要用<code>pytorch</code>呢？之前我一直在使用<code>Keras</code>，然而毕竟多套了一层，不够灵活。而<code>pytorch</code>又很好学，所以我打算把一部分工作迁移到<code>pytorch</code>上来，也算是多掌握一门手艺活。<br>从今天开始，我会和大家一起学习<code>pytorch</code>。<br><code>pytorch</code>的学习资源，文档很详细，github上也有很多代码。<code>pytorch</code>的官网应该没有被墙吧？<a href="https://pytorch.org/" target="_blank" rel="noopener">pytorch</a>官网上有详细的安装教程以及相关文档，所以本文就不讲如何安装<code>pytorch</code>了。有时间我再把安装配置CUDA环境的博文补上，我发现好多博文里基本不讲CUDA编程的知识，其实这部分也十分有趣。<br>我琢磨了一下，从何讲起呢？翻来覆去想了想不如按照github上面的教程<a href="https://github.com/yunjey/pytorch-tutorial" target="_blank" rel="noopener">pytorch-tutorial</a>讲解吧！还是动手敲敲代码学习得快。<br>下面展示一下我的学习过程～～<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/23/pytorchbasic1/#more" rel="contents">
+            <a class="btn" href="/archives/1effc38e.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -804,7 +977,7 @@
                 alt="zfish" />
             
               <p class="site-author-name" itemprop="name">zfish</p>
-              <p class="site-description motion-element" itemprop="description">士不可不弘毅</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -814,7 +987,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

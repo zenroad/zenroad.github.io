@@ -77,20 +77,20 @@
 
 
 
-<meta name="description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。">
+<meta name="description" content="写在前面经过前面三节基础课程，我们可以来一些更加复杂的内容了，今天我们一起来看一个简单的神经网络是如何构成的，并仔细看看神经网络与之前的逻辑回归等课程有什么区别。完整代码参见feedforward_neural_network 概念前面和大家讨论了线性分类器。但既然是线性的分类器，自然没有办法处理一些非线性结构，比如下图：解决办法是多层神经网络，底层神经元的输出是高层神经元的输入。我们可以在中间横">
 <meta name="keywords" content="pytorch,tutorial">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pytorch入门——边学边练02线性回归">
-<meta property="og:url" content="https://www.zenroad.club/2018/08/24/pytorch-linear-regression/index.html">
+<meta property="og:title" content="pytorch入门——边学边练04一个简单网络">
+<meta property="og:url" content="https://www.zenroad.club/archives/91ff9728.html">
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
-<meta property="og:description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。">
+<meta property="og:description" content="写在前面经过前面三节基础课程，我们可以来一些更加复杂的内容了，今天我们一起来看一个简单的神经网络是如何构成的，并仔细看看神经网络与之前的逻辑回归等课程有什么区别。完整代码参见feedforward_neural_network 概念前面和大家讨论了线性分类器。但既然是线性的分类器，自然没有办法处理一些非线性结构，比如下图：解决办法是多层神经网络，底层神经元的输出是高层神经元的输入。我们可以在中间横">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44569144-fd8e2e80-a7ab-11e8-818e-aab486e717ca.png">
-<meta property="og:updated_time" content="2018-08-24T07:22:38.000Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44616444-55976480-a882-11e8-8387-3d6f0e312640.jpg">
+<meta property="og:updated_time" content="2018-08-25T13:13:56.037Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pytorch入门——边学边练02线性回归">
-<meta name="twitter:description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。">
-<meta name="twitter:image" content="https://user-images.githubusercontent.com/42510101/44569144-fd8e2e80-a7ab-11e8-818e-aab486e717ca.png">
+<meta name="twitter:title" content="pytorch入门——边学边练04一个简单网络">
+<meta name="twitter:description" content="写在前面经过前面三节基础课程，我们可以来一些更加复杂的内容了，今天我们一起来看一个简单的神经网络是如何构成的，并仔细看看神经网络与之前的逻辑回归等课程有什么区别。完整代码参见feedforward_neural_network 概念前面和大家讨论了线性分类器。但既然是线性的分类器，自然没有办法处理一些非线性结构，比如下图：解决办法是多层神经网络，底层神经元的输出是高层神经元的输入。我们可以在中间横">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/42510101/44616444-55976480-a882-11e8-8387-3d6f0e312640.jpg">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://www.zenroad.club/2018/08/24/pytorch-linear-regression/"/>
+  <link rel="canonical" href="https://www.zenroad.club/archives/91ff9728.html"/>
 
 
 
 
 
-  <title>pytorch入门——边学边练02线性回归 | Zenroad's Blog</title>
+  <title>pytorch入门——边学边练04一个简单网络 | Zenroad's Blog</title>
   
 
 
@@ -172,7 +172,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle"></p>
+        <h1 class="site-subtitle" itemprop="description"></h1>
       
   </div>
 
@@ -264,7 +264,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/2018/08/24/pytorch-linear-regression/">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/91ff9728.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zfish">
@@ -281,7 +281,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">pytorch入门——边学边练02线性回归</h1>
+          <h2 class="post-title" itemprop="name headline">pytorch入门——边学边练04一个简单网络</h2>
         
 
         <div class="post-meta">
@@ -293,7 +293,7 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T13:27:00+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T14:56:55+08:00">
                 2018-08-24
               </time>
             
@@ -334,9 +334,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/24/pytorch-linear-regression/#comments" itemprop="discussionUrl">
+                <a href="/archives/91ff9728.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2018/08/24/pytorch-linear-regression/" itemprop="commentCount"></span>
+                        data-disqus-identifier="archives/91ff9728.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -344,7 +344,7 @@
 
           
           
-             <span id="/2018/08/24/pytorch-linear-regression/" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练02线性回归">
+             <span id="/archives/91ff9728.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练04一个简单网络">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -375,16 +375,18 @@
       
 
       
-        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用<code>pytorch</code>实现呢？接下来我们进行实战操作。完整代码请参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/linear_regression" target="_blank" rel="noopener">linear_regression</a>。</p>
-<h1 id="我们会用到什么包呢？"><a href="#我们会用到什么包呢？" class="headerlink" title="我们会用到什么包呢？"></a>我们会用到什么包呢？</h1><p>本节，我打算要用到<code>Linear</code>那么肯定要引入<code>torch.nn</code>。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br></pre></td></tr></table></figure></p>
-<h1 id="数据从哪里来？"><a href="#数据从哪里来？" class="headerlink" title="数据从哪里来？"></a>数据从哪里来？</h1><p>这里我们构造一个简单的数据集合，用<code>x</code>去拟合<code>y</code>吧。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Toy dataset</span><br><span class="line">x_train = np.array([[3.3], [4.4], [5.5], [6.71], [6.93], [4.168], </span><br><span class="line">                    [9.779], [6.182], [7.59], [2.167], [7.042], </span><br><span class="line">                    [10.791], [5.313], [7.997], [3.1]], dtype=np.float32)</span><br><span class="line"></span><br><span class="line">y_train = np.array([[1.7], [2.76], [2.09], [3.19], [1.694], [1.573], </span><br><span class="line">                    [3.366], [2.596], [2.53], [1.221], [2.827], </span><br><span class="line">                    [3.465], [1.65], [2.904], [1.3]], dtype=np.float32)</span><br></pre></td></tr></table></figure></p>
-<h1 id="基本思路说一下"><a href="#基本思路说一下" class="headerlink" title="基本思路说一下"></a>基本思路说一下</h1><p>还记得上一节我们介绍的<a href="https://www.zenroad.club/2018/08/23/pytorchbasic1/">复杂一些的例子</a>吗？里面提到了如何去构造一组线性关系。我们的思路很简单，确定好输入输出<code>tensor</code>的维度，再利用<code>nn.Linear()</code>算一下就好了。<br>之前的例子里，我们只进行了一次求导，似乎效果不是很好。这次我们就加个循环多做几次。而且本例是线性回归，直接就是一条直线，其实还比前面的例子简单些……</p>
-<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><p>记住我们的目标就是让预测值与真实值<code>y</code>之间的差距越小越好。预测值是什么？就是<code>x</code>经过<code>Linear</code>后得到的东西吧！让我们先看看代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># Hyper-parameters</span><br><span class="line">input_size = 1</span><br><span class="line">output_size = 1</span><br><span class="line">num_epochs = 60</span><br><span class="line">learning_rate = 0.001</span><br><span class="line"># Linear regression model</span><br><span class="line">model = nn.Linear(input_size, output_size)</span><br><span class="line"></span><br><span class="line"># Loss and optimizer</span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)  </span><br><span class="line"></span><br><span class="line"># Train the model</span><br><span class="line">for epoch in range(num_epochs):</span><br><span class="line">    # Convert numpy arrays to torch tensors</span><br><span class="line">    inputs = torch.from_numpy(x_train)</span><br><span class="line">    targets = torch.from_numpy(y_train)</span><br><span class="line"></span><br><span class="line">    # Forward pass</span><br><span class="line">    outputs = model(inputs)</span><br><span class="line">    loss = criterion(outputs, targets)</span><br><span class="line">    </span><br><span class="line">    # Backward and optimize</span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    if (epoch+1) % 5 == 0:</span><br><span class="line">        print (&apos;Epoch [&#123;&#125;/&#123;&#125;], Loss: &#123;:.4f&#125;&apos;.format(epoch+1, num_epochs, loss.item()))</span><br></pre></td></tr></table></figure></p>
-<p>结果如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Epoch [5/60], Loss: 1.7156</span><br><span class="line">Epoch [10/60], Loss: 0.8695</span><br><span class="line">Epoch [15/60], Loss: 0.5265</span><br><span class="line">Epoch [20/60], Loss: 0.3873</span><br><span class="line">Epoch [25/60], Loss: 0.3308</span><br><span class="line">Epoch [30/60], Loss: 0.3077</span><br><span class="line">Epoch [35/60], Loss: 0.2981</span><br><span class="line">Epoch [40/60], Loss: 0.2941</span><br><span class="line">Epoch [45/60], Loss: 0.2923</span><br><span class="line">Epoch [50/60], Loss: 0.2913</span><br><span class="line">Epoch [55/60], Loss: 0.2908</span><br><span class="line">Epoch [60/60], Loss: 0.2904</span><br></pre></td></tr></table></figure></p>
-<p>上一节只是单纯的求导一次，现在我们看看多次求导的情况。每一轮从<code>numpy</code>中读取训练数据以及目标数据<code>y</code>。把<code>input</code>送入<code>model</code>（实际上就是一个<code>nn.Linear</code>），计算损失MSE。这里的损失计算我们为了减少工作量，采用<code>pytorch</code>提供的包来完成，具体计算过程参见上节，里面有详细公式以及说明。<br>设置好了<code>loss</code>，我们求一下导数，利用优化器里提供的方法使<code>loss</code>不断变小。每轮<code>optimizer.step()</code>执行一次。就是这么简单。</p>
-<h1 id="看看结果如何"><a href="#看看结果如何" class="headerlink" title="看看结果如何"></a>看看结果如何</h1><p>说了这么多，我们看看怎么可视化训练结果吧。此处我们用到了<code>plt</code>模块。复杂的功能后续再接触。注意经过之前的训练<code>model</code>的参数已经优化了。我们只要再把<code>traindata</code>再输入一遍<code>model</code>就可以了，此处<code>detach</code>的意思也就是不再跟踪梯度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Plot the graph</span><br><span class="line">predicted = model(torch.from_numpy(x_train)).detach().numpy()</span><br><span class="line">plt.plot(x_train, y_train, &apos;ro&apos;, label=&apos;Original data&apos;)</span><br><span class="line">plt.plot(x_train, predicted, label=&apos;Fitted line&apos;)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://user-images.githubusercontent.com/42510101/44569144-fd8e2e80-a7ab-11e8-818e-aab486e717ca.png" alt="image"><br>别忘了保存一下模型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Save the model checkpoint</span><br><span class="line">torch.save(model.state_dict(), &apos;model.ckpt&apos;)</span><br></pre></td></tr></table></figure></p>
-<p>线性回归的内容就介绍到这里了～</p>
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>经过前面三节<strong>基础课程</strong>，我们可以来一些更加<strong>复杂</strong>的内容了，今天我们一起来看一个简单的神经网络是如何构成的，并仔细看看神经网络与之前的逻辑回归等课程有什么区别。完整代码参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/feedforward_neural_network" target="_blank" rel="noopener">feedforward_neural_network</a></p>
+<h1 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h1><p>前面和大家讨论了线性分类器。但既然是线性的分类器，自然没有办法处理一些非线性结构，比如下图：<br><img src="https://user-images.githubusercontent.com/42510101/44616444-55976480-a882-11e8-8387-3d6f0e312640.jpg" alt="image1"><br>解决办法是多层神经网络，底层神经元的输出是高层神经元的输入。我们可以在中间横着画一条线，再竖着画一条线。每画一条线就是使用了一个神经元。大家还记不记得上一节我们讲到的利用<code>10</code>个<code>sigmod</code>函数加上一个线性结构对手写数字进行识别？如果我们把这些神经元的输出当作输入，后面再连接一个神经元就能达到很强的分类能力。原理性的知识点这里不多做赘述，我们直接来讲怎么做吧！<br><a id="more"></a></p>
+<h1 id="目标以及思路"><a href="#目标以及思路" class="headerlink" title="目标以及思路"></a>目标以及思路</h1><p>为了和先前的实验进行对比，本节我们依然打算使用<code>mnist</code>数据集，进行手写目标分类。这样有一个好处，数据的加载以及整体的框架都不需要大的改动，我们可以集中精力把思路放在修改模型上。之前我们只使用了一个<code>nn.Linear</code>作为<code>model</code>，现在我们把它改掉，数据的接口都不用变，是不是很方便？</p>
+<h1 id="网络结构设计"><a href="#网络结构设计" class="headerlink" title="网络结构设计"></a>网络结构设计</h1><p>复杂的事物往往是简单事物的叠加。我们前面提到系统表达能力不足是因为线性的<code>model</code>限制了表达复杂模型的能力。我们需要把模型变成非线性结构。非线性结构如何来实现呢？这里我们只需要做出一个<code>微小</code>的改动，增加一层激活函数。从图形上看，输入和输出无法再用一个线性的公式加以表达。有兴趣的同学可以去看看<code>deep learning</code>的相关书籍。我们重点看看网络设计。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># Fully connected neural network with one hidden layer</span><br><span class="line">class NeuralNet(nn.Module):</span><br><span class="line">    def __init__(self, input_size, hidden_size, num_classes):</span><br><span class="line">        super(NeuralNet, self).__init__()</span><br><span class="line">        self.fc1 = nn.Linear(input_size, hidden_size) </span><br><span class="line">        self.relu = nn.ReLU()</span><br><span class="line">        self.fc2 = nn.Linear(hidden_size, num_classes)  </span><br><span class="line">    </span><br><span class="line">    def forward(self, x):</span><br><span class="line">        out = self.fc1(x)</span><br><span class="line">        out = self.relu(out)</span><br><span class="line">        out = self.fc2(out)</span><br><span class="line">        return out</span><br></pre></td></tr></table></figure></p>
+<p>仔细观察我们的改动非常简单，像一个<strong>三明治</strong>一样，两个<code>nn.Linear</code>夹住了一个<code>nn.ReLU</code>。其中线性整流函数（Rectified Linear Unit, ReLU）,又称修正线性单元, 是一种人工神经网络中常用的激活函数（activation function），通常指代以斜坡函数及其变种为代表的非线性函数。 相比于传统的神经网络激活函数，诸如逻辑函数（Logistic sigmoid）和tanh等双曲函数，线性整流函数有着以下几方面的优势：<br>*更加有效率的梯度下降法以及反向传播：避免了梯度爆炸和梯度消失问题</p>
+<p>*简化计算过程：没有了其他复杂激活函数中诸如指数函数的影响；同时活跃度的分散性使得神经网络整体计算成本下降</p>
+<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><p>为精简篇幅，这里我仅仅展示一部分操作：<br>首先现在可以用用GPU了，怎么用呢？只需要定义<code>device</code>，然后告诉数据是把数据放到<code>device</code>里计算还是放到<code>numpy</code>里计算啊～<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Device configuration</span><br><span class="line">device = torch.device(&apos;cuda&apos; if torch.cuda.is_available() else &apos;cpu&apos;)</span><br></pre></td></tr></table></figure></p>
+<p>反正都是套路，写上就对了。<br>接着我们要问一个问题了，<code>nn.Linear</code>的输入参数与数据有关，我们可以不去考虑，那么<code>hidden_size</code>设置多少好呢？我们设置超参数如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Hyper-parameters </span><br><span class="line">input_size = 784</span><br><span class="line">hidden_size = 500</span><br><span class="line">num_classes = 10</span><br><span class="line">num_epochs = 5</span><br><span class="line">batch_size = 100</span><br><span class="line">learning_rate = 0.001</span><br></pre></td></tr></table></figure></p>
+<p>其实超参数的设置可能就是要多试试了，当然调参也是有技巧的。跑个几轮看看loss变化幅度，自己估计一下，多试几次就行。<br>打印一下网络结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NeuralNet(</span><br><span class="line">  (fc1): Linear(in_features=784, out_features=500, bias=True)</span><br><span class="line">  (relu): ReLU()</span><br><span class="line">  (fc2): Linear(in_features=500, out_features=10, bias=True)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>损失函数以及优化器：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Loss and optimizer</span><br><span class="line">criterion = nn.CrossEntropyLoss()</span><br><span class="line">optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)</span><br></pre></td></tr></table></figure></p>
+<p>结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Epoch [1/5], Step [100/600], Loss: 0.2624</span><br><span class="line">Epoch [1/5], Step [200/600], Loss: 0.3268</span><br><span class="line">Epoch [1/5], Step [300/600], Loss: 0.2965</span><br><span class="line">Epoch [1/5], Step [400/600], Loss: 0.1089</span><br><span class="line">Epoch [1/5], Step [500/600], Loss: 0.0886</span><br><span class="line">Epoch [1/5], Step [600/600], Loss: 0.3102</span><br><span class="line">Epoch [2/5], Step [100/600], Loss: 0.1234</span><br><span class="line">Epoch [2/5], Step [200/600], Loss: 0.0823</span><br><span class="line">……………………………………………………………………………………………………………</span><br><span class="line">Epoch [4/5], Step [400/600], Loss: 0.0220</span><br><span class="line">Epoch [4/5], Step [500/600], Loss: 0.0245</span><br><span class="line">Epoch [4/5], Step [600/600], Loss: 0.0079</span><br><span class="line">Epoch [5/5], Step [100/600], Loss: 0.0318</span><br><span class="line">Epoch [5/5], Step [200/600], Loss: 0.1382</span><br><span class="line">Epoch [5/5], Step [300/600], Loss: 0.0397</span><br><span class="line">Epoch [5/5], Step [400/600], Loss: 0.0215</span><br><span class="line">Epoch [5/5], Step [500/600], Loss: 0.0479</span><br><span class="line">Epoch [5/5], Step [600/600], Loss: 0.0614</span><br><span class="line">Accuracy of the network on the 10000 test images: 97.89 %</span><br></pre></td></tr></table></figure></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>我们前前后后折腾了那么久，应该熟悉<code>pytorch</code>的基本操作了吧？后面我们来看点复杂的东西吧！未完待续</p>
 
       
     </div>
@@ -423,8 +425,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/23/pytorchbasic1/" rel="next" title="pytorch入门——边学边练01基础知识">
-                <i class="fa fa-chevron-left"></i> pytorch入门——边学边练01基础知识
+              <a href="/archives/e77a54cd.html" rel="next" title="pytorch入门——边学边练03逻辑回归">
+                <i class="fa fa-chevron-left"></i> pytorch入门——边学边练03逻辑回归
               </a>
             
           </div>
@@ -432,10 +434,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/24/pytorch-logistic-regression/" rel="prev" title="pytorch入门——边学边练03逻辑回归">
-                pytorch入门——边学边练03逻辑回归 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -516,7 +514,7 @@
                 alt="zfish" />
             
               <p class="site-author-name" itemprop="name">zfish</p>
-              <p class="site-description motion-element" itemprop="description">士不可不弘毅</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -526,7 +524,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -581,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我们会用到什么包呢？"><span class="nav-number">2.</span> <span class="nav-text">我们会用到什么包呢？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据从哪里来？"><span class="nav-number">3.</span> <span class="nav-text">数据从哪里来？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本思路说一下"><span class="nav-number">4.</span> <span class="nav-text">基本思路说一下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体实现"><span class="nav-number">5.</span> <span class="nav-text">具体实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#看看结果如何"><span class="nav-number">6.</span> <span class="nav-text">看看结果如何</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目标以及思路"><span class="nav-number">3.</span> <span class="nav-text">目标以及思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络结构设计"><span class="nav-number">4.</span> <span class="nav-text">网络结构设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体实现"><span class="nav-number">5.</span> <span class="nav-text">具体实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
@@ -742,9 +740,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://www.zenroad.club/2018/08/24/pytorch-linear-regression/';
-          this.page.identifier = '2018/08/24/pytorch-linear-regression/';
-          this.page.title = 'pytorch入门——边学边练02线性回归';
+          this.page.url = 'https://www.zenroad.club/archives/91ff9728.html';
+          this.page.identifier = 'archives/91ff9728.html';
+          this.page.title = 'pytorch入门——边学边练04一个简单网络';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://zenroad.disqus.com/embed.js';
