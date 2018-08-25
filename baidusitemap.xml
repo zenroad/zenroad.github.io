@@ -4,30 +4,8 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/91ff9728.html</loc>
-    <lastmod>2018-08-25T13:13:56.037Z</lastmod>
-    <data>
-        <display>
-        <title>pytorch入门——边学边练04一个简单网络</title>
-        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
-        
-        <tag>pytorch</tag>
-         
-        <tag>tutorial</tag>
-         
-         
-           
-             
-              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.zenroad.club/archives/83c5e701.html</loc>
-    <lastmod>2018-08-25T08:05:15.929Z</lastmod>
+    <lastmod>2018-08-25T13:14:36.355Z</lastmod>
     <data>
         <display>
         <title>pytorch入门——边学边练02线性回归</title>
@@ -48,8 +26,30 @@
 
     
   <url>
+    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
+    <lastmod>2018-08-25T13:14:36.355Z</lastmod>
+    <data>
+        <display>
+        <title>pytorch入门——边学边练03逻辑回归</title>
+        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
+        
+        <tag>pytorch</tag>
+         
+        <tag>tutorial</tag>
+         
+         
+           
+             
+              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
-    <lastmod>2018-08-25T08:04:36.083Z</lastmod>
+    <lastmod>2018-08-25T13:14:36.355Z</lastmod>
     <data>
         <display>
         <title>pytorch入门——边学边练01基础知识</title>
@@ -70,11 +70,11 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
-    <lastmod>2018-08-25T03:22:55.548Z</lastmod>
+    <loc>https://www.zenroad.club/archives/91ff9728.html</loc>
+    <lastmod>2018-08-25T13:14:36.351Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练03逻辑回归</title>
+        <title>pytorch入门——边学边练04一个简单网络</title>
         <pubTime>2018-08-24T06:56:55.000Z</pubTime>
         
         <tag>pytorch</tag>
