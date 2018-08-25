@@ -81,11 +81,11 @@
 <meta name="keywords" content="pytorch,tutorial">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pytorch入门——边学边练01基础知识">
-<meta property="og:url" content="http://yoursite.com/2018/08/23/pytorchbasic1/index.html">
+<meta property="og:url" content="https://www.zenroad.club/2018/08/23/pytorchbasic1/index.html">
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
 <meta property="og:description" content="写在前面首先说一下写作目的，很多时候，看了官网的教程，感觉看懂了，但在实际操作的时候又无从下手，所以我打算整理几篇博文帮助大家迅速入门，如果大家有什么好的意见建议，欢迎在文末留言。 一、pytorch简介现在流行的机器学习框架很多，比如tensorflow、Keras等等，那么我为什么要用pytorch呢？之前我一直在使用Keras，然而毕竟多套了一层，不够灵活。而pytorch又很好学，所以我打">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-24T07:22:53.847Z">
+<meta property="og:updated_time" content="2018-08-25T03:16:11.465Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pytorch入门——边学边练01基础知识">
 <meta name="twitter:description" content="写在前面首先说一下写作目的，很多时候，看了官网的教程，感觉看懂了，但在实际操作的时候又无从下手，所以我打算整理几篇博文帮助大家迅速入门，如果大家有什么好的意见建议，欢迎在文末留言。 一、pytorch简介现在流行的机器学习框架很多，比如tensorflow、Keras等等，那么我为什么要用pytorch呢？之前我一直在使用Keras，然而毕竟多套了一层，不够灵活。而pytorch又很好学，所以我打">
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/23/pytorchbasic1/"/>
+  <link rel="canonical" href="https://www.zenroad.club/2018/08/23/pytorchbasic1/"/>
 
 
 
@@ -262,7 +262,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/23/pytorchbasic1/">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/2018/08/23/pytorchbasic1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zfish">
@@ -382,7 +382,7 @@
 <p>就会计算出各自的导数啦。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Print out the gradients.</span><br><span class="line">print(x.grad)    # x.grad = 2 </span><br><span class="line">print(w.grad)    # w.grad = 1 </span><br><span class="line">print(b.grad)    # b.grad = 1</span><br></pre></td></tr></table></figure></p>
 <p>但是这个例子比较简单，我们来看一个更加复杂的例子。</p>
 <h1 id="四、复杂一些的例子"><a href="#四、复杂一些的例子" class="headerlink" title="四、复杂一些的例子"></a>四、复杂一些的例子</h1><p>首先我们来构造，一些<code>tensor</code>，为了使数据具有代表性，我们希望它们是多维的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Create tensors of shape (10, 3) and (10, 2).</span><br><span class="line">x = torch.randn(10, 3)</span><br><span class="line">y = torch.randn(10, 2)</span><br></pre></td></tr></table></figure></p>
-<p>我们既然有了两个“矩阵”（10<em>3以及10</em>2），那么我们可以做什么呢？我们不妨把<code>y</code>视作结果，能不能找到一个方法，去用<code>x</code>拟合<code>y</code>呢？似乎是可能的，我们只要构造<code>y = Wx + b</code>的形式就可以吧？在<code>pytorch</code>里怎么表示<code>W</code>和<code>b</code>呢？我们可以调用<code>torch.nn</code>下的线性层。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Build a fully connected layer.</span><br><span class="line">linear = nn.Linear(3, 2)</span><br><span class="line">print (&apos;w: &apos;, linear.weight)</span><br><span class="line">print (&apos;b: &apos;, linear.bias)</span><br></pre></td></tr></table></figure></p>
+<p>我们既然有了两个“矩阵”（10×3以及10×2），那么我们可以做什么呢？我们不妨把<code>y</code>视作结果，能不能找到一个方法，去用<code>x</code>拟合<code>y</code>呢？似乎是可能的，我们只要构造<code>y = Wx + b</code>的形式就可以吧？在<code>pytorch</code>里怎么表示<code>W</code>和<code>b</code>呢？我们可以调用<code>torch.nn</code>下的线性层。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Build a fully connected layer.</span><br><span class="line">linear = nn.Linear(3, 2)</span><br><span class="line">print (&apos;w: &apos;, linear.weight)</span><br><span class="line">print (&apos;b: &apos;, linear.bias)</span><br></pre></td></tr></table></figure></p>
 <p>打印结果如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">w:  Parameter containing:</span><br><span class="line">tensor([[ 0.4690, -0.5511,  0.2672],</span><br><span class="line">        [ 0.4337, -0.4777,  0.1417]], requires_grad=True)</span><br><span class="line">b:  Parameter containing:</span><br><span class="line">tensor([-0.2510,  0.2035], requires_grad=True)</span><br></pre></td></tr></table></figure></p>
 <p>我们看到说到底还是一个个<code>tensor</code>嘛！那么这个<code>nn.Linear</code>究竟是什么？我们打开跟踪一下代码到linear.py。<br>这里头有一个类<code>class Linear(Module)</code>，文档里是这么介绍的。<br><strong>Applies a linear transformation to the incoming data: :math:`y = xA^T + b</strong><br>参数有三个，很容易就看懂了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Args:</span><br><span class="line">    in_features: size of each input sample</span><br><span class="line">    out_features: size of each output sample</span><br><span class="line">    bias: If set to False, the layer will not learn an additive bias.</span><br><span class="line">        Default: ``True``</span><br></pre></td></tr></table></figure></p>
 <p>那么我们在看看<code>nn.Linear(3, 2)</code>也就很好理解了，前面一个是输入的维度(3)后面一个是输入的维度(2)。这就是一个矩阵乘法。<br>再看看如何逼近<code>y</code>。怎么算是逼近<code>y</code>？相差的越小越好，就是一个反向传播求导，逐步缩小误差的过程。<br>我们能不能像上面的例子里一样自己定义一个差值呢？理一下思路，<code>loss</code>公式是什么样的？（公式是Latex格式，解析地址在中国，国外网络没解析出来请等一会，或者复制下来找自行解析）。<br>$ \ell(x, y) = L = {l_1,\dots,l_N}^\top，\quad<br>        l_n = \left( x_n - y_n \right)^2$</p>
@@ -772,7 +772,7 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2018/08/23/pytorchbasic1/';
+          this.page.url = 'https://www.zenroad.club/2018/08/23/pytorchbasic1/';
           this.page.identifier = '2018/08/23/pytorchbasic1/';
           this.page.title = 'pytorch入门——边学边练01基础知识';
         };
