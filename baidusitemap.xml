@@ -4,21 +4,19 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/e03a8d1f.html</loc>
-    <lastmod>2018-08-26T03:15:56.524Z</lastmod>
+    <loc>https://www.zenroad.club/archives/b147bf13.html</loc>
+    <lastmod>2018-08-26T08:16:44.821Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练05卷积神经网络</title>
-        <pubTime>2018-08-25T13:28:34.000Z</pubTime>
+        <title>不用手机号就能注册的邮箱</title>
+        <pubTime>2018-08-26T08:10:20.000Z</pubTime>
         
-        <tag>pytorch</tag>
-         
-        <tag>tutorial</tag>
+        <tag>tools</tag>
          
          
            
              
-              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
+              <breadCrumb title="tools" url="https://www.zenroad.club/categories/tools/"/>
           
         </display>
     </data>
@@ -26,12 +24,32 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
-    <lastmod>2018-08-25T13:14:36.355Z</lastmod>
+    <loc>https://www.zenroad.club/archives/da231408.html</loc>
+    <lastmod>2018-08-26T08:05:46.602Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练03逻辑回归</title>
-        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
+        <title>国外的免费的接码平台网站 free sms receive website</title>
+        <pubTime>2018-08-26T07:51:01.000Z</pubTime>
+        
+        <tag>tools</tag>
+         
+         
+           
+             
+              <breadCrumb title="tools" url="https://www.zenroad.club/categories/tools/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/e03a8d1f.html</loc>
+    <lastmod>2018-08-26T07:35:51.651Z</lastmod>
+    <data>
+        <display>
+        <title>pytorch入门——边学边练05卷积神经网络</title>
+        <pubTime>2018-08-25T13:28:34.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -54,6 +72,28 @@
         <display>
         <title>pytorch入门——边学边练02线性回归</title>
         <pubTime>2018-08-24T05:27:00.000Z</pubTime>
+        
+        <tag>pytorch</tag>
+         
+        <tag>tutorial</tag>
+         
+         
+           
+             
+              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
+    <lastmod>2018-08-25T13:14:36.355Z</lastmod>
+    <data>
+        <display>
+        <title>pytorch入门——边学边练03逻辑回归</title>
+        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
         
         <tag>pytorch</tag>
          
