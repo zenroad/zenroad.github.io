@@ -77,20 +77,23 @@
 
 
 
-<meta name="description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。">
+<meta name="description" content="写在前面今天我们探讨一下大名鼎鼎的ResNet。ResNet在2015年被提出，在ImageNet比赛classification任务上获得第一名，因为它“简单与实用”并存，之后很多方法都建立在ResNet50或者ResNet101的基础上完成的，检测，分割，识别等领域都纷纷使用ResNet，Alphazero也使用了ResNet，所以可见ResNet确实很好用。 源码地址Deep Residua">
 <meta name="keywords" content="pytorch,tutorial">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pytorch入门——边学边练02线性回归">
-<meta property="og:url" content="https://www.zenroad.club/archives/83c5e701.html">
+<meta property="og:title" content="pytorch入门——边学边练06 Residual_Network">
+<meta property="og:url" content="https://www.zenroad.club/archives/272cdd5e.html">
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
-<meta property="og:description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。">
+<meta property="og:description" content="写在前面今天我们探讨一下大名鼎鼎的ResNet。ResNet在2015年被提出，在ImageNet比赛classification任务上获得第一名，因为它“简单与实用”并存，之后很多方法都建立在ResNet50或者ResNet101的基础上完成的，检测，分割，识别等领域都纷纷使用ResNet，Alphazero也使用了ResNet，所以可见ResNet确实很好用。 源码地址Deep Residua">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44569144-fd8e2e80-a7ab-11e8-818e-aab486e717ca.png">
-<meta property="og:updated_time" content="2018-08-25T13:14:36.355Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44646679-565d0180-aa0e-11e8-86bf-ab5f515119a3.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44646616-2b72ad80-aa0e-11e8-9653-5f47fffaa12c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44646679-565d0180-aa0e-11e8-86bf-ab5f515119a3.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44646679-565d0180-aa0e-11e8-86bf-ab5f515119a3.png">
+<meta property="og:updated_time" content="2018-08-27T09:47:11.956Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pytorch入门——边学边练02线性回归">
-<meta name="twitter:description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。">
-<meta name="twitter:image" content="https://user-images.githubusercontent.com/42510101/44569144-fd8e2e80-a7ab-11e8-818e-aab486e717ca.png">
+<meta name="twitter:title" content="pytorch入门——边学边练06 Residual_Network">
+<meta name="twitter:description" content="写在前面今天我们探讨一下大名鼎鼎的ResNet。ResNet在2015年被提出，在ImageNet比赛classification任务上获得第一名，因为它“简单与实用”并存，之后很多方法都建立在ResNet50或者ResNet101的基础上完成的，检测，分割，识别等领域都纷纷使用ResNet，Alphazero也使用了ResNet，所以可见ResNet确实很好用。 源码地址Deep Residua">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/42510101/44646679-565d0180-aa0e-11e8-86bf-ab5f515119a3.png">
 
 
 
@@ -120,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://www.zenroad.club/archives/83c5e701.html"/>
+  <link rel="canonical" href="https://www.zenroad.club/archives/272cdd5e.html"/>
 
 
 
 
 
-  <title>pytorch入门——边学边练02线性回归 | Zenroad's Blog</title>
+  <title>pytorch入门——边学边练06 Residual_Network | Zenroad's Blog</title>
   
 
 
@@ -264,7 +267,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/83c5e701.html">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/272cdd5e.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zfish">
@@ -281,7 +284,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">pytorch入门——边学边练02线性回归</h2>
+          <h2 class="post-title" itemprop="name headline">pytorch入门——边学边练06 Residual_Network</h2>
         
 
         <div class="post-meta">
@@ -293,8 +296,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T13:27:00+08:00">
-                2018-08-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-27T11:44:43+08:00">
+                2018-08-27
               </time>
             
 
@@ -334,9 +337,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/archives/83c5e701.html#comments" itemprop="discussionUrl">
+                <a href="/archives/272cdd5e.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/83c5e701.html" itemprop="commentCount"></span>
+                        data-disqus-identifier="archives/272cdd5e.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -344,7 +347,7 @@
 
           
           
-             <span id="/archives/83c5e701.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练02线性回归">
+             <span id="/archives/272cdd5e.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练06 Residual_Network">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -375,16 +378,21 @@
       
 
       
-        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用<code>pytorch</code>实现呢？接下来我们进行实战操作。完整代码请参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/linear_regression" target="_blank" rel="noopener">linear_regression</a>。</p>
-<h1 id="我们会用到什么包呢？"><a href="#我们会用到什么包呢？" class="headerlink" title="我们会用到什么包呢？"></a>我们会用到什么包呢？</h1><p>本节，我打算要用到<code>Linear</code>那么肯定要引入<code>torch.nn</code>。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">import numpy as np</span><br><span class="line">import matplotlib.pyplot as plt</span><br></pre></td></tr></table></figure></p>
-<h1 id="数据从哪里来？"><a href="#数据从哪里来？" class="headerlink" title="数据从哪里来？"></a>数据从哪里来？</h1><p>这里我们构造一个简单的数据集合，用<code>x</code>去拟合<code>y</code>吧。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Toy dataset</span><br><span class="line">x_train = np.array([[3.3], [4.4], [5.5], [6.71], [6.93], [4.168], </span><br><span class="line">                    [9.779], [6.182], [7.59], [2.167], [7.042], </span><br><span class="line">                    [10.791], [5.313], [7.997], [3.1]], dtype=np.float32)</span><br><span class="line"></span><br><span class="line">y_train = np.array([[1.7], [2.76], [2.09], [3.19], [1.694], [1.573], </span><br><span class="line">                    [3.366], [2.596], [2.53], [1.221], [2.827], </span><br><span class="line">                    [3.465], [1.65], [2.904], [1.3]], dtype=np.float32)</span><br></pre></td></tr></table></figure></p>
-<h1 id="基本思路说一下"><a href="#基本思路说一下" class="headerlink" title="基本思路说一下"></a>基本思路说一下</h1><p>还记得上一节我们介绍的<a href="https://www.zenroad.club/2018/08/23/pytorchbasic1/">复杂一些的例子</a>吗？里面提到了如何去构造一组线性关系。我们的思路很简单，确定好输入输出<code>tensor</code>的维度，再利用<code>nn.Linear()</code>算一下就好了。<br>之前的例子里，我们只进行了一次求导，似乎效果不是很好。这次我们就加个循环多做几次。而且本例是线性回归，直接就是一条直线，其实还比前面的例子简单些……</p>
-<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><p>记住我们的目标就是让预测值与真实值<code>y</code>之间的差距越小越好。预测值是什么？就是<code>x</code>经过<code>Linear</code>后得到的东西吧！让我们先看看代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># Hyper-parameters</span><br><span class="line">input_size = 1</span><br><span class="line">output_size = 1</span><br><span class="line">num_epochs = 60</span><br><span class="line">learning_rate = 0.001</span><br><span class="line"># Linear regression model</span><br><span class="line">model = nn.Linear(input_size, output_size)</span><br><span class="line"></span><br><span class="line"># Loss and optimizer</span><br><span class="line">criterion = nn.MSELoss()</span><br><span class="line">optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)  </span><br><span class="line"></span><br><span class="line"># Train the model</span><br><span class="line">for epoch in range(num_epochs):</span><br><span class="line">    # Convert numpy arrays to torch tensors</span><br><span class="line">    inputs = torch.from_numpy(x_train)</span><br><span class="line">    targets = torch.from_numpy(y_train)</span><br><span class="line"></span><br><span class="line">    # Forward pass</span><br><span class="line">    outputs = model(inputs)</span><br><span class="line">    loss = criterion(outputs, targets)</span><br><span class="line">    </span><br><span class="line">    # Backward and optimize</span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    if (epoch+1) % 5 == 0:</span><br><span class="line">        print (&apos;Epoch [&#123;&#125;/&#123;&#125;], Loss: &#123;:.4f&#125;&apos;.format(epoch+1, num_epochs, loss.item()))</span><br></pre></td></tr></table></figure></p>
-<p>结果如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Epoch [5/60], Loss: 1.7156</span><br><span class="line">Epoch [10/60], Loss: 0.8695</span><br><span class="line">Epoch [15/60], Loss: 0.5265</span><br><span class="line">Epoch [20/60], Loss: 0.3873</span><br><span class="line">Epoch [25/60], Loss: 0.3308</span><br><span class="line">Epoch [30/60], Loss: 0.3077</span><br><span class="line">Epoch [35/60], Loss: 0.2981</span><br><span class="line">Epoch [40/60], Loss: 0.2941</span><br><span class="line">Epoch [45/60], Loss: 0.2923</span><br><span class="line">Epoch [50/60], Loss: 0.2913</span><br><span class="line">Epoch [55/60], Loss: 0.2908</span><br><span class="line">Epoch [60/60], Loss: 0.2904</span><br></pre></td></tr></table></figure></p>
-<p>上一节只是单纯的求导一次，现在我们看看多次求导的情况。每一轮从<code>numpy</code>中读取训练数据以及目标数据<code>y</code>。把<code>input</code>送入<code>model</code>（实际上就是一个<code>nn.Linear</code>），计算损失MSE。这里的损失计算我们为了减少工作量，采用<code>pytorch</code>提供的包来完成，具体计算过程参见上节，里面有详细公式以及说明。<br>设置好了<code>loss</code>，我们求一下导数，利用优化器里提供的方法使<code>loss</code>不断变小。每轮<code>optimizer.step()</code>执行一次。就是这么简单。</p>
-<h1 id="看看结果如何"><a href="#看看结果如何" class="headerlink" title="看看结果如何"></a>看看结果如何</h1><p>说了这么多，我们看看怎么可视化训练结果吧。此处我们用到了<code>plt</code>模块。复杂的功能后续再接触。注意经过之前的训练<code>model</code>的参数已经优化了。我们只要再把<code>traindata</code>再输入一遍<code>model</code>就可以了，此处<code>detach</code>的意思也就是不再跟踪梯度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Plot the graph</span><br><span class="line">predicted = model(torch.from_numpy(x_train)).detach().numpy()</span><br><span class="line">plt.plot(x_train, y_train, &apos;ro&apos;, label=&apos;Original data&apos;)</span><br><span class="line">plt.plot(x_train, predicted, label=&apos;Fitted line&apos;)</span><br><span class="line">plt.legend()</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://user-images.githubusercontent.com/42510101/44569144-fd8e2e80-a7ab-11e8-818e-aab486e717ca.png" alt="image"><br>别忘了保存一下模型：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Save the model checkpoint</span><br><span class="line">torch.save(model.state_dict(), &apos;model.ckpt&apos;)</span><br></pre></td></tr></table></figure></p>
-<p>线性回归的内容就介绍到这里了～</p>
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>今天我们探讨一下大名鼎鼎的ResNet。ResNet在2015年被提出，在ImageNet比赛classification任务上获得第一名，因为它“简单与实用”并存，之后很多方法都建立在ResNet50或者ResNet101的基础上完成的，检测，分割，识别等领域都纷纷使用ResNet，Alphazero也使用了ResNet，所以可见ResNet确实很好用。 源码地址<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/02-intermediate/deep_residual_network/main.py#L76-L113" target="_blank" rel="noopener">Deep Residual Network</a>。我们根据论文的内容来做一下，您会发现非常容易就能实现Resnet。</p>
+<a id="more"></a>
+<h1 id="Resnet关键部分理解"><a href="#Resnet关键部分理解" class="headerlink" title="Resnet关键部分理解"></a>Resnet关键部分理解</h1><p><img src="https://user-images.githubusercontent.com/42510101/44646679-565d0180-aa0e-11e8-86bf-ab5f515119a3.png" alt="图1"><br>关于Resnet的原理部分，本文不做详细介绍，我们主要精力放在实现上。上图就是Resnet的主要结构，甚至我们对比着上图就能把Resnet实现出来了。这里我们撇开<code>为什么有效</code>的问题，来看看如何做，此处我们主要看论文的4.2节。以下是论文翻译：</p>
+<ul>
+<li><p>我们在CIFAR-10数据集上进行了更多的研究[20]，该数据集有10个类别，50k个训练图像和10k个测试图像。我们在训练集上训练并在测试集上评估的实验。我们关注的是极深网络的行为，而不是推动最先进的结果，所以我们故意使用如下简单的体系结构。</p>
+</li>
+<li><p>普通/残差体系结构遵循图3（中/右）的形式。网络输入是32×32图像，它的每个像素减去平均值。第一层是3×3卷积。然后，我们分别在尺寸为{32,16,8}的特征图上使用3×3卷积的6n个堆栈层，每个特征图尺寸为2n层。过滤器的数量分别为{16,32,64}。下采样通过以2的步长卷积来执行。网络以全局平均池化，10路全连接层和softmax结束。总共有6n + 2个堆叠的权重层。下表总结了架构：<img src="https://user-images.githubusercontent.com/42510101/44646616-2b72ad80-aa0e-11e8-9653-5f47fffaa12c.png" alt="screenshot from 2018-08-27 15-30-15"></p>
+</li>
+<li>当使用捷径连接时，它们连接到3×3的层对（总共3n个捷径连接）。在这个数据集中，我们在所有情况下都使用恒等捷径（即选项A），因此我们的残差模型具有与相应的普通模型完全相同的深度，宽度和参数数量。<br>我们使用0.0001的权重衰减和0.9的动量，并采用[12]和BN中的权重初始化，但没有使用dropout。这些模型在两个GPU上以128个小批量进行训练。我们以0.1的学习速率开始，在32k和48k迭代时将其除以10，并于64k迭代后终止训练。网络是在45k / 5k的训练/ 验证集上训练的。我们使用[24]中的简单数据增强策略进行训练：每边填充4个像素，从填充图像或其水平翻转中随机采样32×32裁剪。对于测试，我们只评估原本的32×32的图像。</li>
+<li>我们比较了n={3,5,7,9},分别对应20,32,44,56层的网络。图6（左）显示了普通网络的表现。深度普通网络经历了深度的增加，并且随着深度的增加表现出更高的训练误差。这种现象与ImageNet（图4左侧）和MNIST（见[41]）类似，表明这样的优化难度是一个根本的问题。<br><strong> 好了，如果嫌麻烦可以直接跳过上面的话，跟着我一起来看看。首先我们要明确一点，上文提到的Resnet是由3个<code>Resnet Block</code>构成的。这里就有两个问题。</strong><br><code>ResNet Block</code> 内部结构是什么？<br><code>block</code>如何构建网络？<br>我们先看第一个问题——<code>ResNet Block</code> 内部结构。其实下图已经告诉我们怎么去做了。主要的想法就是在输出的位置加上一个<code>x</code>再送入<code>relu</code>，剩下的部分就是一个<code>CNN</code>。前面的实现里我们都自己写过了。<img src="https://user-images.githubusercontent.com/42510101/44646679-565d0180-aa0e-11e8-86bf-ab5f515119a3.png" alt="图1"><br>我们再看第二个问题——<code>block</code>如何构建网络。我们再重新读一读这句话，这句话就是答案：<br><strong>第一层是3×3卷积。然后，我们分别在尺寸为{32,16,8}的特征图上使用3×3卷积的6n个堆栈层，每个特征图尺寸为2n层。过滤器的数量分别为{16,32,64}。下采样通过以2的步长卷积来执行。网络以全局平均池化，10路全连接层和softmax结束。总共有6n + 2个堆叠的权重层。</strong><br>逐句逐句的分析。<br><em>第一层是3×3卷积。</em><br>首先放一个<code>conv3x3</code>。<br><em>然后，我们分别在尺寸为{32,16,8}的特征图上使用3×3卷积的6n个堆栈层，每个特征图尺寸为2n层。</em><br>我们操作的对象是不同尺寸的特征图。什么是特征图？输入经过<code>conv3x3</code>是特征图吗？还不是哦～得再加一个激活层<code>relu</code>。我们拿到了<code>out=relu(conv3×3)</code>。接着要干什么呢？使用3×3卷积，但参数怎么定呢？所谓的尺寸就是指图片的大小，{32,16,8}就是告诉我们<code>stride=2</code>。<br>再接着看<em>6n个堆栈层，每个特征图尺寸为2n层</em><br>注意之前的图，说白了就是把<code>Block</code>叠放两层。<br><em>过滤器的数量分别为{16,32,64}</em><br>这也就是说卷积层的<code>out_channels</code>分别为{16,32,64}。<br><em>下采样通过以2的步长卷积来执行</em><br>就是告诉我们做一个卷积，步长为2，但是要注意下采样放的位置。<br><em>网络以全局平均池化</em><br>告诉我们加一个池化层。<br><em>10路全连接层和softmax结束</em><br>这个操作不用多说了吧？<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1>下面我们来敲敲代码，完成上述网络结构的实现。<br>首先我们来完成最简单的一部分，做一个3×3的卷积，因为后面反复要用到：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 3x3 convolution</span><br><span class="line">def conv3x3(in_channels, out_channels, stride=1):</span><br><span class="line">    return nn.Conv2d(in_channels, out_channels, kernel_size=3, </span><br><span class="line">                     stride=stride, padding=1, bias=False)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>再做一个<code>ResNet Block</code>。这个也是非常简单，<code>CNN</code>加上<code>x</code>。再看一眼图。先放一个<code>conv3x3</code>，然后加入<code>relu</code>再放一个<code>conv3x3</code>。注意中间加上<code>batchnorm</code>收敛更快。<br><img src="https://user-images.githubusercontent.com/42510101/44646679-565d0180-aa0e-11e8-86bf-ab5f515119a3.png" alt="图1"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># Residual block</span><br><span class="line">class ResidualBlock(nn.Module):</span><br><span class="line">    def __init__(self, in_channels, out_channels, stride=1, downsample=None):</span><br><span class="line">        super(ResidualBlock, self).__init__()</span><br><span class="line">        self.conv1 = conv3x3(in_channels, out_channels, stride)</span><br><span class="line">        self.bn1 = nn.BatchNorm2d(out_channels)</span><br><span class="line">        self.relu = nn.ReLU(inplace=True)</span><br><span class="line">        self.conv2 = conv3x3(out_channels, out_channels)</span><br><span class="line">        self.bn2 = nn.BatchNorm2d(out_channels)</span><br><span class="line">        self.downsample = downsample</span><br><span class="line">        </span><br><span class="line">    def forward(self, x):</span><br><span class="line">        residual = x</span><br><span class="line">        out = self.conv1(x)</span><br><span class="line">        out = self.bn1(out)</span><br><span class="line">        out = self.relu(out)</span><br><span class="line">        out = self.conv2(out)</span><br><span class="line">        out = self.bn2(out)</span><br><span class="line">        if self.downsample:</span><br><span class="line">            residual = self.downsample(x)</span><br><span class="line">        out += residual</span><br><span class="line">        out = self.relu(out)</span><br><span class="line">        return out</span><br></pre></td></tr></table></figure></p>
+<p><code>out += residual</code>简简单单一句话就搞定了。一个部分解决了，再看另一个部分。比对上文的分析，我们可以看到这里从概念上讲没有太多新的东西，主要是搞明白论文里的各种名词对应的是何种操作。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"># ResNet</span><br><span class="line">class ResNet(nn.Module):</span><br><span class="line">    def __init__(self, block, layers, num_classes=10):</span><br><span class="line">        super(ResNet, self).__init__()</span><br><span class="line">        self.in_channels = 16</span><br><span class="line">        self.conv = conv3x3(3, 16)</span><br><span class="line">        self.bn = nn.BatchNorm2d(16)</span><br><span class="line">        self.relu = nn.ReLU(inplace=True)</span><br><span class="line">        self.layer1 = self.make_layer(block, 16, layers[0])</span><br><span class="line">        self.layer2 = self.make_layer(block, 32, layers[0], 2)</span><br><span class="line">        self.layer3 = self.make_layer(block, 64, layers[1], 2)</span><br><span class="line">        self.avg_pool = nn.AvgPool2d(8)</span><br><span class="line">        self.fc = nn.Linear(64, num_classes)</span><br><span class="line">        </span><br><span class="line">    def make_layer(self, block, out_channels, blocks, stride=1):</span><br><span class="line">        downsample = None</span><br><span class="line">        if (stride != 1) or (self.in_channels != out_channels):</span><br><span class="line">            downsample = nn.Sequential(</span><br><span class="line">                conv3x3(self.in_channels, out_channels, stride=stride),</span><br><span class="line">                nn.BatchNorm2d(out_channels))</span><br><span class="line">        layers = []</span><br><span class="line">        layers.append(block(self.in_channels, out_channels, stride, downsample))</span><br><span class="line">        self.in_channels = out_channels</span><br><span class="line">        for i in range(1, blocks):</span><br><span class="line">            layers.append(block(out_channels, out_channels))</span><br><span class="line">        return nn.Sequential(*layers)</span><br><span class="line">    </span><br><span class="line">    def forward(self, x):</span><br><span class="line">        out = self.conv(x)</span><br><span class="line">        out = self.bn(out)</span><br><span class="line">        out = self.relu(out)</span><br><span class="line">        out = self.layer1(out)</span><br><span class="line">        out = self.layer2(out)</span><br><span class="line">        out = self.layer3(out)</span><br><span class="line">        out = self.avg_pool(out)</span><br><span class="line">        out = out.view(out.size(0), -1)</span><br><span class="line">        out = self.fc(out)</span><br><span class="line">        return out</span><br></pre></td></tr></table></figure></p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>今天我们研究了一下经典的<code>resnet</code>结构，熟悉了<code>pytorch</code>的操作。应当说，内容还是比较简单的，我们后面再来点复杂的东西吧！</p>
 
       
     </div>
@@ -423,8 +431,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/archives/1effc38e.html" rel="next" title="pytorch入门——边学边练01基础知识">
-                <i class="fa fa-chevron-left"></i> pytorch入门——边学边练01基础知识
+              <a href="/archives/b147bf13.html" rel="next" title="不用手机号就能注册的邮箱">
+                <i class="fa fa-chevron-left"></i> 不用手机号就能注册的邮箱
               </a>
             
           </div>
@@ -432,10 +440,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/archives/e77a54cd.html" rel="prev" title="pytorch入门——边学边练03逻辑回归">
-                pytorch入门——边学边练03逻辑回归 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -581,7 +585,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我们会用到什么包呢？"><span class="nav-number">2.</span> <span class="nav-text">我们会用到什么包呢？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据从哪里来？"><span class="nav-number">3.</span> <span class="nav-text">数据从哪里来？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本思路说一下"><span class="nav-number">4.</span> <span class="nav-text">基本思路说一下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体实现"><span class="nav-number">5.</span> <span class="nav-text">具体实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#看看结果如何"><span class="nav-number">6.</span> <span class="nav-text">看看结果如何</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Resnet关键部分理解"><span class="nav-number">2.</span> <span class="nav-text">Resnet关键部分理解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体实现"><span class="nav-number">3.</span> <span class="nav-text">具体实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
@@ -742,9 +746,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://www.zenroad.club/archives/83c5e701.html';
-          this.page.identifier = 'archives/83c5e701.html';
-          this.page.title = 'pytorch入门——边学边练02线性回归';
+          this.page.url = 'https://www.zenroad.club/archives/272cdd5e.html';
+          this.page.identifier = 'archives/272cdd5e.html';
+          this.page.title = 'pytorch入门——边学边练06 Residual_Network';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://zenroad.disqus.com/embed.js';
