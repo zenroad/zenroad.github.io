@@ -77,18 +77,20 @@
 
 
 
-<meta name="description" content="写在前面敲了一路代码，我们大多还是围着CNN在转，今天我们瞧一瞧非常有名的RNN源码地址">
+<meta name="description" content="写在前面敲了一路代码，我们大多还是围着CNN在转，今天我们瞧一瞧RNNsource code。为了锻炼英语水平，本博客的后续文章就大用英语写作。大家一起慢慢学习吧～ Recurrent neural networkA recurrent neural network(RNN)is a class of artificial neural network where connections betw">
 <meta name="keywords" content="pytorch,tutorial">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pytorch入门——边学边练01 Recurrent Neural Network">
+<meta property="og:title" content="pytorch入门——边学边练07 Recurrent Neural Network">
 <meta property="og:url" content="https://www.zenroad.club/archives/f367cc38.html">
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
-<meta property="og:description" content="写在前面敲了一路代码，我们大多还是围着CNN在转，今天我们瞧一瞧非常有名的RNN源码地址">
+<meta property="og:description" content="写在前面敲了一路代码，我们大多还是围着CNN在转，今天我们瞧一瞧RNNsource code。为了锻炼英语水平，本博客的后续文章就大用英语写作。大家一起慢慢学习吧～ Recurrent neural networkA recurrent neural network(RNN)is a class of artificial neural network where connections betw">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-27T13:59:28.000Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44726320-10856380-ab0a-11e8-8f1a-2123fca8f556.jpg">
+<meta property="og:updated_time" content="2018-08-28T14:11:00.489Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pytorch入门——边学边练01 Recurrent Neural Network">
-<meta name="twitter:description" content="写在前面敲了一路代码，我们大多还是围着CNN在转，今天我们瞧一瞧非常有名的RNN源码地址">
+<meta name="twitter:title" content="pytorch入门——边学边练07 Recurrent Neural Network">
+<meta name="twitter:description" content="写在前面敲了一路代码，我们大多还是围着CNN在转，今天我们瞧一瞧RNNsource code。为了锻炼英语水平，本博客的后续文章就大用英语写作。大家一起慢慢学习吧～ Recurrent neural networkA recurrent neural network(RNN)is a class of artificial neural network where connections betw">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/42510101/44726320-10856380-ab0a-11e8-8f1a-2123fca8f556.jpg">
 
 
 
@@ -124,7 +126,7 @@
 
 
 
-  <title>pytorch入门——边学边练01 Recurrent Neural Network | Zenroad's Blog</title>
+  <title>pytorch入门——边学边练07 Recurrent Neural Network | Zenroad's Blog</title>
   
 
 
@@ -196,6 +198,16 @@
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/archives/c61c6fd.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            About
           </a>
         </li>
       
@@ -279,7 +291,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">pytorch入门——边学边练01 Recurrent Neural Network</h2>
+          <h2 class="post-title" itemprop="name headline">pytorch入门——边学边练07 Recurrent Neural Network</h2>
         
 
         <div class="post-meta">
@@ -342,7 +354,7 @@
 
           
           
-             <span id="/archives/f367cc38.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练01 Recurrent Neural Network">
+             <span id="/archives/f367cc38.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练07 Recurrent Neural Network">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -373,7 +385,15 @@
       
 
       
-        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>敲了一路代码，我们大多还是围着<code>CNN</code>在转，今天我们瞧一瞧非常有名的<code>RNN</code><a href="https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/02-intermediate/recurrent_neural_network/main.py#L39-L58" target="_blank" rel="noopener">源码地址</a></p>
+        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>敲了一路代码，我们大多还是围着<code>CNN</code>在转，今天我们瞧一瞧<code>RNN</code><a href="https://github.com/yunjey/pytorch-tutorial/blob/master/tutorials/02-intermediate/recurrent_neural_network/main.py#L39-L58" target="_blank" rel="noopener">source code</a>。<br>为了锻炼英语水平，本博客的后续文章就大用英语写作。大家一起慢慢学习吧～</p>
+<h1 id="Recurrent-neural-network"><a href="#Recurrent-neural-network" class="headerlink" title="Recurrent neural network"></a>Recurrent neural network</h1><p>A recurrent neural network(RNN)is a class of artificial neural network where connections between nodes form a directed graph along a sequence.(In mathematics,and more specifically in graph theory,a directed graph(or digraph)is a graph that is a set of vertices connected by edges,where the edges have a direction associated with them.)<br>This allows it to exhibit temporal dynamic behavior for a time sequence.So what is the difference between RNN and feedforward neural networks?In a feedforworward neural network,the connections between the nodes do not form a cycle.<br>RNNs have shown great promise in many NLP task.Today we will explain why RNN is effective and implement a simple LSTM using pytorch.</p>
+<h1 id="The-idea-behind-RNN"><a href="#The-idea-behind-RNN" class="headerlink" title="The idea behind RNN"></a>The idea behind RNN</h1><p>Making use of sequential information.In a traditional neural network we assume that all inputs(and outputs)are independent of each other.But for many tasks that’s a very bad idea.RNNs are called <code>recurrent</code> because they perform the same task for every element of a sequence,with the output being depended on the previous computations.Another way to think about RNNs is that they have a ‘memory’ which captures information about what has been calculated so far. In theory RNNs can make use of information in arbitrarily long sequences,but in practice they are limited to looking back only a few steps (more on this later). Here is what a typical RNN looks like:<br><img src="https://user-images.githubusercontent.com/42510101/44726320-10856380-ab0a-11e8-8f1a-2123fca8f556.jpg" alt="rnn"><br><code>A recurrent neural network and the unfolding in time of the computation involved in its forward computation</code></p>
+<p>The above diagram shows a RNN being unrolled(or unfolded)into a full network.By unrolling we simply mean that we write out the network for the complete sequence.For example,if the sequence we care about is a sentence of 5 words,the network would be unrolled into a 5-layer neual network,one layer for each word.</p>
+<h1 id="Introduction-to-LSTM"><a href="#Introduction-to-LSTM" class="headerlink" title="Introduction to LSTM"></a>Introduction to LSTM</h1><p><em>Long short-term memory(LSTM)</em> unit are units of a recurrent neural network(RNN).An RNN composed of LSTM units is often called an LSTM network. A common LSTM unit is composed of a <em>cell</em>,an <em>input gate</em>,an <em>output gate</em> and a <em>forget gate</em>.The cell remembers values over arbitrary time.</p>
+<p>Reference material</p>
+<ol>
+<li><a href="http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/" target="_blank" rel="noopener">Recurrent Neural Networks Tutorial, Part 1 – Introduction to RNNs</a></li>
+</ol>
 
       
     </div>
@@ -515,7 +535,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -570,7 +590,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Recurrent-neural-network"><span class="nav-number">2.</span> <span class="nav-text">Recurrent neural network</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-idea-behind-RNN"><span class="nav-number">3.</span> <span class="nav-text">The idea behind RNN</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Introduction-to-LSTM"><span class="nav-number">4.</span> <span class="nav-text">Introduction to LSTM</span></a></li></ol></div>
             
 
           </div>
@@ -733,7 +753,7 @@
         var disqus_config = function () {
           this.page.url = 'https://www.zenroad.club/archives/f367cc38.html';
           this.page.identifier = 'archives/f367cc38.html';
-          this.page.title = 'pytorch入门——边学边练01 Recurrent Neural Network';
+          this.page.title = 'pytorch入门——边学边练07 Recurrent Neural Network';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://zenroad.disqus.com/embed.js';
