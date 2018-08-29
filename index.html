@@ -272,6 +272,189 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/1d0202a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/1d0202a.html" itemprop="url">Install android on VMware</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T19:39:03+08:00">
+                2018-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/software/" itemprop="url" rel="index">
+                    <span itemprop="name">software</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/1d0202a.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/1d0202a.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/1d0202a.html" class="leancloud_visitors" data-flag-title="Install android on VMware">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Download-Android-x86"><a href="#Download-Android-x86" class="headerlink" title="Download Android x86"></a>Download Android x86</h1><p>Here is the site offer downloadlinks <a href="http://www.android-x86.org/download" target="_blank" rel="noopener">android-86</a>.I tried to use the 7.1 version but it had some problem about GUI. I end up using the old version<a href="http://bdownload.fosshub.com/programs/android-x86_64-6.0-r3.iso" target="_blank" rel="noopener">Android-x86 6.0-r3 live and installation iso (64-bit) </a></p>
+<h1 id="Intall-on-VMware"><a href="#Intall-on-VMware" class="headerlink" title="Intall on VMware"></a>Intall on VMware</h1><p>The installation process is similar to other version of the operating system.You can refer to <a href="https://www.tactig.com/install-android-nougat-vmware/" target="_blank" rel="noopener">this article</a>.</p>
+<h1 id="Solution-of-No-GUI"><a href="#Solution-of-No-GUI" class="headerlink" title="Solution of No GUI"></a>Solution of No GUI</h1><p>You have to edit <code>menu.lst file</code>.</p>
+<ol>
+<li>boot in debug mode (usually the second option in boot menu)</li>
+<li>when booting stops (for me it just hangs there with flashing cursor and without any prompt) enter <code>mount -o remount,rw /mnt</code></li>
+<li>enter <code>cd /mnt/grub</code></li>
+<li>enter <code>vi menu.lst</code></li>
+<li>press <code>Shift+a</code></li>
+<li>right under the first boot entry find the line starting with kernel <strong>*</strong> (your line might look different; it depends on Android version; in general just find the line that starts with kernel).At the end of the line type <code>vga=834 nomodeset xforcevesa</code></li>
+<li>press <code>ESC</code> then <code>:wq</code> - these commands will save the file and quit vi</li>
+<li>enter <code>cd /</code></li>
+<li>enter <code>umount /mnt</code></li>
+<li>enter <code>reboot -f</code></li>
+</ol>
+<p>You can replace the <code>vga=xxx</code> by any number you want for your screen resolution. Also tested that 832 works fine (gives 800x600 resolution).</p>
+<p>You can find all the VESA modes when you use the iso file and pick the boot option to boot in VESA mode - it will show the list with all modes (numbers are in hex and there is also a redundant letter in front of some modes - ignore it) and you can test them there immediately to see if it works and is good to use in this menu.lst fix, but you have to convert it from hex to dec first using any hex-&gt;dec converter.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/c61c6fd.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -725,7 +908,8 @@
 <h1 id="Recurrent-neural-network"><a href="#Recurrent-neural-network" class="headerlink" title="Recurrent neural network"></a>Recurrent neural network</h1><p>A recurrent neural network(RNN)is a class of artificial neural network where connections between nodes form a directed graph along a sequence.(In mathematics,and more specifically in graph theory,a directed graph(or digraph)is a graph that is a set of vertices connected by edges,where the edges have a direction associated with them.)<br>This allows it to exhibit temporal dynamic behavior for a time sequence.So what is the difference between RNN and feedforward neural networks?In a feedforworward neural network,the connections between the nodes do not form a cycle.<br>RNNs have shown great promise in many NLP task.Today we will explain why RNN is effective and implement a simple LSTM using pytorch.</p>
 <h1 id="The-idea-behind-RNN"><a href="#The-idea-behind-RNN" class="headerlink" title="The idea behind RNN"></a>The idea behind RNN</h1><p>Making use of sequential information.In a traditional neural network we assume that all inputs(and outputs)are independent of each other.But for many tasks that’s a very bad idea.RNNs are called <code>recurrent</code> because they perform the same task for every element of a sequence,with the output being depended on the previous computations.Another way to think about RNNs is that they have a ‘memory’ which captures information about what has been calculated so far. In theory RNNs can make use of information in arbitrarily long sequences,but in practice they are limited to looking back only a few steps (more on this later). Here is what a typical RNN looks like:<br><img src="https://user-images.githubusercontent.com/42510101/44726320-10856380-ab0a-11e8-8f1a-2123fca8f556.jpg" alt="rnn"><br><code>A recurrent neural network and the unfolding in time of the computation involved in its forward computation</code></p>
 <p>The above diagram shows a RNN being unrolled(or unfolded)into a full network.By unrolling we simply mean that we write out the network for the complete sequence.For example,if the sequence we care about is a sentence of 5 words,the network would be unrolled into a 5-layer neual network,one layer for each word.</p>
-<h1 id="Introduction-to-LSTM"><a href="#Introduction-to-LSTM" class="headerlink" title="Introduction to LSTM"></a>Introduction to LSTM</h1><p><em>Long short-term memory(LSTM)</em> unit are units of a recurrent neural network(RNN).An RNN composed of LSTM units is often called an LSTM network. A common LSTM unit is composed of a <em>cell</em>,an <em>input gate</em>,an <em>output gate</em> and a <em>forget gate</em>.The cell remembers values over arbitrary time.</p>
+<h1 id="Introduction-to-LSTM"><a href="#Introduction-to-LSTM" class="headerlink" title="Introduction to LSTM"></a>Introduction to LSTM</h1><p><em>Long short-term memory(LSTM)</em> unit are units of a recurrent neural network(RNN).An RNN composed of LSTM units is often called an LSTM network. A common LSTM unit is composed of a <em>cell</em>,an <em>input gate</em>,an <em>output gate</em> and a <em>forget gate</em>.The cell remembers values over arbitrary time intervals and the three <code>gates</code> regulate the flow of information into and out of the cell.<br>LSTMs were developed to deal with the exploding and vanishing gradient problems that can be encountered when training traditional RNNs.Relative insensitivity to gap lengeh is an advantage of LSTM over RNNs,hideen Markov models and other sequence learning methods in numerous applications.</p>
+<h1 id="Architecture-of-LSTM"><a href="#Architecture-of-LSTM" class="headerlink" title="Architecture of LSTM"></a>Architecture of LSTM</h1><p>There are several architectures of LSTM units.A common architecture is composed of a memory <code>cell</code>,an <code>input gate</code>,an <code>output gate</code> and a <code>forget gate</code>.An LSTM <code>cell</code> takes an input and stores it for some period of time. This is equivalent to applying the identity function to the input.(In mathematics, an identity function,also called an identity relation or identity map or identity transformation,is a function that always returns the same value that used as its argument.In equation,the function is given by f(x)=x.)Because the derivative of the identity function is constant,when an LSTM network is trained with backpropagation through time,the gradient does not vanish.<br>The activation function of the LSTM <code>gate</code> is often the logistic function.Intuitively,the <code>input gate</code> controls the extent to which a new value flows into the cell,the <code>forget gate</code> controls the extent to which a value remains in the cell and the <code>output gate</code> controls the extent to which the value in the cel is used to compute the output activation of the LSTM unit.</p>
 <p>Reference material</p>
 <ol>
 <li><a href="http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/" target="_blank" rel="noopener">Recurrent Neural Networks Tutorial, Part 1 – Introduction to RNNs</a></li>
@@ -1797,178 +1981,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/83c5e701.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/83c5e701.html" itemprop="url">pytorch入门——边学边练02线性回归</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T13:27:00+08:00">
-                2018-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/83c5e701.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/83c5e701.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/83c5e701.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练02线性回归">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用<code>pytorch</code>实现呢？接下来我们进行实战操作。完整代码请参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/linear_regression" target="_blank" rel="noopener">linear_regression</a>。</p>
-<h1 id="我们会用到什么包呢？"><a href="#我们会用到什么包呢？" class="headerlink" title="我们会用到什么包呢？"></a>我们会用到什么包呢？</h1><p>本节，我打算要用到<code>Linear</code>那么肯定要引入<code>torch.nn</code>。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/archives/83c5e701.html#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2023,7 +2035,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

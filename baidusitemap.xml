@@ -4,23 +4,8 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/c61c6fd.html</loc>
-    <lastmod>2018-08-28T14:37:15.991Z</lastmod>
-    <data>
-        <display>
-        <title>aboutme</title>
-        <pubTime>2018-08-28T14:32:59.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.zenroad.club/archives/f367cc38.html</loc>
-    <lastmod>2018-08-28T14:11:00.489Z</lastmod>
+    <lastmod>2018-08-29T13:12:22.985Z</lastmod>
     <data>
         <display>
         <title>pytorch入门——边学边练07 Recurrent Neural Network</title>
@@ -35,6 +20,41 @@
              
               <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/1d0202a.html</loc>
+    <lastmod>2018-08-29T11:59:15.737Z</lastmod>
+    <data>
+        <display>
+        <title>Install android on VMware</title>
+        <pubTime>2018-08-29T11:39:03.000Z</pubTime>
+        
+        <tag>tools</tag>
+         
+         
+           
+             
+              <breadCrumb title="software" url="https://www.zenroad.club/categories/software/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/c61c6fd.html</loc>
+    <lastmod>2018-08-28T14:37:15.991Z</lastmod>
+    <data>
+        <display>
+        <title>aboutme</title>
+        <pubTime>2018-08-28T14:32:59.000Z</pubTime>
+        
+         
+           
         </display>
     </data>
     </url>
