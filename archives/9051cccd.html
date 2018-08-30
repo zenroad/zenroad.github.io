@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="leveldb,googlestore," />
+  <meta name="keywords" content="3D Semantic Segmentation,paper," />
 
 
 
@@ -77,18 +77,23 @@
 
 
 
-<meta name="description" content="DownloadLevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values.The project page is leveldbAfter cloning the project,then let’s">
-<meta name="keywords" content="leveldb,googlestore">
+<meta name="description" content="3D Semantic Segmentation with Submanifold Sparse Convolutional Networks写在前面翻译内容如有不当之处，请多多批评指正。 摘要卷积网络是分析时空数据比如图像、视频、3D形状的事实标准。虽然其中一些数据是天然密集的（比如照片），但还有许多其它的数据本质上是稀疏的。示例包括使用LiDAR扫描器或者RGB-D获得的3D点云。当面对这种稀">
+<meta name="keywords" content="3D Semantic Segmentation,paper">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Install LevelDB">
-<meta property="og:url" content="https://www.zenroad.club/archives/f93ca93e.html">
+<meta property="og:title" content="3D Semantic Segmentation with Submanifold Sparse Convolutional Networks 论文翻译">
+<meta property="og:url" content="https://www.zenroad.club/archives/9051cccd.html">
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
-<meta property="og:description" content="DownloadLevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values.The project page is leveldbAfter cloning the project,then let’s">
+<meta property="og:description" content="3D Semantic Segmentation with Submanifold Sparse Convolutional Networks写在前面翻译内容如有不当之处，请多多批评指正。 摘要卷积网络是分析时空数据比如图像、视频、3D形状的事实标准。虽然其中一些数据是天然密集的（比如照片），但还有许多其它的数据本质上是稀疏的。示例包括使用LiDAR扫描器或者RGB-D获得的3D点云。当面对这种稀">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-28T08:10:34.000Z">
+<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44852092-f1670d00-ac94-11e8-8974-e56975f518c2.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44852461-e06acb80-ac95-11e8-893c-141ce788197a.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44854761-072c0080-ac9c-11e8-9c7c-840d5401e698.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44857363-3d6c7e80-aca2-11e8-8714-88bb17353323.png">
+<meta property="og:updated_time" content="2018-08-30T14:34:14.783Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Install LevelDB">
-<meta name="twitter:description" content="DownloadLevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values.The project page is leveldbAfter cloning the project,then let’s">
+<meta name="twitter:title" content="3D Semantic Segmentation with Submanifold Sparse Convolutional Networks 论文翻译">
+<meta name="twitter:description" content="3D Semantic Segmentation with Submanifold Sparse Convolutional Networks写在前面翻译内容如有不当之处，请多多批评指正。 摘要卷积网络是分析时空数据比如图像、视频、3D形状的事实标准。虽然其中一些数据是天然密集的（比如照片），但还有许多其它的数据本质上是稀疏的。示例包括使用LiDAR扫描器或者RGB-D获得的3D点云。当面对这种稀">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/42510101/44852092-f1670d00-ac94-11e8-8974-e56975f518c2.png">
 
 
 
@@ -118,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://www.zenroad.club/archives/f93ca93e.html"/>
+  <link rel="canonical" href="https://www.zenroad.club/archives/9051cccd.html"/>
 
 
 
 
 
-  <title>Install LevelDB | Zenroad's Blog</title>
+  <title>3D Semantic Segmentation with Submanifold Sparse Convolutional Networks 论文翻译 | Zenroad's Blog</title>
   
 
 
@@ -272,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/f93ca93e.html">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/9051cccd.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zfish">
@@ -289,7 +294,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Install LevelDB</h2>
+          <h2 class="post-title" itemprop="name headline">3D Semantic Segmentation with Submanifold Sparse Convolutional Networks 论文翻译</h2>
         
 
         <div class="post-meta">
@@ -301,8 +306,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-28T09:42:24+08:00">
-                2018-08-28
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T17:33:46+08:00">
+                2018-08-30
               </time>
             
 
@@ -324,8 +329,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/software/" itemprop="url" rel="index">
-                    <span itemprop="name">software</span>
+                  <a href="/categories/Paper/" itemprop="url" rel="index">
+                    <span itemprop="name">Paper</span>
                   </a>
                 </span>
 
@@ -342,9 +347,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/archives/f93ca93e.html#comments" itemprop="discussionUrl">
+                <a href="/archives/9051cccd.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/f93ca93e.html" itemprop="commentCount"></span>
+                        data-disqus-identifier="archives/9051cccd.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -352,7 +357,7 @@
 
           
           
-             <span id="/archives/f93ca93e.html" class="leancloud_visitors" data-flag-title="Install LevelDB">
+             <span id="/archives/9051cccd.html" class="leancloud_visitors" data-flag-title="3D Semantic Segmentation with Submanifold Sparse Convolutional Networks 论文翻译">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -383,28 +388,13 @@
       
 
       
-        <h1 id="Download"><a href="#Download" class="headerlink" title="Download"></a>Download</h1><p>LevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values.<br>The project page is <a href="https://github.com/google/leveldb" target="_blank" rel="noopener">leveldb</a><br>After cloning the project,then let’s build the project.</p>
-<h1 id="Building"><a href="#Building" class="headerlink" title="Building"></a>Building</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p build &amp;&amp; cd build</span><br><span class="line">cmake -DCMAKE_BUILD_TYPE=Release .. &amp;&amp; cmake --build .</span><br></pre></td></tr></table></figure>
-<p>I just uing Ubuntu16.04. I have encountered an error as shown below.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CMake Error at CMakeLists.txt:5 (cmake_minimum_required):</span><br><span class="line">  CMake 3.9 or higher is required.  You are running version 3.5.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-- Configuring incomplete, errors occurred!</span><br></pre></td></tr></table></figure></p>
-<p>Let us solve this problem. </p>
-<ol>
-<li><p>To install the latest version,we have first to remove the installed version.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt purge cmake</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Then go to  <a href="https://cmake.org/download/" target="_blank" rel="noopener">cmake</a>  and download the latest version you need.</p>
-</li>
-</ol>
-<ul>
-<li>In my case cmake-3.12.1-Linux-x86_64.sh is sufficient.</li>
-</ul>
-<ol start="3">
-<li><code>chmod +x /path/to/cmake-3.12.1-Linux-x86_64.sh</code> (use your own file location here, but chmod makes the script executable)</li>
-<li><code>sudo ./path/to/cmake-3.12.1-Linux-x86_64.sh</code> (you’ll need to press y twice)</li>
-<li><code>sudo ln -s /path/to/cmake-3.6.2-Linux-x86_64/bin/* /usr/local/bin</code>(Use absolute path.)</li>
-<li>Test your results with <code>cmake --version</code><br>type <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake -DCMAKE_BUILD_TYPE=Release .. &amp;&amp; cmake --build .</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>Successful.</p>
+        <h1 id="3D-Semantic-Segmentation-with-Submanifold-Sparse-Convolutional-Networks"><a href="#3D-Semantic-Segmentation-with-Submanifold-Sparse-Convolutional-Networks" class="headerlink" title="3D Semantic Segmentation with Submanifold Sparse Convolutional Networks"></a>3D Semantic Segmentation with Submanifold Sparse Convolutional Networks</h1><h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>翻译内容如有不当之处，请多多批评指正。</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>卷积网络是分析时空数据比如图像、视频、3D形状的事实标准。虽然其中一些数据是天然密集的（比如照片），但还有许多其它的数据本质上是稀疏的。示例包括使用<code>LiDAR</code>扫描器或者<code>RGB-D</code>获得的3D点云。当面对这种稀疏数据时，卷积网络的标准“密集”实现效率非常低。我们引入了新的稀疏卷积运算，旨在更有效地处理空间稀疏数据，并使用它们来构造空间稀疏卷积网络。我们在涉及3D点云的语义分割的两个任务中证明了所得模型的强大性能，称为<code>submanifold sparse convolutional networks（SSCNs）</code>。特别是我们的模型在最近的语义分割竞赛的测试集上优于所有先前的<code>state-of-the=art</code>技术。<br><a id="more"></a></p>
+<h1 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h1><p>卷积网络（ConvNets）构成了涉及分析具有空间和/或时间结构的数据的广泛任务的最先进方法，例如照片，视频或3D表面模型。虽然这些数据通常包括稠密（2D或3D）网格，但其他数据集可能是稀疏的。 例如，手写字体由二维空间中的一维线组成，RGB-D相机制作的图像是三维点云，多边形网格模型在三维空间中由二维表面构成。维度增加，问题也随之出现，具有三维或更多维度的网格上的数据：网格上的点数随其维度呈指数增长。在这种情况下，尽可能利用数据稀疏性以减少数据处理所需的计算资源变得越来越重要。实际上，在分析例如填充点稀疏的4D结构的RGB-D视频时，利用稀疏性是至关重要的。传统的卷积网络实现方法针对填充点稠密网格的数据进行了优化，无法有效处理稀疏数据。最近，业界已经提出了许多卷积网络实现，这些实现被定制用于在稀疏数据上有效工作。在数学上，这些实现中的一些与常规卷积网络相同，但是它们在FLOP与内存方面需要更少的计算资源。以前的工作中，使用<code>im2col</code>操作的稀疏版本，将计算和存储限制为<code>active</code>站点。或使用投票算法用零修剪不必要的乘法。OctNets修改卷积运算符，以在网格中感兴趣区域之外的部分区域中生成<code>averaged</code>隐藏状态。卷积网络的先前稀疏实现的缺点之一是它们通过应用“完全”卷积来“扩展”每层中的稀疏数据。在这项工作中，我们表明可以创建在整个网络中保持相同的稀疏程度的卷积网络。因此，训练具有明显更多层的网络变得切实可行，例如ResNets和DenseNets。为此，我们开发了一种用于执行稀疏卷积（SC）的新方法，并引入了一种新的卷积操作，称为<code>submanifold sparse convolution（SSC）</code>。我们使用这些运算符作为SSCN的基础，其被优化用于3D点云的有效语义分割，例如，图1中所示的示例。<br><img src="https://user-images.githubusercontent.com/42510101/44852092-f1670d00-ac94-11e8-8974-e56975f518c2.png" alt="图1"><br>在表1中，我们在最近的测试集上测试SSCN的性能，并将其与竞争中的一些表现最佳的条目进行比较：SSCN优于所有这些条目。<br><img src="https://user-images.githubusercontent.com/42510101/44852461-e06acb80-ac95-11e8-893c-141ce788197a.png" alt="表1"><br>我们库的源代码可在线公开获取。</p>
+<h1 id="2-相关工作"><a href="#2-相关工作" class="headerlink" title="2. 相关工作"></a>2. 相关工作</h1><p>我们的工作主要建立在先前关于稀疏卷积网络的文献和使用密集卷积网络的图像分割的基础上。密集3D卷积在体积数据上的应用实例包括分类和分割;这些方法受限于巨大的内存使用和推理速度过慢，限制了可以使用的模型的大小。人们还开发了用于处理没有像素化的3D点云的方法。考虑到ConvNets在处理2D输入方面的主导地位，这似乎令人惊讶。这可能是由于使用密集的3D卷积网络所涉及的计算量太大。<br>先前关于稀疏卷积的工作实现了卷积运算符，其增加了每层的<code>active sites</code>的数量。在[4]中，所有具有至少一个<code>active</code>输入的<code>site</code>都被视为活动站点。在[3]中，通过使用ReLU和特殊损失函数计算卷积后，获得了更大程度的稀疏性。相比之下，我们引入了子流形稀疏卷积（submanifold sparse convolutions）来固定活动站点的位置，以便稀疏性对于许多层保持不变。我们证明，这使得训练类似于VGG网络或ResNets的深度和高效网络变得切实可行，并且它非常适合于逐点语义分割的任务。OctNets是稀疏卷积的另一种形式。稀疏像素存储在八叉树中：一种数据结构，其中网格立方体逐渐细分为2^3个较小的子立方体，直到子立方体为空或包含单个活动站点。OctNet在空白区域的表面上运行，因此在8×8×8大小的空立方体上进行<code>size-3</code>的OctNet卷积需要23％的密集3D卷积计算。相反，<code>submanifold convolutions</code>不需要在空区域中进行计算。<br>分割点云的另一种方法是避免对输入进行体素化，这可能由于有限的分辨率而导致信息丢失。这可以通过使用特定的数据结构（例如Kd树）来完成，或直接操作无序点。Kd-Networks通过沿着最大变化轴递归地划分空间来构建Kd树，直到树的每个叶子包含一个输入点。N个输入点需要<code>O(Nlog N)</code>的时间。PointNet使用池化操作来生成全局特征向量。完全卷积网络（FCN）作为二维图像分割的方法，利用多个尺度的信息来保存低级信息，以准确描绘对象边界。U-Nets 通过使用卷积来扩展FCN，以便在最终分类阶段之前更准确地将来自不同尺度的信息合并在一起; 见图4。<br><img src="https://user-images.githubusercontent.com/42510101/44854761-072c0080-ac9c-11e8-9c7c-840d5401e698.png" alt="图4"></p>
+<h1 id="3-卷积网络的空间稀疏性"><a href="#3-卷积网络的空间稀疏性" class="headerlink" title="3. 卷积网络的空间稀疏性"></a>3. 卷积网络的空间稀疏性</h1><p>我们将d维卷积网络定义为——将(d+1)维张量作为输入的网络：输入张量包含d个时空维度（例如长度，宽度，高度，时间等）和一个附加特征空间维度（例如，RGB颜色通道或表面法向量）。输入对应于d维网格的<code>site</code>，每个<code>site</code>与特征向量相关联。（译者注：<code>site</code>的概念类似于属性元组）。如果特征向量中的任何元素不处于<code>ground state</code>（基态），我们将输入中的站点定义为<code>active</code>，例如，如果它不是非零的。如果数据不是自然稀疏的，则可以使用阈值处理来消除特征向量在距离基态的距离较小的<code>input site</code>。请注意，即使输入张量为(d+1)维，激活向量也是d维的：沿着特征维度，整个向量里的值要么是激活的，要么是非激活的。<br>类似地，d维卷积网络的隐藏层由特征空间矢量的d维网格表示。通过网络传播输入数据时，如果作为输入的图层中的任何<code>site</code>处于活动状态，则隐藏层中的<code>site</code>处于活动状态。（注意，使用卷积大小为3时，每个站点都连接到下面隐藏层中的3^d个站点。）因此，隐藏层中的激活与否遵循归纳定义，其中每个层确定下一层中的活动状态集。在每个隐藏层中，非激活状态的<code>site</code>都具有相同的特征向量：对应于基态（<code>ground state</code>）的向量。基础状态的值仅需要在训练时的每个前进传递计算一次，并且在测试时仅对所有前进传递计算一次。这样可以大大节省计算和内存使用。<br>我们认为上述框架具有不适当的限制性，特别是因为卷积操作尚未被修改以适应输入数据的稀疏性。如果输入数据包含单个<code>active site</code>，则在应用3^d卷积后，将有3^d个<code>active site</code>。应用相同大小的第二个卷积将产生5^d个<code>active site</code>，依此类推。当实现包含数十甚至数百个卷积层的现代卷积网络架构（例如VGG网络，ResNets或DenseNets）时，活动站点数量的快速增长是一个非常糟糕的事。<br>当然，卷积网络通常不应用于仅具有<code>active site</code>的输入，但是当输入数据包括具有两个或更多维度的空间中的一维曲线或者三个或更多维度中的二维表面时，上述膨胀问题同样成问题。 我们将这个问题称为“子流形扩张问题”（“submanifold dilation problem”）。图2说明了这个问题：即使我们在这个网格上应用小的3×3卷积，网格的稀疏性也会迅速消失。<br><img src="https://user-images.githubusercontent.com/42510101/44857363-3d6c7e80-aca2-11e8-8714-88bb17353323.png" alt="图2"></p>
+<h1 id="4-Submanifold-Convolutional-Networks"><a href="#4-Submanifold-Convolutional-Networks" class="headerlink" title="4. Submanifold Convolutional Networks"></a>4. Submanifold Convolutional Networks</h1><p>我们探索了一种简单的子流形扩张问题（submanifold dilation problem）解决方案，它将卷积的输出仅限制在一组有效输入点上。这种方法的潜在问题是网络中的隐藏层可能无法接收它们对输入数据进行分类所需的所有信息：特别是，两个相邻的连接组件是完全独立地处理的。我们通过使用包含池化或跨步卷积操作的卷积网络来解决此问题。这种操作在稀疏卷积网络中很重要。因为它们允许信息在输入中的断开连接的组件之间流动。越接近的组件在空间上，组件在其中间表示中“通信”所需的跨步操作越少。</p>
+<h2 id="4-1-稀疏的卷积运算"><a href="#4-1-稀疏的卷积运算" class="headerlink" title="4.1 稀疏的卷积运算"></a>4.1 稀疏的卷积运算</h2><p>未完待续明天接着写估计后天写完……事情多就再说了</p>
 
       
     </div>
@@ -428,9 +418,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/leveldb/" rel="tag"># leveldb</a>
+            <a href="/tags/3D-Semantic-Segmentation/" rel="tag"># 3D Semantic Segmentation</a>
           
-            <a href="/tags/googlestore/" rel="tag"># googlestore</a>
+            <a href="/tags/paper/" rel="tag"># paper</a>
           
         </div>
       
@@ -443,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/archives/f367cc38.html" rel="next" title="pytorch入门——边学边练07 Recurrent Neural Network">
-                <i class="fa fa-chevron-left"></i> pytorch入门——边学边练07 Recurrent Neural Network
+              <a href="/archives/1d0202a.html" rel="next" title="Install android on VMware">
+                <i class="fa fa-chevron-left"></i> Install android on VMware
               </a>
             
           </div>
@@ -452,10 +442,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/archives/c61c6fd.html" rel="prev" title="aboutme">
-                aboutme <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -601,7 +587,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Download"><span class="nav-number">1.</span> <span class="nav-text">Download</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Building"><span class="nav-number">2.</span> <span class="nav-text">Building</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3D-Semantic-Segmentation-with-Submanifold-Sparse-Convolutional-Networks"><span class="nav-number">1.</span> <span class="nav-text">3D Semantic Segmentation with Submanifold Sparse Convolutional Networks</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">2.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#摘要"><span class="nav-number">3.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-介绍"><span class="nav-number">4.</span> <span class="nav-text">1.介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-相关工作"><span class="nav-number">5.</span> <span class="nav-text">2. 相关工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-卷积网络的空间稀疏性"><span class="nav-number">6.</span> <span class="nav-text">3. 卷积网络的空间稀疏性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Submanifold-Convolutional-Networks"><span class="nav-number">7.</span> <span class="nav-text">4. Submanifold Convolutional Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-稀疏的卷积运算"><span class="nav-number">7.1.</span> <span class="nav-text">4.1 稀疏的卷积运算</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -762,9 +748,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://www.zenroad.club/archives/f93ca93e.html';
-          this.page.identifier = 'archives/f93ca93e.html';
-          this.page.title = 'Install LevelDB';
+          this.page.url = 'https://www.zenroad.club/archives/9051cccd.html';
+          this.page.identifier = 'archives/9051cccd.html';
+          this.page.title = '3D Semantic Segmentation with Submanifold Sparse Convolutional Networks 论文翻译';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://zenroad.disqus.com/embed.js';
