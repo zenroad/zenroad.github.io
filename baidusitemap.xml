@@ -4,8 +4,68 @@
 
     
   <url>
+    <loc>https://www.zenroad.club/archives/342de388.html</loc>
+    <lastmod>2018-09-13T06:56:53.009Z</lastmod>
+    <data>
+        <display>
+        <title>Assertion t >= 0 && t < n_classes failed</title>
+        <pubTime>2018-09-13T06:47:35.000Z</pubTime>
+        
+        <tag>error</tag>
+         
+         
+           
+             
+              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/be5c905.html</loc>
+    <lastmod>2018-09-13T05:30:56.042Z</lastmod>
+    <data>
+        <display>
+        <title>linux 显示文件夹中有多少个文件</title>
+        <pubTime>2018-09-13T05:28:26.000Z</pubTime>
+        
+        <tag>tips</tag>
+         
+         
+           
+             
+              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/f9c83459.html</loc>
+    <lastmod>2018-09-13T05:29:34.899Z</lastmod>
+    <data>
+        <display>
+        <title>linux cp first n files (linux下一次cp前n个文件)</title>
+        <pubTime>2018-09-13T05:23:26.000Z</pubTime>
+        
+        <tag>tips</tag>
+         
+         
+           
+             
+              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.zenroad.club/archives/bb1543db.html</loc>
-    <lastmod>2018-09-07T07:51:46.408Z</lastmod>
+    <lastmod>2018-09-07T08:54:50.000Z</lastmod>
     <data>
         <display>
         <title>vim 卡住 死机 没有任何反应</title>
@@ -25,7 +85,7 @@
     
   <url>
     <loc>https://www.zenroad.club/archives/f1636a03.html</loc>
-    <lastmod>2018-09-07T07:00:34.160Z</lastmod>
+    <lastmod>2018-09-07T07:00:34.000Z</lastmod>
     <data>
         <display>
         <title>ERROR  Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</title>
@@ -45,7 +105,7 @@
     
   <url>
     <loc>https://www.zenroad.club/archives/6c83df.html</loc>
-    <lastmod>2018-09-07T07:00:34.160Z</lastmod>
+    <lastmod>2018-09-07T07:00:34.000Z</lastmod>
     <data>
         <display>
         <title>查看CUDA版本 查看cudnn版本</title>
@@ -65,7 +125,7 @@
     
   <url>
     <loc>https://www.zenroad.club/archives/5370e07a.html</loc>
-    <lastmod>2018-09-04T07:43:19.101Z</lastmod>
+    <lastmod>2018-09-04T07:43:20.000Z</lastmod>
     <data>
         <display>
         <title>python3 Python.h No such file or directory</title>
@@ -85,7 +145,7 @@
     
   <url>
     <loc>https://www.zenroad.club/archives/b3c8e38d.html</loc>
-    <lastmod>2018-09-04T07:43:19.101Z</lastmod>
+    <lastmod>2018-09-04T07:43:20.000Z</lastmod>
     <data>
         <display>
         <title>google dense_hash_map  No such file or directory</title>
@@ -333,12 +393,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
+    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练01基础知识</title>
-        <pubTime>2018-08-23T12:49:44.000Z</pubTime>
+        <title>pytorch入门——边学边练03逻辑回归</title>
+        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -355,12 +415,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
+    <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练03逻辑回归</title>
-        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
+        <title>pytorch入门——边学边练01基础知识</title>
+        <pubTime>2018-08-23T12:49:44.000Z</pubTime>
         
         <tag>pytorch</tag>
          
