@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://www.zenroad.club/archives/a9604481.html</loc>
+    <lastmod>2018-09-24T08:45:16.300Z</lastmod>
+    <data>
+        <display>
+        <title>查看docker运行中的命令行输出</title>
+        <pubTime>2018-09-24T08:32:39.000Z</pubTime>
+        
+        <tag>docker</tag>
+         
+         
+           
+             
+              <breadCrumb title="docker" url="https://www.zenroad.club/categories/docker/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.zenroad.club/archives/89b0a2ac.html</loc>
     <lastmod>2018-09-18T11:58:34.716Z</lastmod>
     <data>
@@ -188,12 +208,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/5370e07a.html</loc>
+    <loc>https://www.zenroad.club/archives/b3c8e38d.html</loc>
     <lastmod>2018-09-04T07:43:20.000Z</lastmod>
     <data>
         <display>
-        <title>python3 Python.h No such file or directory</title>
-        <pubTime>2018-09-04T07:28:33.000Z</pubTime>
+        <title>google dense_hash_map  No such file or directory</title>
+        <pubTime>2018-09-04T07:33:39.000Z</pubTime>
         
         <tag>error</tag>
          
@@ -208,12 +228,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/b3c8e38d.html</loc>
+    <loc>https://www.zenroad.club/archives/5370e07a.html</loc>
     <lastmod>2018-09-04T07:43:20.000Z</lastmod>
     <data>
         <display>
-        <title>google dense_hash_map  No such file or directory</title>
-        <pubTime>2018-09-04T07:33:39.000Z</pubTime>
+        <title>python3 Python.h No such file or directory</title>
+        <pubTime>2018-09-04T07:28:33.000Z</pubTime>
         
         <tag>error</tag>
          
@@ -393,12 +413,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
+    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练01基础知识</title>
-        <pubTime>2018-08-23T12:49:44.000Z</pubTime>
+        <title>pytorch入门——边学边练03逻辑回归</title>
+        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -415,12 +435,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
+    <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练03逻辑回归</title>
-        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
+        <title>pytorch入门——边学边练01基础知识</title>
+        <pubTime>2018-08-23T12:49:44.000Z</pubTime>
         
         <tag>pytorch</tag>
          

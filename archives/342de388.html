@@ -383,7 +383,7 @@
       
 
       
-        <p>在pytorch中遇到如下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libraries/torch/extra/cunn/lib/THCUNN/ClassNLLCriterion.cu:52: void cunn_ClassNLLCriterion_updateOutput_kernel(Dtype *, Dtype *, Dtype *, long *, Dtype *, int, int, int, int) [with Dtype = float, Acctype = float]: block: [0,0,0], thread: [2,0,0] Assertiont &gt;= 0 &amp;&amp; t &lt; n_classesfailed.</span><br></pre></td></tr></table></figure></p>
+        <p>在pytorch中遇到如下错误：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libraries<span class="regexp">/torch/</span>extra<span class="regexp">/cunn/</span>lib<span class="regexp">/THCUNN/</span>ClassNLLCriterion.<span class="string">cu:</span><span class="number">52</span>: <span class="keyword">void</span> cunn_ClassNLLCriterion_updateOutput_kernel(Dtype *, Dtype *, Dtype *, <span class="keyword">long</span> *, Dtype *, <span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>) [with Dtype = <span class="keyword">float</span>, Acctype = <span class="keyword">float</span>]: <span class="string">block:</span> [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>], <span class="string">thread:</span> [<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>] Assertiont &gt;= <span class="number">0</span> &amp;&amp; t &lt; n_classesfailed.</span><br></pre></td></tr></table></figure></p>
 <p>造成这个问题的原因就是在做分类任务时，训练数据中存在超出<em>分类数目</em>的标签。比如我一共设置了<code>8</code>个类，但是训练数据中的标签里出现了<code>9</code>，就会报这个错误。<br>那么问题来了，这里有一个陷阱。<br>训练数据中的标签含<code>0</code>也会报上述错误。这个就非常诡异了。一般我们都从<code>0</code>开始数，但是在<code>pytorch</code>里<code>0</code>以下的类别标签都是要报错的。所以如果类别标签从<code>0</code>开始，要给所有类别标签都加上一。</p>
 
       
@@ -515,7 +515,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -526,7 +526,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -537,7 +537,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

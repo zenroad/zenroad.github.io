@@ -383,8 +383,8 @@
       
 
       
-        <p><code>docker</code>下运行<code>pytorch</code>报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR: Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</span><br></pre></td></tr></table></figure></p>
-<p>It Looks like the shared memory of the docker container wasn’t set high enough. Setting a higher amount by adding <em>–shm-size 8G</em> to the docker run command.<br>for example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=2,3 --shm-size 8G  -it --rm dev:v1 /bin/bash</span><br></pre></td></tr></table></figure></p>
+        <p><code>docker</code>下运行<code>pytorch</code>报错<br><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ERROR: </span>Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</span><br></pre></td></tr></table></figure></p>
+<p>It Looks like the shared memory of the docker container wasn’t set high enough. Setting a higher amount by adding <em>–shm-size 8G</em> to the docker run command.<br>for example:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span> <span class="attribute">--runtime</span>=nvidia -e <span class="attribute">NVIDIA_VISIBLE_DEVICES</span>=2,3 --shm-size 8G  -it --rm dev:v1 /bin/bash</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -515,7 +515,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -526,7 +526,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -537,7 +537,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

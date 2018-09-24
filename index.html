@@ -272,6 +272,174 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/a9604481.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/a9604481.html" itemprop="url">查看docker运行中的命令行输出</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-24T16:32:39+08:00">
+                2018-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/a9604481.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/a9604481.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/a9604481.html" class="leancloud_visitors" data-flag-title="查看docker运行中的命令行输出">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>当我在用docker跑pytorch时，因为训练时间长，网络不好的时候，终端会停止输出命令行结果。为了查看命令行的输出结果。我们可以运行如下命令：<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs <span class="string">[ID或者名字]</span> 可以查看容器内部的标准输出。</span><br></pre></td></tr></table></figure></p>
+<p>下面再附上常见的docker指令。<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">docker info </span><br><span class="line">sudo docker pull busybox 预构建Image (busybox是最小的Linux系统) </span><br><span class="line">docker logs 2b1b7a428627 查看容器内的输出 </span><br><span class="line">docker logs <span class="variable">$sample_job</span> 查看日志 </span><br><span class="line">docker <span class="keyword">help</span> </span><br><span class="line">docker ps 查看容器 </span><br><span class="line">docker stop <span class="variable">$sample_job</span> 停止容器 </span><br><span class="line">docker restart <span class="variable">$sample_job</span> </span><br><span class="line">docker stop <span class="variable">$sample_job</span>; </span><br><span class="line">docker <span class="keyword">rm</span> <span class="variable">$sample_job</span> </span><br><span class="line">docker images 查看镜像列表 </span><br><span class="line">docker <span class="keyword">search</span> (image-name) </span><br><span class="line">docker history (image_name) </span><br><span class="line">docker push (image_name) 将镜像推送到registry </span><br><span class="line">docker stats --<span class="keyword">help</span> 查看docker stats 的用法</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/17d589f8.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -387,8 +555,8 @@
       
         
           
-            <p>当训练样本不均匀时，我们可以采用过采样、欠采样、数据增强等手段来避免过拟合。今天遇到一个3d点云数据集合，样本分布极不均匀，正例与负例相差4-5个数量级。数据增强效果就不会太好了，另外过采样也不太合适，因为是空间数据，新增的点有可能会对真实分布产生未知影响。所以采用欠采样来缓解类别不平衡的问题。<br>下面的代码展示了如何使用<code>WeightedRandomSampler</code>来完成抽样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">numDataPoints = 1000</span><br><span class="line">data_dim = 5</span><br><span class="line">bs = 100</span><br><span class="line"></span><br><span class="line"># Create dummy data with class imbalance 9 to 1</span><br><span class="line">data = torch.FloatTensor(numDataPoints, data_dim)</span><br><span class="line">target = np.hstack((np.zeros(int(numDataPoints * 0.9), dtype=np.int32),</span><br><span class="line">                    np.ones(int(numDataPoints * 0.1), dtype=np.int32)))</span><br><span class="line"></span><br><span class="line">print &apos;target train 0/1: &#123;&#125;/&#123;&#125;&apos;.format(</span><br><span class="line">    len(np.where(target == 0)[0]), len(np.where(target == 1)[0]))</span><br><span class="line"></span><br><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.where(target == t)[0]) for t in np.unique(target)])</span><br><span class="line">weight = 1. / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t in target])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.double()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br><span class="line"></span><br><span class="line">target = torch.from_numpy(target).long()</span><br><span class="line">train_dataset = torch.utils.data.TensorDataset(data, target)</span><br><span class="line"></span><br><span class="line">train_loader = DataLoader(</span><br><span class="line">    train_dataset, batch_size=bs, num_workers=1, sampler=sampler)</span><br><span class="line"></span><br><span class="line">for i, (data, target) in enumerate(train_loader):</span><br><span class="line">    print &quot;batch index &#123;&#125;, 0/1: &#123;&#125;/&#123;&#125;&quot;.format(</span><br><span class="line">        i,</span><br><span class="line">        len(np.where(target.numpy() == 0)[0]),</span><br><span class="line">        len(np.where(target.numpy() == 1)[0]))</span><br></pre></td></tr></table></figure></p>
-<p>核心部分为实际使用时替换下变量把<code>sampler</code>传递给<code>DataLoader</code>即可，注意使用了<code>sampler</code>就不能使用<code>shuffle</code>，另外需要指定<em>采样点个数</em>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.where(target == t)[0]) for t in np.unique(target)])</span><br><span class="line">weight = 1. / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t in target])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.double()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br></pre></td></tr></table></figure></p>
+            <p>当训练样本不均匀时，我们可以采用过采样、欠采样、数据增强等手段来避免过拟合。今天遇到一个3d点云数据集合，样本分布极不均匀，正例与负例相差4-5个数量级。数据增强效果就不会太好了，另外过采样也不太合适，因为是空间数据，新增的点有可能会对真实分布产生未知影响。所以采用欠采样来缓解类别不平衡的问题。<br>下面的代码展示了如何使用<code>WeightedRandomSampler</code>来完成抽样。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">numDataPoints = <span class="number">1000</span></span><br><span class="line">data_dim = <span class="number">5</span></span><br><span class="line">bs = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"># Create dummy <span class="keyword">data</span> with <span class="keyword">class</span> imbalance <span class="number">9</span> to <span class="number">1</span></span><br><span class="line"><span class="keyword">data</span> = torch.FloatTensor(numDataPoints, data_dim)</span><br><span class="line"><span class="keyword">target</span> = np.hstack((np.zeros(<span class="built_in">int</span>(numDataPoints * <span class="number">0.9</span>), dtype=np.int32),</span><br><span class="line">                    np.ones(<span class="built_in">int</span>(numDataPoints * <span class="number">0.1</span>), dtype=np.int32)))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">'target train 0/1: &#123;&#125;/&#123;&#125;'</span>.<span class="keyword">format</span>(</span><br><span class="line">    len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">0</span>)[<span class="number">0</span>]), len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">1</span>)[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == t)[<span class="number">0</span>]) for t <span class="keyword">in</span> np.unique(<span class="keyword">target</span>)])</span><br><span class="line">weight = <span class="number">1.</span> / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t <span class="keyword">in</span> <span class="keyword">target</span>])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.<span class="keyword">double</span>()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br><span class="line"></span><br><span class="line"><span class="keyword">target</span> = torch.from_numpy(<span class="keyword">target</span>).long()</span><br><span class="line">train_dataset = torch.utils.<span class="keyword">data</span>.TensorDataset(<span class="keyword">data</span>, <span class="keyword">target</span>)</span><br><span class="line"></span><br><span class="line">train_loader = DataLoader(</span><br><span class="line">    train_dataset, batch_size=bs, num_workers=<span class="number">1</span>, sampler=sampler)</span><br><span class="line"></span><br><span class="line">for i, (<span class="keyword">data</span>, <span class="keyword">target</span>) <span class="keyword">in</span> enumerate(train_loader):</span><br><span class="line">    <span class="built_in">print</span> <span class="string">"batch index &#123;&#125;, 0/1: &#123;&#125;/&#123;&#125;"</span>.<span class="keyword">format</span>(</span><br><span class="line">        i,</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">0</span>)[<span class="number">0</span>]),</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">1</span>)[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure></p>
+<p>核心部分为实际使用时替换下变量把<code>sampler</code>传递给<code>DataLoader</code>即可，注意使用了<code>sampler</code>就不能使用<code>shuffle</code>，另外需要指定<em>采样点个数</em>：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.where(target == t)[0]) for t in np.unique(target)])</span><br><span class="line">weight = 1. / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t in target])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.double()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br></pre></td></tr></table></figure></p>
 <p><a href="https://discuss.pytorch.org/t/how-to-handle-imbalanced-classes/11264/2" target="_blank" rel="noopener">参考</a></p>
 
           
@@ -556,7 +724,7 @@
       
         
           
-            <p>We can use <code>WeightedRandomSampler</code> in pytorch to handle imbalanced classes.<br>Here is a sample code.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">numDataPoints = 1000</span><br><span class="line">data_dim = 5</span><br><span class="line">bs = 100</span><br><span class="line"></span><br><span class="line"># Create dummy data with class imbalance 9 to 1</span><br><span class="line">data = torch.FloatTensor(numDataPoints, data_dim)</span><br><span class="line">target = np.hstack((np.zeros(int(numDataPoints * 0.9), dtype=np.int32),</span><br><span class="line">                    np.ones(int(numDataPoints * 0.1), dtype=np.int32)))</span><br><span class="line"></span><br><span class="line">print &apos;target train 0/1: &#123;&#125;/&#123;&#125;&apos;.format(</span><br><span class="line">    len(np.where(target == 0)[0]), len(np.where(target == 1)[0]))</span><br><span class="line"></span><br><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.where(target == t)[0]) for t in np.unique(target)])</span><br><span class="line">weight = 1. / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t in target])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.double()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br><span class="line"></span><br><span class="line">target = torch.from_numpy(target).long()</span><br><span class="line">train_dataset = torch.utils.data.TensorDataset(data, target)</span><br><span class="line"></span><br><span class="line">train_loader = DataLoader(</span><br><span class="line">    train_dataset, batch_size=bs, num_workers=1, sampler=sampler)</span><br><span class="line"></span><br><span class="line">for i, (data, target) in enumerate(train_loader):</span><br><span class="line">    print &quot;batch index &#123;&#125;, 0/1: &#123;&#125;/&#123;&#125;&quot;.format(</span><br><span class="line">        i,</span><br><span class="line">        len(np.where(target.numpy() == 0)[0]),</span><br><span class="line">        len(np.where(target.numpy() == 1)[0]))</span><br></pre></td></tr></table></figure></p>
+            <p>We can use <code>WeightedRandomSampler</code> in pytorch to handle imbalanced classes.<br>Here is a sample code.<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">numDataPoints = <span class="number">1000</span></span><br><span class="line">data_dim = <span class="number">5</span></span><br><span class="line">bs = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"># Create dummy <span class="keyword">data</span> with <span class="keyword">class</span> imbalance <span class="number">9</span> to <span class="number">1</span></span><br><span class="line"><span class="keyword">data</span> = torch.FloatTensor(numDataPoints, data_dim)</span><br><span class="line"><span class="keyword">target</span> = np.hstack((np.zeros(<span class="built_in">int</span>(numDataPoints * <span class="number">0.9</span>), dtype=np.int32),</span><br><span class="line">                    np.ones(<span class="built_in">int</span>(numDataPoints * <span class="number">0.1</span>), dtype=np.int32)))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">'target train 0/1: &#123;&#125;/&#123;&#125;'</span>.<span class="keyword">format</span>(</span><br><span class="line">    len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">0</span>)[<span class="number">0</span>]), len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">1</span>)[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == t)[<span class="number">0</span>]) for t <span class="keyword">in</span> np.unique(<span class="keyword">target</span>)])</span><br><span class="line">weight = <span class="number">1.</span> / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t <span class="keyword">in</span> <span class="keyword">target</span>])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.<span class="keyword">double</span>()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br><span class="line"></span><br><span class="line"><span class="keyword">target</span> = torch.from_numpy(<span class="keyword">target</span>).long()</span><br><span class="line">train_dataset = torch.utils.<span class="keyword">data</span>.TensorDataset(<span class="keyword">data</span>, <span class="keyword">target</span>)</span><br><span class="line"></span><br><span class="line">train_loader = DataLoader(</span><br><span class="line">    train_dataset, batch_size=bs, num_workers=<span class="number">1</span>, sampler=sampler)</span><br><span class="line"></span><br><span class="line">for i, (<span class="keyword">data</span>, <span class="keyword">target</span>) <span class="keyword">in</span> enumerate(train_loader):</span><br><span class="line">    <span class="built_in">print</span> <span class="string">"batch index &#123;&#125;, 0/1: &#123;&#125;/&#123;&#125;"</span>.<span class="keyword">format</span>(</span><br><span class="line">        i,</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">0</span>)[<span class="number">0</span>]),</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">1</span>)[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure></p>
 <p><a href="https://discuss.pytorch.org/t/how-to-handle-imbalanced-classes/11264/2" target="_blank" rel="noopener">reference</a></p>
 
           
@@ -724,7 +892,7 @@
       
         
           
-            <p>在pytorch中遇到如下错误：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libraries/torch/extra/cunn/lib/THCUNN/ClassNLLCriterion.cu:52: void cunn_ClassNLLCriterion_updateOutput_kernel(Dtype *, Dtype *, Dtype *, long *, Dtype *, int, int, int, int) [with Dtype = float, Acctype = float]: block: [0,0,0], thread: [2,0,0] Assertiont &gt;= 0 &amp;&amp; t &lt; n_classesfailed.</span><br></pre></td></tr></table></figure></p>
+            <p>在pytorch中遇到如下错误：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libraries<span class="regexp">/torch/</span>extra<span class="regexp">/cunn/</span>lib<span class="regexp">/THCUNN/</span>ClassNLLCriterion.<span class="string">cu:</span><span class="number">52</span>: <span class="keyword">void</span> cunn_ClassNLLCriterion_updateOutput_kernel(Dtype *, Dtype *, Dtype *, <span class="keyword">long</span> *, Dtype *, <span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>) [with Dtype = <span class="keyword">float</span>, Acctype = <span class="keyword">float</span>]: <span class="string">block:</span> [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>], <span class="string">thread:</span> [<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>] Assertiont &gt;= <span class="number">0</span> &amp;&amp; t &lt; n_classesfailed.</span><br></pre></td></tr></table></figure></p>
 <p>造成这个问题的原因就是在做分类任务时，训练数据中存在超出<em>分类数目</em>的标签。比如我一共设置了<code>8</code>个类，但是训练数据中的标签里出现了<code>9</code>，就会报这个错误。<br>那么问题来了，这里有一个陷阱。<br>训练数据中的标签含<code>0</code>也会报上述错误。这个就非常诡异了。一般我们都从<code>0</code>开始数，但是在<code>pytorch</code>里<code>0</code>以下的类别标签都是要报错的。所以如果类别标签从<code>0</code>开始，要给所有类别标签都加上一。</p>
 
           
@@ -892,8 +1060,8 @@
       
         
           
-            <p>example<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls /usr/bin/ | wc -w</span><br></pre></td></tr></table></figure></p>
-<p>显示/usr/bin/中有多少个文件.<br>不包括隐藏文件，要显示隐藏文件则应该<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -a /usr/bin/ | wc -w</span><br></pre></td></tr></table></figure></p>
+            <p>example<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ls</span> <span class="string">/usr/bin/</span> | wc -w</span><br></pre></td></tr></table></figure></p>
+<p>显示/usr/bin/中有多少个文件.<br>不包括隐藏文件，要显示隐藏文件则应该<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ls</span> -a <span class="string">/usr/bin/</span> | wc -w</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1060,7 +1228,7 @@
       
         
           
-            <p>example<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls | head -10| xargs -i cp -r &#123;&#125; /tmp/</span><br></pre></td></tr></table></figure></p>
+            <p>example<br><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls | <span class="type">head</span> <span class="number">-10</span>| <span class="type">xargs</span> -i cp -r &#123;&#125; /tmp/</span><br></pre></td></tr></table></figure></p>
 <p>拷贝前10个文件到根目录的/tmp/下（如要拷贝最后5个文件，则将head -10 换成 tail -5）</p>
 
           
@@ -1398,8 +1566,8 @@
       
         
           
-            <p><code>docker</code>下运行<code>pytorch</code>报错<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR: Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</span><br></pre></td></tr></table></figure></p>
-<p>It Looks like the shared memory of the docker container wasn’t set high enough. Setting a higher amount by adding <em>–shm-size 8G</em> to the docker run command.<br>for example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=2,3 --shm-size 8G  -it --rm dev:v1 /bin/bash</span><br></pre></td></tr></table></figure></p>
+            <p><code>docker</code>下运行<code>pytorch</code>报错<br><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ERROR: </span>Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</span><br></pre></td></tr></table></figure></p>
+<p>It Looks like the shared memory of the docker container wasn’t set high enough. Setting a higher amount by adding <em>–shm-size 8G</em> to the docker run command.<br>for example:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span> <span class="attribute">--runtime</span>=nvidia -e <span class="attribute">NVIDIA_VISIBLE_DEVICES</span>=2,3 --shm-size 8G  -it --rm dev:v1 /bin/bash</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1566,8 +1734,8 @@
       
         
           
-            <p>cuda 版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/local/cuda/version.txt</span><br></pre></td></tr></table></figure></p>
-<p>cudnn 版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2</span><br></pre></td></tr></table></figure></p>
+            <p>cuda 版本<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cat</span> /usr/<span class="keyword">local</span>/cuda/<span class="keyword">version</span>.txt</span><br></pre></td></tr></table></figure></p>
+<p>cudnn 版本<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cat</span> /usr/<span class="keyword">local</span>/cuda/<span class="keyword">include</span>/cudnn.<span class="keyword">h</span> | grep CUDNN_MAJOR -A 2</span><br></pre></td></tr></table></figure></p>
 
           
         
@@ -1734,174 +1902,7 @@
       
         
           
-            <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install libssl-dev build-essential g++ libboost-all-dev libsparsehash-dev git-core perl</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/5370e07a.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/5370e07a.html" itemprop="url">python3 Python.h No such file or directory</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-04T15:28:33+08:00">
-                2018-09-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/error/" itemprop="url" rel="index">
-                    <span itemprop="name">error</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/5370e07a.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/5370e07a.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/5370e07a.html" class="leancloud_visitors" data-flag-title="python3 Python.h No such file or directory">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>You should install the development package of Python which contains header files and the library of Python.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python3-dev</span><br></pre></td></tr></table></figure></p>
-
+            <figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install libssl-<span class="built_in">dev</span> build-essential g++ libboost-<span class="built_in">all</span>-<span class="built_in">dev</span> libsparsehash-<span class="built_in">dev</span> git-core perl</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1993,7 +1994,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2004,7 +2005,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2015,7 +2016,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

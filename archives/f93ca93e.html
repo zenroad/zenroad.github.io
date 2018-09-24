@@ -384,12 +384,12 @@
 
       
         <h1 id="Download"><a href="#Download" class="headerlink" title="Download"></a>Download</h1><p>LevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values.<br>The project page is <a href="https://github.com/google/leveldb" target="_blank" rel="noopener">leveldb</a><br>After cloning the project,then let’s build the project.</p>
-<h1 id="Building"><a href="#Building" class="headerlink" title="Building"></a>Building</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p build &amp;&amp; cd build</span><br><span class="line">cmake -DCMAKE_BUILD_TYPE=Release .. &amp;&amp; cmake --build .</span><br></pre></td></tr></table></figure>
-<p>I just uing Ubuntu16.04. I have encountered an error as shown below.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CMake Error at CMakeLists.txt:5 (cmake_minimum_required):</span><br><span class="line">  CMake 3.9 or higher is required.  You are running version 3.5.1</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-- Configuring incomplete, errors occurred!</span><br></pre></td></tr></table></figure></p>
+<h1 id="Building"><a href="#Building" class="headerlink" title="Building"></a>Building</h1><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">mkdir</span> -p <span class="keyword">build </span>&amp;&amp; cd <span class="keyword">build</span></span><br><span class="line"><span class="keyword">cmake </span>-DCMAKE_BUILD_TYPE<span class="symbol">=Release</span> .. &amp;&amp; cmake --<span class="keyword">build </span>.</span><br></pre></td></tr></table></figure>
+<p>I just uing Ubuntu16.04. I have encountered an error as shown below.<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CMake Error <span class="keyword">at</span> CMakeLists.txt:<span class="number">5</span> (cmake_minimum_required):</span><br><span class="line">  CMake <span class="number">3.9</span> <span class="keyword">or</span> higher <span class="keyword">is</span> required.  You are <span class="built_in">running</span> <span class="built_in">version</span> <span class="number">3.5</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- Configuring incomplete, errors occurred!</span></span><br></pre></td></tr></table></figure></p>
 <p>Let us solve this problem. </p>
 <ol>
 <li><p>To install the latest version,we have first to remove the installed version.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt purge cmake</span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo apt purge cmake</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>Then go to  <a href="https://cmake.org/download/" target="_blank" rel="noopener">cmake</a>  and download the latest version you need.</p>
 </li>
@@ -401,7 +401,7 @@
 <li><code>chmod +x /path/to/cmake-3.12.1-Linux-x86_64.sh</code> (use your own file location here, but chmod makes the script executable)</li>
 <li><code>sudo ./path/to/cmake-3.12.1-Linux-x86_64.sh</code> (you’ll need to press y twice)</li>
 <li><code>sudo ln -s /path/to/cmake-3.6.2-Linux-x86_64/bin/* /usr/local/bin</code>(Use absolute path.)</li>
-<li>Test your results with <code>cmake --version</code><br>type <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake -DCMAKE_BUILD_TYPE=Release .. &amp;&amp; cmake --build .</span><br></pre></td></tr></table></figure>
+<li>Test your results with <code>cmake --version</code><br>type <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake <span class="attribute">-DCMAKE_BUILD_TYPE</span>=Release <span class="built_in">..</span> &amp;&amp; cmake --build .</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>Successful.</p>
@@ -546,7 +546,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -557,7 +557,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -568,7 +568,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
