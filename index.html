@@ -272,6 +272,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/c226393d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/c226393d.html" itemprop="url">numpy split usage</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-28T20:50:32+08:00">
+                2018-09-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/c226393d.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/c226393d.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/c226393d.html" class="leancloud_visitors" data-flag-title="numpy split usage">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##numpy.split</p>
+<p>###numpy.split(ary, indices_or_sections, axis=0)<br>    <em>Split an array into multiple sub-arrays.</em><br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Parameters:	</span><br><span class="line"></span><br><span class="line">ary<span class="keyword"> :</span> ndarray</span><br><span class="line"></span><br><span class="line">    Array to be divided into sub-arrays.</span><br><span class="line"></span><br><span class="line">indices_or_sections<span class="keyword"> :</span><span class="built_in"> int </span>or 1-D array</span><br><span class="line"></span><br><span class="line">    If indices_or_sections is an integer, N, the<span class="built_in"> array </span>will be divided into N equal arrays along axis. If such a split is<span class="built_in"> not </span>possible, an error is raised.</span><br><span class="line"></span><br><span class="line">    If indices_or_sections is a 1-D<span class="built_in"> array </span>of sorted integers, the entries indicate where along axis the<span class="built_in"> array </span>is split. For example, [2, 3] would, for axis=0, result in</span><br><span class="line"></span><br><span class="line">            ary[:2]</span><br><span class="line">            ary[2:3]</span><br><span class="line">            ary[3:]</span><br><span class="line"></span><br><span class="line">    If an index exceeds the dimension of the<span class="built_in"> array </span>along axis, an empty<span class="built_in"> sub-array </span>is returned correspondingly.</span><br><span class="line">axis<span class="keyword"> :</span> int, optional</span><br><span class="line"></span><br><span class="line">    The axis along which to split, default is 0.</span><br><span class="line"></span><br><span class="line">Returns:	</span><br><span class="line"></span><br><span class="line">sub-arrays<span class="keyword"> :</span> list of ndarrays</span><br><span class="line"></span><br><span class="line">    A list of sub-arrays.</span><br><span class="line"></span><br><span class="line">Raises:	</span><br><span class="line"></span><br><span class="line">ValueError</span><br><span class="line"></span><br><span class="line">    If indices_or_sections is given as an integer, but a split does<span class="built_in"> not </span>result in equal division.</span><br></pre></td></tr></table></figure></p>
+<p>###Example<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x = np.arange(<span class="number">9.0</span>)</span><br><span class="line">&gt;&gt;&gt; np.split(x, <span class="number">3</span>)</span><br><span class="line">[array([ <span class="number">0.</span>,  <span class="number">1.</span>,  <span class="number">2.</span>]), array([ <span class="number">3.</span>,  <span class="number">4.</span>,  <span class="number">5.</span>]), array([ <span class="number">6.</span>,  <span class="number">7.</span>,  <span class="number">8.</span>])]</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x = np.arange(<span class="number">8.0</span>)</span><br><span class="line">&gt;&gt;&gt; np.split(x, [<span class="number">3</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">10</span>])</span><br><span class="line">[array([ <span class="number">0.</span>,  <span class="number">1.</span>,  <span class="number">2.</span>]),</span><br><span class="line"> array([ <span class="number">3.</span>,  <span class="number">4.</span>]),</span><br><span class="line"> array([ <span class="number">5.</span>]),</span><br><span class="line"> array([ <span class="number">6.</span>,  <span class="number">7.</span>]),</span><br><span class="line"> array([], dtype=float64)]</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/a9604481.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1774,172 +1922,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/b3c8e38d.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/b3c8e38d.html" itemprop="url">google dense_hash_map  No such file or directory</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-04T15:33:39+08:00">
-                2018-09-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/error/" itemprop="url" rel="index">
-                    <span itemprop="name">error</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/b3c8e38d.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/b3c8e38d.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/b3c8e38d.html" class="leancloud_visitors" data-flag-title="google dense_hash_map  No such file or directory">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-<span class="built_in">get</span> install libssl-<span class="built_in">dev</span> build-essential g++ libboost-<span class="built_in">all</span>-<span class="built_in">dev</span> libsparsehash-<span class="built_in">dev</span> git-core perl</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1994,7 +1976,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2016,7 +1998,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
