@@ -5,10 +5,10 @@
     
   <url>
     <loc>https://www.zenroad.club/archives/98dacf19.html</loc>
-    <lastmod>2018-09-29T14:12:31.910Z</lastmod>
+    <lastmod>2018-09-29T14:21:06.796Z</lastmod>
     <data>
         <display>
-        <title>Difference between frompyfunc() and vectorize() (Numpy)</title>
+        <title>Difference between frompyfunc() and vectorize() in Numpy</title>
         <pubTime>2018-09-29T13:41:04.000Z</pubTime>
         
         <tag>numpy</tag>
@@ -122,26 +122,6 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/342de388.html</loc>
-    <lastmod>2018-09-13T06:57:28.000Z</lastmod>
-    <data>
-        <display>
-        <title>Assertion t >= 0 && t < n_classes failed</title>
-        <pubTime>2018-09-13T06:47:35.000Z</pubTime>
-        
-        <tag>error</tag>
-         
-         
-           
-             
-              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.zenroad.club/archives/f9c83459.html</loc>
     <lastmod>2018-09-13T06:57:28.000Z</lastmod>
     <data>
@@ -155,6 +135,26 @@
            
              
               <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/342de388.html</loc>
+    <lastmod>2018-09-13T06:57:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>Assertion t >= 0 && t < n_classes failed</title>
+        <pubTime>2018-09-13T06:47:35.000Z</pubTime>
+        
+        <tag>error</tag>
+         
+         
+           
+             
+              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
           
         </display>
     </data>
@@ -202,26 +202,6 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/6c83df.html</loc>
-    <lastmod>2018-09-07T07:00:34.000Z</lastmod>
-    <data>
-        <display>
-        <title>查看CUDA版本 查看cudnn版本</title>
-        <pubTime>2018-09-07T01:41:53.000Z</pubTime>
-        
-        <tag>tips</tag>
-         
-         
-           
-             
-              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.zenroad.club/archives/f1636a03.html</loc>
     <lastmod>2018-09-07T07:00:34.000Z</lastmod>
     <data>
@@ -235,6 +215,26 @@
            
              
               <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/6c83df.html</loc>
+    <lastmod>2018-09-07T07:00:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>查看CUDA版本 查看cudnn版本</title>
+        <pubTime>2018-09-07T01:41:53.000Z</pubTime>
+        
+        <tag>tips</tag>
+         
+         
+           
+             
+              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
           
         </display>
     </data>

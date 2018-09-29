@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="Numpy: Difference between frompyfunc() and vectorize()NumPy provides two basic objects ndarray (n-dimensional array) and ufunc (universal function), The latter refers to a function that can operate on">
+<meta name="description" content="NumPy provides two basic objects ndarray (n-dimensional array) and ufunc (universal function), The latter refers to a function that can operate on each element in the array, which can improve the spee">
 <meta name="keywords" content="numpy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Difference between frompyfunc() and vectorize() (Numpy)">
+<meta property="og:title" content="Difference between frompyfunc() and vectorize() in Numpy">
 <meta property="og:url" content="https://www.zenroad.club/archives/98dacf19.html">
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
-<meta property="og:description" content="Numpy: Difference between frompyfunc() and vectorize()NumPy provides two basic objects ndarray (n-dimensional array) and ufunc (universal function), The latter refers to a function that can operate on">
+<meta property="og:description" content="NumPy provides two basic objects ndarray (n-dimensional array) and ufunc (universal function), The latter refers to a function that can operate on each element in the array, which can improve the spee">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-29T14:12:31.910Z">
+<meta property="og:updated_time" content="2018-09-29T14:21:06.796Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Difference between frompyfunc() and vectorize() (Numpy)">
-<meta name="twitter:description" content="Numpy: Difference between frompyfunc() and vectorize()NumPy provides two basic objects ndarray (n-dimensional array) and ufunc (universal function), The latter refers to a function that can operate on">
+<meta name="twitter:title" content="Difference between frompyfunc() and vectorize() in Numpy">
+<meta name="twitter:description" content="NumPy provides two basic objects ndarray (n-dimensional array) and ufunc (universal function), The latter refers to a function that can operate on each element in the array, which can improve the spee">
 
 
 
@@ -124,7 +124,7 @@
 
 
 
-  <title>Difference between frompyfunc() and vectorize() (Numpy) | Zenroad's Blog</title>
+  <title>Difference between frompyfunc() and vectorize() in Numpy | Zenroad's Blog</title>
   
 
 
@@ -299,7 +299,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Difference between frompyfunc() and vectorize() (Numpy)</h2>
+          <h2 class="post-title" itemprop="name headline">Difference between frompyfunc() and vectorize() in Numpy</h2>
         
 
         <div class="post-meta">
@@ -340,7 +340,7 @@
 
           
           
-             <span id="/archives/98dacf19.html" class="leancloud_visitors" data-flag-title="Difference between frompyfunc() and vectorize() (Numpy)">
+             <span id="/archives/98dacf19.html" class="leancloud_visitors" data-flag-title="Difference between frompyfunc() and vectorize() in Numpy">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -371,7 +371,7 @@
       
 
       
-        <h1 id="Numpy-Difference-between-frompyfunc-and-vectorize"><a href="#Numpy-Difference-between-frompyfunc-and-vectorize" class="headerlink" title="Numpy: Difference between frompyfunc() and vectorize()"></a>Numpy: Difference between frompyfunc() and vectorize()</h1><p>NumPy provides two basic objects <code>ndarray</code> (n-dimensional array) and <code>ufunc</code> (universal function), The latter refers to a function that can operate on each element in the array, which can improve the speed of the operation.<br>In order to convert ordinary functions that compute a single element into <code>ufunc</code> functions, <code>NumPy</code> provides two functions, <code>frompyfunc()</code> and <code>vectorize()</code>.By converting, the original function parameters can be accepted as <code>vector</code> input (in other words, the vector of the converted function is used as the <code>scalar</code> input function). However there is some problem.</p>
+        <p>NumPy provides two basic objects <code>ndarray</code> (n-dimensional array) and <code>ufunc</code> (universal function), The latter refers to a function that can operate on each element in the array, which can improve the speed of the operation.<br>In order to convert ordinary functions that compute a single element into <code>ufunc</code> functions, <code>NumPy</code> provides two functions, <code>frompyfunc()</code> and <code>vectorize()</code>.By converting, the original function parameters can be accepted as <code>vector</code> input (in other words, the vector of the converted function is used as the <code>scalar</code> input function). However there is some problem.</p>
 <ul>
 <li>Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array? *</li>
 <li>Q2 What should I do when some of my input parameters should not to be vectorized? *</li>
@@ -380,9 +380,9 @@
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numpy.frompyfunc(func, nin, nout)</span><br><span class="line">class numpy.vectorize(pyfunc, <span class="attribute">otypes</span>=<span class="string">''</span>, <span class="attribute">doc</span>=None, <span class="attribute">excluded</span>=None, <span class="attribute">cache</span>=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>frompyfunc()</code> The input parameters of frompyfunc() are the function name, the number of input parameters, and the number of output parameters.</li>
-<li><code>vectorize()</code> Vectorize() has many output parameters, and the first two parameters are commonly used: function name and return type.<br>Note that in the document, the <code>vectorize()</code> function is essentially implemented in a loop, so it is used for convenience and not for efficiency. That is to say, <code>frompyfunc()</code> is more low-level and relatively more efficient.<h3 id="Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array"><a href="#Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array" class="headerlink" title="Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?"></a>Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?</h3>code<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding: utf8</span></span><br><span class="line">import numpy as np</span><br><span class="line">def test1(x):</span><br><span class="line">    return x*np.array([0.0,1.0])</span><br><span class="line">fpf_test1 = np.frompyfunc(test1,1,1)</span><br><span class="line">vec_test1 = np.vectorize(test1)</span><br><span class="line">x = np.linspace(0,1,2)</span><br></pre></td></tr></table></figure>
-</li>
+<li><code>vectorize()</code> Vectorize() has many output parameters, and the first two parameters are commonly used: function name and return type.<br>Note that in the document, the <code>vectorize()</code> function is essentially implemented in a loop, so it is used for convenience and not for efficiency. That is to say, <code>frompyfunc()</code> is more low-level and relatively more efficient.<h3 id="Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array"><a href="#Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array" class="headerlink" title="Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?"></a>Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?</h3></li>
 </ul>
+<p>code<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding: utf8</span></span><br><span class="line">import numpy as np</span><br><span class="line">def test1(x):</span><br><span class="line">    return x*np.array([0.0,1.0])</span><br><span class="line">fpf_test1 = np.frompyfunc(test1,1,1)</span><br><span class="line">vec_test1 = np.vectorize(test1)</span><br><span class="line">x = np.linspace(0,1,2)</span><br></pre></td></tr></table></figure></p>
 <p>result<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print fpf_test1(x)</span><br><span class="line">[array([ <span class="number">0.</span>,  <span class="number">0.</span>]) array([ <span class="number">0.</span>,  <span class="number">1.</span>])]</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print vec_test1(x)</span><br><span class="line">ValueError: setting an<span class="built_in"> array </span>element with a sequence.</span><br></pre></td></tr></table></figure>
 <p>The original function output is also an array. The test results show that the use of the <code>frompyfunc()</code> function achieves the expected result, while the <code>vectorize()</code> function causes an error.</p>
@@ -584,7 +584,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Numpy-Difference-between-frompyfunc-and-vectorize"><span class="nav-number">1.</span> <span class="nav-text">Numpy: Difference between frompyfunc() and vectorize()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array"><span class="nav-number">1.0.1.</span> <span class="nav-text">Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q2-What-should-I-do-when-some-of-my-input-parameters-should-not-to-be-vectorized"><span class="nav-number">1.0.2.</span> <span class="nav-text">Q2 What should I do when some of my input parameters should not to be vectorized?</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array"><span class="nav-number">1.</span> <span class="nav-text">Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q2-What-should-I-do-when-some-of-my-input-parameters-should-not-to-be-vectorized"><span class="nav-number">2.</span> <span class="nav-text">Q2 What should I do when some of my input parameters should not to be vectorized?</span></a></li></ol></div>
             
 
           </div>
@@ -747,7 +747,7 @@
         var disqus_config = function () {
           this.page.url = 'https://www.zenroad.club/archives/98dacf19.html';
           this.page.identifier = 'archives/98dacf19.html';
-          this.page.title = 'Difference between frompyfunc() and vectorize() (Numpy)';
+          this.page.title = 'Difference between frompyfunc() and vectorize() in Numpy';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://zenroad.disqus.com/embed.js';
