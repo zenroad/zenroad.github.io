@@ -4,6 +4,23 @@
 
     
   <url>
+    <loc>https://www.zenroad.club/archives/98dacf19.html</loc>
+    <lastmod>2018-09-29T14:12:31.910Z</lastmod>
+    <data>
+        <display>
+        <title>Difference between frompyfunc() and vectorize() (Numpy)</title>
+        <pubTime>2018-09-29T13:41:04.000Z</pubTime>
+        
+        <tag>numpy</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.zenroad.club/archives/c226393d.html</loc>
     <lastmod>2018-09-28T13:59:50.369Z</lastmod>
     <data>
@@ -105,6 +122,26 @@
 
     
   <url>
+    <loc>https://www.zenroad.club/archives/342de388.html</loc>
+    <lastmod>2018-09-13T06:57:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>Assertion t >= 0 && t < n_classes failed</title>
+        <pubTime>2018-09-13T06:47:35.000Z</pubTime>
+        
+        <tag>error</tag>
+         
+         
+           
+             
+              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.zenroad.club/archives/f9c83459.html</loc>
     <lastmod>2018-09-13T06:57:28.000Z</lastmod>
     <data>
@@ -145,52 +182,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/342de388.html</loc>
-    <lastmod>2018-09-13T06:57:28.000Z</lastmod>
-    <data>
-        <display>
-        <title>Assertion t >= 0 && t < n_classes failed</title>
-        <pubTime>2018-09-13T06:47:35.000Z</pubTime>
-        
-        <tag>error</tag>
-         
-         
-           
-             
-              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.zenroad.club/archives/bb1543db.html</loc>
     <lastmod>2018-09-07T08:54:50.000Z</lastmod>
     <data>
         <display>
         <title>vim 卡住 死机 没有任何反应</title>
         <pubTime>2018-09-07T07:48:42.000Z</pubTime>
-        
-        <tag>error</tag>
-         
-         
-           
-             
-              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.zenroad.club/archives/f1636a03.html</loc>
-    <lastmod>2018-09-07T07:00:34.000Z</lastmod>
-    <data>
-        <display>
-        <title>ERROR  Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</title>
-        <pubTime>2018-09-07T06:48:43.000Z</pubTime>
         
         <tag>error</tag>
          
@@ -225,12 +222,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/b3c8e38d.html</loc>
-    <lastmod>2018-09-04T07:43:20.000Z</lastmod>
+    <loc>https://www.zenroad.club/archives/f1636a03.html</loc>
+    <lastmod>2018-09-07T07:00:34.000Z</lastmod>
     <data>
         <display>
-        <title>google dense_hash_map  No such file or directory</title>
-        <pubTime>2018-09-04T07:33:39.000Z</pubTime>
+        <title>ERROR  Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</title>
+        <pubTime>2018-09-07T06:48:43.000Z</pubTime>
         
         <tag>error</tag>
          
@@ -251,6 +248,26 @@
         <display>
         <title>python3 Python.h No such file or directory</title>
         <pubTime>2018-09-04T07:28:33.000Z</pubTime>
+        
+        <tag>error</tag>
+         
+         
+           
+             
+              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/b3c8e38d.html</loc>
+    <lastmod>2018-09-04T07:43:20.000Z</lastmod>
+    <data>
+        <display>
+        <title>google dense_hash_map  No such file or directory</title>
+        <pubTime>2018-09-04T07:33:39.000Z</pubTime>
         
         <tag>error</tag>
          
@@ -430,12 +447,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
+    <loc>https://www.zenroad.club/archives/91ff9728.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练01基础知识</title>
-        <pubTime>2018-08-23T12:49:44.000Z</pubTime>
+        <title>pytorch入门——边学边练04一个简单网络</title>
+        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -452,12 +469,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/91ff9728.html</loc>
+    <loc>https://www.zenroad.club/archives/83c5e701.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练04一个简单网络</title>
-        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
+        <title>pytorch入门——边学边练02线性回归</title>
+        <pubTime>2018-08-24T05:27:00.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -496,12 +513,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/83c5e701.html</loc>
+    <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练02线性回归</title>
-        <pubTime>2018-08-24T05:27:00.000Z</pubTime>
+        <title>pytorch入门——边学边练01基础知识</title>
+        <pubTime>2018-08-23T12:49:44.000Z</pubTime>
         
         <tag>pytorch</tag>
          

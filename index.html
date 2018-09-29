@@ -282,6 +282,173 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/98dacf19.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/98dacf19.html" itemprop="url">Difference between frompyfunc() and vectorize() (Numpy)</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-29T21:41:04+08:00">
+                2018-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/98dacf19.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/98dacf19.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/98dacf19.html" class="leancloud_visitors" data-flag-title="Difference between frompyfunc() and vectorize() (Numpy)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Numpy-Difference-between-frompyfunc-and-vectorize"><a href="#Numpy-Difference-between-frompyfunc-and-vectorize" class="headerlink" title="Numpy: Difference between frompyfunc() and vectorize()"></a>Numpy: Difference between frompyfunc() and vectorize()</h1><p>NumPy provides two basic objects <code>ndarray</code> (n-dimensional array) and <code>ufunc</code> (universal function), The latter refers to a function that can operate on each element in the array, which can improve the speed of the operation.<br>In order to convert ordinary functions that compute a single element into <code>ufunc</code> functions, <code>NumPy</code> provides two functions, <code>frompyfunc()</code> and <code>vectorize()</code>.By converting, the original function parameters can be accepted as <code>vector</code> input (in other words, the vector of the converted function is used as the <code>scalar</code> input function). However there is some problem.</p>
+<ul>
+<li>Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array? *</li>
+<li>Q2 What should I do when some of my input parameters should not to be vectorized? *</li>
+</ul>
+<p>Refer to the Numpy official manual for the declaration of these two functions.</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numpy.frompyfunc(func, nin, nout)</span><br><span class="line">class numpy.vectorize(pyfunc, <span class="attribute">otypes</span>=<span class="string">''</span>, <span class="attribute">doc</span>=None, <span class="attribute">excluded</span>=None, <span class="attribute">cache</span>=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>frompyfunc()</code> The input parameters of frompyfunc() are the function name, the number of input parameters, and the number of output parameters.</li>
+<li><code>vectorize()</code> Vectorize() has many output parameters, and the first two parameters are commonly used: function name and return type.<br>Note that in the document, the <code>vectorize()</code> function is essentially implemented in a loop, so it is used for convenience and not for efficiency. That is to say, <code>frompyfunc()</code> is more low-level and relatively more efficient.<h3 id="Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array"><a href="#Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array" class="headerlink" title="Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?"></a>Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?</h3>code<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding: utf8</span></span><br><span class="line">import numpy as np</span><br><span class="line">def test1(x):</span><br><span class="line">    return x*np.array([0.0,1.0])</span><br><span class="line">fpf_test1 = np.frompyfunc(test1,1,1)</span><br><span class="line">vec_test1 = np.vectorize(test1)</span><br><span class="line">x = np.linspace(0,1,2)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>result<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print fpf_test1(x)</span><br><span class="line">[array([ <span class="number">0.</span>,  <span class="number">0.</span>]) array([ <span class="number">0.</span>,  <span class="number">1.</span>])]</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print vec_test1(x)</span><br><span class="line">ValueError: setting an<span class="built_in"> array </span>element with a sequence.</span><br></pre></td></tr></table></figure>
+<p>The original function output is also an array. The test results show that the use of the <code>frompyfunc()</code> function achieves the expected result, while the <code>vectorize()</code> function causes an error.</p>
+<h3 id="Q2-What-should-I-do-when-some-of-my-input-parameters-should-not-to-be-vectorized"><a href="#Q2-What-should-I-do-when-some-of-my-input-parameters-should-not-to-be-vectorized" class="headerlink" title="Q2 What should I do when some of my input parameters should not to be vectorized?"></a>Q2 What should I do when some of my input parameters should not to be vectorized?</h3><p>code<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding: utf8</span></span><br><span class="line">import numpy as np</span><br><span class="line">def test2(x,y):</span><br><span class="line">    return x[int(y)]</span><br><span class="line">fpf_test2 = np.frompyfunc(test2,2,1)</span><br><span class="line">vec_test2 = np.vectorize(test2)</span><br><span class="line">x = np.linspace(0,4,5) * 10</span><br><span class="line">y = np.linspace(0,4,5)</span><br></pre></td></tr></table></figure></p>
+<p>result<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> fpf_test2(<span class="keyword">x</span>,<span class="keyword">y</span>)</span><br><span class="line">TypeError: <span class="string">'float'</span> object <span class="built_in">has</span> <span class="keyword">no</span> attribute <span class="string">'__getitem__'</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> vec_test2(<span class="keyword">x</span>,<span class="keyword">y</span>)</span><br><span class="line">IndexError: invalid <span class="keyword">index</span> to <span class="keyword">scalar</span> variable.</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vec_test2.excluded.add(<span class="number">0</span>)</span><br><span class="line">print vec_test2(x,y)</span><br><span class="line">[  <span class="number">0.</span>  <span class="number">10.</span>  <span class="number">20.</span>  <span class="number">30.</span>  <span class="number">40.</span>]</span><br></pre></td></tr></table></figure>
+<p>As you can see, when you use the function directly, since x is also treated as a parameter that requires vectorization, a type error occurs (x is ultimately treated as a scalar).<br>Using the excluded attribute of the <code>vectorize</code> function class, after adding the input parameters that do not take into account the vectorization, the correct output is obtained.</p>
+<blockquote>
+<p>The excluded attribute is only supported in versions later than NumPy 1.7.</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/c226393d.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1764,174 +1931,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/6c83df.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/6c83df.html" itemprop="url">查看CUDA版本 查看cudnn版本</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-07T09:41:53+08:00">
-                2018-09-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tips/" itemprop="url" rel="index">
-                    <span itemprop="name">tips</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/6c83df.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/6c83df.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/6c83df.html" class="leancloud_visitors" data-flag-title="查看CUDA版本 查看cudnn版本">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>cuda 版本<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cat</span> /usr/<span class="keyword">local</span>/cuda/<span class="keyword">version</span>.txt</span><br></pre></td></tr></table></figure></p>
-<p>cudnn 版本<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cat</span> /usr/<span class="keyword">local</span>/cuda/<span class="keyword">include</span>/cudnn.<span class="keyword">h</span> | grep CUDNN_MAJOR -A 2</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1986,7 +1985,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

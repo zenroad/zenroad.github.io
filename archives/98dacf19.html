@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="pytorch,tutorial," />
+  <meta name="keywords" content="numpy," />
 
 
 
@@ -77,18 +77,18 @@
 
 
 
-<meta name="description" content="当训练样本不均匀时，我们可以采用过采样、欠采样、数据增强等手段来避免过拟合。今天遇到一个3d点云数据集合，样本分布极不均匀，正例与负例相差4-5个数量级。数据增强效果就不会太好了，另外过采样也不太合适，因为是空间数据，新增的点有可能会对真实分布产生未知影响。所以采用欠采样来缓解类别不平衡的问题。下面的代码展示了如何使用WeightedRandomSampler来完成抽样。1234567891011">
-<meta name="keywords" content="pytorch,tutorial">
+<meta name="description" content="Numpy: Difference between frompyfunc() and vectorize()NumPy provides two basic objects ndarray (n-dimensional array) and ufunc (universal function), The latter refers to a function that can operate on">
+<meta name="keywords" content="numpy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pytorch处理类别不平衡问题">
-<meta property="og:url" content="https://www.zenroad.club/archives/17d589f8.html">
+<meta property="og:title" content="Difference between frompyfunc() and vectorize() (Numpy)">
+<meta property="og:url" content="https://www.zenroad.club/archives/98dacf19.html">
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
-<meta property="og:description" content="当训练样本不均匀时，我们可以采用过采样、欠采样、数据增强等手段来避免过拟合。今天遇到一个3d点云数据集合，样本分布极不均匀，正例与负例相差4-5个数量级。数据增强效果就不会太好了，另外过采样也不太合适，因为是空间数据，新增的点有可能会对真实分布产生未知影响。所以采用欠采样来缓解类别不平衡的问题。下面的代码展示了如何使用WeightedRandomSampler来完成抽样。1234567891011">
+<meta property="og:description" content="Numpy: Difference between frompyfunc() and vectorize()NumPy provides two basic objects ndarray (n-dimensional array) and ufunc (universal function), The latter refers to a function that can operate on">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-18T11:58:34.716Z">
+<meta property="og:updated_time" content="2018-09-29T14:12:31.910Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pytorch处理类别不平衡问题">
-<meta name="twitter:description" content="当训练样本不均匀时，我们可以采用过采样、欠采样、数据增强等手段来避免过拟合。今天遇到一个3d点云数据集合，样本分布极不均匀，正例与负例相差4-5个数量级。数据增强效果就不会太好了，另外过采样也不太合适，因为是空间数据，新增的点有可能会对真实分布产生未知影响。所以采用欠采样来缓解类别不平衡的问题。下面的代码展示了如何使用WeightedRandomSampler来完成抽样。1234567891011">
+<meta name="twitter:title" content="Difference between frompyfunc() and vectorize() (Numpy)">
+<meta name="twitter:description" content="Numpy: Difference between frompyfunc() and vectorize()NumPy provides two basic objects ndarray (n-dimensional array) and ufunc (universal function), The latter refers to a function that can operate on">
 
 
 
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="https://www.zenroad.club/archives/17d589f8.html"/>
+  <link rel="canonical" href="https://www.zenroad.club/archives/98dacf19.html"/>
 
 
 
 
 
-  <title>pytorch处理类别不平衡问题 | Zenroad's Blog</title>
+  <title>Difference between frompyfunc() and vectorize() (Numpy) | Zenroad's Blog</title>
   
 
 
@@ -282,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/17d589f8.html">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/98dacf19.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zfish">
@@ -299,7 +299,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">pytorch处理类别不平衡问题</h2>
+          <h2 class="post-title" itemprop="name headline">Difference between frompyfunc() and vectorize() (Numpy)</h2>
         
 
         <div class="post-meta">
@@ -311,8 +311,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-18T19:31:54+08:00">
-                2018-09-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-29T21:41:04+08:00">
+                2018-09-29
               </time>
             
 
@@ -322,28 +322,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -352,9 +330,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/archives/17d589f8.html#comments" itemprop="discussionUrl">
+                <a href="/archives/98dacf19.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/17d589f8.html" itemprop="commentCount"></span>
+                        data-disqus-identifier="archives/98dacf19.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -362,7 +340,7 @@
 
           
           
-             <span id="/archives/17d589f8.html" class="leancloud_visitors" data-flag-title="pytorch处理类别不平衡问题">
+             <span id="/archives/98dacf19.html" class="leancloud_visitors" data-flag-title="Difference between frompyfunc() and vectorize() (Numpy)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -393,9 +371,29 @@
       
 
       
-        <p>当训练样本不均匀时，我们可以采用过采样、欠采样、数据增强等手段来避免过拟合。今天遇到一个3d点云数据集合，样本分布极不均匀，正例与负例相差4-5个数量级。数据增强效果就不会太好了，另外过采样也不太合适，因为是空间数据，新增的点有可能会对真实分布产生未知影响。所以采用欠采样来缓解类别不平衡的问题。<br>下面的代码展示了如何使用<code>WeightedRandomSampler</code>来完成抽样。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">numDataPoints = <span class="number">1000</span></span><br><span class="line">data_dim = <span class="number">5</span></span><br><span class="line">bs = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"># Create dummy <span class="keyword">data</span> with <span class="keyword">class</span> imbalance <span class="number">9</span> to <span class="number">1</span></span><br><span class="line"><span class="keyword">data</span> = torch.FloatTensor(numDataPoints, data_dim)</span><br><span class="line"><span class="keyword">target</span> = np.hstack((np.zeros(<span class="built_in">int</span>(numDataPoints * <span class="number">0.9</span>), dtype=np.int32),</span><br><span class="line">                    np.ones(<span class="built_in">int</span>(numDataPoints * <span class="number">0.1</span>), dtype=np.int32)))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">'target train 0/1: &#123;&#125;/&#123;&#125;'</span>.<span class="keyword">format</span>(</span><br><span class="line">    len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">0</span>)[<span class="number">0</span>]), len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">1</span>)[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == t)[<span class="number">0</span>]) for t <span class="keyword">in</span> np.unique(<span class="keyword">target</span>)])</span><br><span class="line">weight = <span class="number">1.</span> / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t <span class="keyword">in</span> <span class="keyword">target</span>])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.<span class="keyword">double</span>()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br><span class="line"></span><br><span class="line"><span class="keyword">target</span> = torch.from_numpy(<span class="keyword">target</span>).long()</span><br><span class="line">train_dataset = torch.utils.<span class="keyword">data</span>.TensorDataset(<span class="keyword">data</span>, <span class="keyword">target</span>)</span><br><span class="line"></span><br><span class="line">train_loader = DataLoader(</span><br><span class="line">    train_dataset, batch_size=bs, num_workers=<span class="number">1</span>, sampler=sampler)</span><br><span class="line"></span><br><span class="line">for i, (<span class="keyword">data</span>, <span class="keyword">target</span>) <span class="keyword">in</span> enumerate(train_loader):</span><br><span class="line">    <span class="built_in">print</span> <span class="string">"batch index &#123;&#125;, 0/1: &#123;&#125;/&#123;&#125;"</span>.<span class="keyword">format</span>(</span><br><span class="line">        i,</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">0</span>)[<span class="number">0</span>]),</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">1</span>)[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure></p>
-<p>核心部分为实际使用时替换下变量把<code>sampler</code>传递给<code>DataLoader</code>即可，注意使用了<code>sampler</code>就不能使用<code>shuffle</code>，另外需要指定<em>采样点个数</em>：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.where(target == t)[0]) for t in np.unique(target)])</span><br><span class="line">weight = 1. / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t in target])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.double()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://discuss.pytorch.org/t/how-to-handle-imbalanced-classes/11264/2" target="_blank" rel="noopener">参考</a></p>
+        <h1 id="Numpy-Difference-between-frompyfunc-and-vectorize"><a href="#Numpy-Difference-between-frompyfunc-and-vectorize" class="headerlink" title="Numpy: Difference between frompyfunc() and vectorize()"></a>Numpy: Difference between frompyfunc() and vectorize()</h1><p>NumPy provides two basic objects <code>ndarray</code> (n-dimensional array) and <code>ufunc</code> (universal function), The latter refers to a function that can operate on each element in the array, which can improve the speed of the operation.<br>In order to convert ordinary functions that compute a single element into <code>ufunc</code> functions, <code>NumPy</code> provides two functions, <code>frompyfunc()</code> and <code>vectorize()</code>.By converting, the original function parameters can be accepted as <code>vector</code> input (in other words, the vector of the converted function is used as the <code>scalar</code> input function). However there is some problem.</p>
+<ul>
+<li>Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array? *</li>
+<li>Q2 What should I do when some of my input parameters should not to be vectorized? *</li>
+</ul>
+<p>Refer to the Numpy official manual for the declaration of these two functions.</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numpy.frompyfunc(func, nin, nout)</span><br><span class="line">class numpy.vectorize(pyfunc, <span class="attribute">otypes</span>=<span class="string">''</span>, <span class="attribute">doc</span>=None, <span class="attribute">excluded</span>=None, <span class="attribute">cache</span>=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>frompyfunc()</code> The input parameters of frompyfunc() are the function name, the number of input parameters, and the number of output parameters.</li>
+<li><code>vectorize()</code> Vectorize() has many output parameters, and the first two parameters are commonly used: function name and return type.<br>Note that in the document, the <code>vectorize()</code> function is essentially implemented in a loop, so it is used for convenience and not for efficiency. That is to say, <code>frompyfunc()</code> is more low-level and relatively more efficient.<h3 id="Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array"><a href="#Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array" class="headerlink" title="Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?"></a>Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?</h3>code<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding: utf8</span></span><br><span class="line">import numpy as np</span><br><span class="line">def test1(x):</span><br><span class="line">    return x*np.array([0.0,1.0])</span><br><span class="line">fpf_test1 = np.frompyfunc(test1,1,1)</span><br><span class="line">vec_test1 = np.vectorize(test1)</span><br><span class="line">x = np.linspace(0,1,2)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>result<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print fpf_test1(x)</span><br><span class="line">[array([ <span class="number">0.</span>,  <span class="number">0.</span>]) array([ <span class="number">0.</span>,  <span class="number">1.</span>])]</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print vec_test1(x)</span><br><span class="line">ValueError: setting an<span class="built_in"> array </span>element with a sequence.</span><br></pre></td></tr></table></figure>
+<p>The original function output is also an array. The test results show that the use of the <code>frompyfunc()</code> function achieves the expected result, while the <code>vectorize()</code> function causes an error.</p>
+<h3 id="Q2-What-should-I-do-when-some-of-my-input-parameters-should-not-to-be-vectorized"><a href="#Q2-What-should-I-do-when-some-of-my-input-parameters-should-not-to-be-vectorized" class="headerlink" title="Q2 What should I do when some of my input parameters should not to be vectorized?"></a>Q2 What should I do when some of my input parameters should not to be vectorized?</h3><p>code<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding: utf8</span></span><br><span class="line">import numpy as np</span><br><span class="line">def test2(x,y):</span><br><span class="line">    return x[int(y)]</span><br><span class="line">fpf_test2 = np.frompyfunc(test2,2,1)</span><br><span class="line">vec_test2 = np.vectorize(test2)</span><br><span class="line">x = np.linspace(0,4,5) * 10</span><br><span class="line">y = np.linspace(0,4,5)</span><br></pre></td></tr></table></figure></p>
+<p>result<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> fpf_test2(<span class="keyword">x</span>,<span class="keyword">y</span>)</span><br><span class="line">TypeError: <span class="string">'float'</span> object <span class="built_in">has</span> <span class="keyword">no</span> attribute <span class="string">'__getitem__'</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> vec_test2(<span class="keyword">x</span>,<span class="keyword">y</span>)</span><br><span class="line">IndexError: invalid <span class="keyword">index</span> to <span class="keyword">scalar</span> variable.</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vec_test2.excluded.add(<span class="number">0</span>)</span><br><span class="line">print vec_test2(x,y)</span><br><span class="line">[  <span class="number">0.</span>  <span class="number">10.</span>  <span class="number">20.</span>  <span class="number">30.</span>  <span class="number">40.</span>]</span><br></pre></td></tr></table></figure>
+<p>As you can see, when you use the function directly, since x is also treated as a parameter that requires vectorization, a type error occurs (x is ultimately treated as a scalar).<br>Using the excluded attribute of the <code>vectorize</code> function class, after adding the input parameters that do not take into account the vectorization, the correct output is obtained.</p>
+<blockquote>
+<p>The excluded attribute is only supported in versions later than NumPy 1.7.</p>
+</blockquote>
 
       
     </div>
@@ -419,9 +417,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/pytorch/" rel="tag"># pytorch</a>
-          
-            <a href="/tags/tutorial/" rel="tag"># tutorial</a>
+            <a href="/tags/numpy/" rel="tag"># numpy</a>
           
         </div>
       
@@ -434,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/archives/89b0a2ac.html" rel="next" title="how to handle imbalanced classes with pytorch">
-                <i class="fa fa-chevron-left"></i> how to handle imbalanced classes with pytorch
+              <a href="/archives/c226393d.html" rel="next" title="numpy split usage">
+                <i class="fa fa-chevron-left"></i> numpy split usage
               </a>
             
           </div>
@@ -443,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/archives/a9604481.html" rel="prev" title="查看docker运行中的命令行输出">
-                查看docker运行中的命令行输出 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -508,8 +500,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -573,6 +574,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Numpy-Difference-between-frompyfunc-and-vectorize"><span class="nav-number">1.</span> <span class="nav-text">Numpy: Difference between frompyfunc() and vectorize()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array"><span class="nav-number">1.0.1.</span> <span class="nav-text">Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Q2-What-should-I-do-when-some-of-my-input-parameters-should-not-to-be-vectorized"><span class="nav-number">1.0.2.</span> <span class="nav-text">Q2 What should I do when some of my input parameters should not to be vectorized?</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -728,9 +745,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://www.zenroad.club/archives/17d589f8.html';
-          this.page.identifier = 'archives/17d589f8.html';
-          this.page.title = 'pytorch处理类别不平衡问题';
+          this.page.url = 'https://www.zenroad.club/archives/98dacf19.html';
+          this.page.identifier = 'archives/98dacf19.html';
+          this.page.title = 'Difference between frompyfunc() and vectorize() (Numpy)';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://zenroad.disqus.com/embed.js';
