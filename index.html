@@ -282,6 +282,269 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/11c79d56.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/11c79d56.html" itemprop="url">Markdown introduction</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-01T08:26:35+08:00">
+                2018-10-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/11c79d56.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/11c79d56.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/11c79d56.html" class="leancloud_visitors" data-flag-title="Markdown introduction">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Markdown is a lightweight markup language that lets authors focus on writing without paying attention to style.</p>
+<h2 id="title"><a href="#title" class="headerlink" title="title"></a>title</h2><p>When writing with Markdown, you only need to add 『#』 in front of the text to create a first-level title. Similarly, to create a secondary title, a third-level title, etc., only need to increase the number of 『#』, Markdown supports a total of six titles. As follows:</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># First level heading</span><br><span class="line">## Secondary title</span><br><span class="line">### Three-level title</span><br><span class="line">#### Four-level title</span><br><span class="line">##### Five-level title</span><br><span class="line">###### Six-level title</span><br></pre></td></tr></table></figure>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>The Markdown tag block reference is similar to the email referenced by 『&gt;』, just add 『&gt;』 at the top of the first line of the entire paragraph.<br>Block references can be nested, as long as different numbers of 『&gt;』 are added according to the level:</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; This <span class="keyword">is</span> <span class="keyword">the</span> <span class="keyword">first</span> level <span class="keyword">reference</span>.</span><br><span class="line">&gt;</span><br><span class="line">&gt; &gt; This <span class="keyword">is</span> <span class="keyword">the</span> <span class="keyword">second</span> level <span class="keyword">reference</span>.</span><br><span class="line">&gt;</span><br><span class="line">&gt; Now go <span class="keyword">back</span> <span class="keyword">to</span> <span class="keyword">the</span> <span class="keyword">first</span> level <span class="keyword">reference</span>.</span><br></pre></td></tr></table></figure>
+<p>example</p>
+<blockquote>
+<p>This is the first level reference.</p>
+<blockquote>
+<p>This is the second level reference.</p>
+</blockquote>
+<p>Now go back to the first level reference.</p>
+</blockquote>
+<p>Other Markdown syntaxes, including titles, lists, code blocks, etc., can also be used within the referenced block:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment">## This is a title.</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 1. This is the first line of list items.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 2. This is the second line of list items.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Give some example code:</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">return</span> shell_exec(`<span class="built_in">echo</span> <span class="variable">$input</span> | <span class="variable">$markdown_script</span>`);</span></span><br></pre></td></tr></table></figure>
+<p>example</p>
+<blockquote>
+<h2 id="This-is-a-title"><a href="#This-is-a-title" class="headerlink" title="This is a title."></a>This is a title.</h2><ol>
+<li>This is the first line of list items.</li>
+<li>This is the second line of list items.</li>
+</ol>
+<p>Give some example code:</p>
+<p>return shell_exec(<code>echo $input | $markdown_script</code>);</p>
+</blockquote>
+<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>The list item tag is usually placed on the far left, and the item tag is followed by a character space.<br><em>Unordered list</em>: use an asterisk, plus or minus sign as a list mark<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> Red</span></span><br><span class="line"><span class="ruby">- Green</span></span><br><span class="line"><span class="ruby">- Blue</span></span><br></pre></td></tr></table></figure></p>
+<p>example</p>
+<ul>
+<li>Red</li>
+<li>Green</li>
+<li>Blue</li>
+</ul>
+<p><em>Ordered list</em>: use numbers followed by an English period<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>Red</span><br><span class="line"><span class="bullet">2. </span>Green</span><br><span class="line"><span class="bullet">3. </span>Blue</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>Red</li>
+<li>Green</li>
+<li>Blue<br>If you want to put a reference in the list item, then 『&gt;』 needs to be indented:<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">*  </span>My Porject:</span><br><span class="line"><span class="code">    &gt; code1</span></span><br><span class="line"><span class="code">    &gt; code2    </span></span><br><span class="line"><span class="code">    &gt; code3</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>example</p>
+<ul>
+<li>My Porject:<blockquote>
+<p>code1<br>code2<br>code3 </p>
+</blockquote>
+</li>
+</ul>
+<p>Agent list: Indicates whether the list is checked or not (note: there must be spaces before and after [ ])<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> [ ] <span class="keyword">not</span> selected</span></span><br><span class="line"><span class="ruby">- [x] tick</span></span><br></pre></td></tr></table></figure></p>
+<p>example</p>
+<ul>
+<li style="list-style: none"><input type="checkbox"> not selected</li>
+<li style="list-style: none"><input type="checkbox" checked> tick</li>
+</ul>
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>Just wrap your code block between “`, you don’t need to mark the code block by endless indentation. In a fenced code block, you can specify an optional language identifier, then we can Enable syntax coloring for it. For example, this can be used to color a piece of Ruby code:</p>
+<p>```ruby<br>require ‘redcarpet’<br>markdown = Redcarpet.new(“Hello World!”)<br>puts markdown.to_html<br>```</p>
+<p>example</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'redcarpet'</span></span><br><span class="line">markdown = Redcarpet.new(<span class="string">"Hello World!"</span>)</span><br><span class="line">puts markdown.to_html</span><br></pre></td></tr></table></figure>
+<h2 id="Emphasize"><a href="#Emphasize" class="headerlink" title="Emphasize"></a>Emphasize</h2><p>In Markdown, you can use * and _ to indicate italics and bold.<br><em>Italic:</em><br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">*Coding*</span></span><br><span class="line"><span class="emphasis">_Coding_</span></span><br></pre></td></tr></table></figure></p>
+<p><em>Coding</em><br><em>Coding</em></p>
+<p><em>Bold:</em></p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**Coding**</span></span><br><span class="line"><span class="strong">__Coding__</span></span><br></pre></td></tr></table></figure>
+<p><strong>Coding</strong><br><strong>Coding</strong></p>
+<h2 id="Automatic-link"><a href="#Automatic-link" class="headerlink" title="Automatic link"></a>Automatic link</h2><p>Square brackets show the description, the URL is displayed in parentheses, and Markdown automatically converts it into a link, for example:<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">blog</span>](<span class="link">https://www.zenroad.club</span>)</span><br></pre></td></tr></table></figure></p>
+<p>example<br><a href="https://www.zenroad.club">blog</a></p>
+<h2 id="form"><a href="#form" class="headerlink" title="form"></a>form</h2><p>In Markdown, you can make a table, for example:</p>
+<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">First Header |<span class="string"> Second Header </span>|<span class="string"> Third Header</span></span><br><span class="line"><span class="string">------------ </span>|<span class="string"> ------------- </span>|<span class="string"> ------------</span></span><br><span class="line"><span class="string">Content Cell </span>|<span class="string"> Content Cell  </span>|<span class="string"> Content Cell</span></span><br><span class="line"><span class="string">Content Cell </span>|<span class="string"> Content Cell  </span>|<span class="string"> Content Cell</span></span><br></pre></td></tr></table></figure>
+<p>example</p>
+<table>
+<thead>
+<tr>
+<th>First Header</th>
+<th>Second Header</th>
+<th>Third Header</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+<tr>
+<td>Content Cell</td>
+<td>Content Cell</td>
+<td>Content Cell</td>
+</tr>
+</tbody>
+</table>
+<p>Or you can align the contents of the table and center the content, for example:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">First Header | Second Header | Third Header</span><br><span class="line"><span class="symbol">:-----------</span> | <span class="symbol">:-----------</span>: | -----------<span class="symbol">:</span></span><br><span class="line">Left         | Center        | Right</span><br><span class="line">Left         | Center        | Right</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">First Header</th>
+<th style="text-align:center">Second Header</th>
+<th style="text-align:right">Third Header</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Left</td>
+<td style="text-align:center">Center</td>
+<td style="text-align:right">Right</td>
+</tr>
+<tr>
+<td style="text-align:left">Left</td>
+<td style="text-align:center">Center</td>
+<td style="text-align:right">Right</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Dividing-line"><a href="#Dividing-line" class="headerlink" title="Dividing line"></a>Dividing line</h2><p>In Markdown, you can create split lines using more than 3 『-』 symbols, for example:<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">123</span><br><span class="line">---</span><br><span class="line">456</span><br></pre></td></tr></table></figure></p>
+<h2 id="123"><a href="#123" class="headerlink" title="123"></a>123</h2><p>456</p>
+<h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><p>Markdown uses a link-like syntax to insert images, in two forms: inline and reference.<br>The inline picture syntax is as follows:<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">Alt text</span>](<span class="link">/path/to/img.jpg</span>)</span><br><span class="line">或</span><br><span class="line">![<span class="string">Alt text</span>](<span class="link">/path/to/img.jpg "Optional title"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>That is:</p>
+<ul>
+<li>An exclamation mark 『!』</li>
+<li>Next a square bracket with an alternate text for the image</li>
+<li>Then there is an ordinary parenthesis, which is the URL of the image. Finally, you can enclose it in quotation marks and add the optional 『title』 text.<br>The quote picture syntax is as follows:<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">Alt text</span>][<span class="symbol">id</span>]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>『id』 is the name of the image reference. The image reference uses the same syntax defined by the link:<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">id</span>]: url/<span class="keyword">to</span>/image <span class="string">"Optional title attribute"</span></span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/98dacf19.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1763,174 +2026,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/f1636a03.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/f1636a03.html" itemprop="url">ERROR  Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-07T14:48:43+08:00">
-                2018-09-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/error/" itemprop="url" rel="index">
-                    <span itemprop="name">error</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/f1636a03.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/f1636a03.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/f1636a03.html" class="leancloud_visitors" data-flag-title="ERROR  Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>docker</code>下运行<code>pytorch</code>报错<br><figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ERROR: </span>Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</span><br></pre></td></tr></table></figure></p>
-<p>It Looks like the shared memory of the docker container wasn’t set high enough. Setting a higher amount by adding <em>–shm-size 8G</em> to the docker run command.<br>for example:<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="builtin-name">run</span> <span class="attribute">--runtime</span>=nvidia -e <span class="attribute">NVIDIA_VISIBLE_DEVICES</span>=2,3 --shm-size 8G  -it --rm dev:v1 /bin/bash</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1985,7 +2080,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2007,7 +2102,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
