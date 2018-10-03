@@ -523,7 +523,343 @@
 </ol>
 </li>
 </ul>
-<p>example</p>
+<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'\d+'</span>)                    <span class="comment"># Used to match at least one number</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="string">'one12twothree34four'</span>)        <span class="comment"># Lookup head, no match</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> m</span><br><span class="line"><span class="keyword">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="string">'one12twothree34four'</span>, <span class="number">2</span>, <span class="number">10</span>) <span class="comment"># Matching from the 'e' position, no match</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> m</span><br><span class="line"><span class="keyword">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="string">'one12twothree34four'</span>, <span class="number">3</span>, <span class="number">10</span>) <span class="comment"># Matches from the '1' position, just matching</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> m                                         <span class="comment"># Return a Match object</span></span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x10a42aac0</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">0</span>)   </span><br><span class="line"><span class="string">'12'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.start(<span class="number">0</span>)   </span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.end(<span class="number">0</span>)     </span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.span(<span class="number">0</span>)    </span><br><span class="line">(<span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure></p>
+<p>Above, when the match is successful, a <code>Match</code> object is returned, where:</p>
+<ul>
+<li>The <code>group([group1, ...])</code> method is used to obtain one or more group matching strings. When you want to get the entire matching substring, you can use group() or group(0) directly.</li>
+<li>The <code>start([group])</code> method is used to obtain the starting position of the substring matched by the group in the entire string (the index of the first character of the substring), and the default value of the parameter is 0;</li>
+<li>The <code>end([group])</code> method is used to obtain the end position of the substring matched by the packet in the entire string (index +1 of the last character of the substring), and the default value of the parameter is 0;</li>
+<li>The <code>span([group])</code> method returns <code>(start(group), end(group))</code>.</li>
+</ul>
+<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'([a-z]+) ([a-z]+)'</span>, re.I)   <span class="comment"># re.I means ignore case</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="string">'Hello World Wide Web'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> m                               <span class="comment"># Matches successfully, returns a Match object</span></span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x10bea83e8</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">0</span>)                            <span class="comment"># Returns the entire substring of the matching success</span></span><br><span class="line"><span class="string">'Hello World'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.span(<span class="number">0</span>)                             <span class="comment"># Returns the index of the entire substring that matched the success</span></span><br><span class="line">(<span class="number">0</span>, <span class="number">11</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">1</span>)                            <span class="comment"># Returns the substring of the first group matching success</span></span><br><span class="line"><span class="string">'Hello'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.span(<span class="number">1</span>)                             <span class="comment"># Returns the index of the substring that the first packet matches successfully</span></span><br><span class="line">(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">2</span>)                            <span class="comment"># Returns the substring of the second group matching success</span></span><br><span class="line"><span class="string">'World'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.span(<span class="number">2</span>)                             <span class="comment"># Returns the substring of the second group matching success</span></span><br><span class="line">(<span class="number">6</span>, <span class="number">11</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.groups()                            <span class="comment"># Equivalent to (m.group(1), m.group(2), ...)</span></span><br><span class="line">(<span class="string">'Hello'</span>, <span class="string">'World'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">3</span>)                            <span class="comment"># There is no third grouping</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">IndexError: no such group</span><br></pre></td></tr></table></figure></p>
+<h2 id="findall"><a href="#findall" class="headerlink" title="findall"></a>findall</h2><p>Find all substrings matched by the regular expression in the string and return a list. If no match is found, an empty list is returned.<br>Note: match and search are matched once and findall matches all.<br><strong>The syntax is:</strong></p>
+<blockquote>
+<p>findall(string[, pos[, endpos]])</p>
+</blockquote>
+<p><strong>parameter:</strong></p>
+<ul>
+<li>string : The string to be matched.</li>
+<li>pos : Optional parameter specifying the starting position of the string. The default is 0.</li>
+<li>endpos : An optional parameter that specifies the end position of the string. The default is the length of the string.<br>Find all the numbers in the string<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:UTF8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">pattern = re.compile(<span class="string">r'\d+'</span>)   <span class="comment"># Find numbers</span></span><br><span class="line">result1 = pattern.findall(<span class="string">'runoob 123 google 456'</span>)</span><br><span class="line">result2 = pattern.findall(<span class="string">'run88oob123google456'</span>, <span class="number">0</span>, <span class="number">10</span>)</span><br><span class="line"> </span><br><span class="line">print(result1)</span><br><span class="line">print(result2)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Output result:<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">'123</span>', <span class="symbol">'456</span>']</span><br><span class="line">[<span class="symbol">'88</span>', <span class="symbol">'12</span>']</span><br></pre></td></tr></table></figure></p>
+<h2 id="re-finditer"><a href="#re-finditer" class="headerlink" title="re.finditer"></a>re.finditer</h2><p>Similar to <code>findall</code>, find all substrings matched by the regular expression in the string and return them as an iterator.</p>
+<blockquote>
+<p>re.finditer(pattern, string, flags=0)</p>
+</blockquote>
+<p><strong>Description of function parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description           </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pattern</td>
+<td>Matched regular expression </td>
+</tr>
+<tr>
+<td>string</td>
+<td>The string to match.  </td>
+</tr>
+<tr>
+<td>flags</td>
+<td>Flag bit, used to control how regular expressions are matched, such as whether to distinguish between uppercase and lowercase, multi-line matching</td>
+</tr>
+</tbody>
+</table>
+<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">it = re.finditer(<span class="string">r"\d+"</span>,<span class="string">"12a32bc43jf3"</span>) </span><br><span class="line"><span class="keyword">for</span> match <span class="keyword">in</span> it: </span><br><span class="line">    <span class="keyword">print</span> (match.group() )</span><br></pre></td></tr></table></figure></p>
+<p>Output result:<br><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">12 </span></span><br><span class="line"><span class="symbol">32 </span></span><br><span class="line"><span class="symbol">43 </span></span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="re-split"><a href="#re-split" class="headerlink" title="re.split"></a>re.split</h2><p>The <code>split</code> method splits the string into a list according to the substring that can be matched. It is used in the following form:</p>
+<blockquote>
+<p>re.split(pattern, string[, maxsplit=0, flags=0])</p>
+</blockquote>
+<p><strong>Description of function parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description           </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pattern</td>
+<td>Matched regular expression </td>
+</tr>
+<tr>
+<td>string</td>
+<td>The string to match.  </td>
+</tr>
+<tr>
+<td>maxsplit</td>
+<td>The number of separations, maxsplit=1 is separated once, the default is 0, and the number of times is not limited.</td>
+</tr>
+<tr>
+<td>flags</td>
+<td>Flag bit, used to control how regular expressions are matched, such as whether to distinguish between uppercase and lowercase, multi-line matching</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Regular-expression-pattern"><a href="#Regular-expression-pattern" class="headerlink" title="Regular expression pattern"></a>Regular expression pattern</h2><p>A pattern string uses a special syntax to represent a regular expression:<br>Letters and numbers represent themselves. The letters and numbers in a regular expression pattern match the same string.<br>Most letters and numbers have a different meaning when preceded by a backslash.<br>Punctuation marks match themselves only when they are escaped, otherwise they represent special meanings.<br>The backslash itself needs to be escaped with a backslash.<br>Since regular expressions usually contain backslashes, you’d better use primitive strings to represent them. Pattern elements (such as r’\t’, equivalent to ‘\t’) match the corresponding special characters.<br>The following table lists the special elements in the regular expression pattern syntax. If you use the mode while providing optional flag parameters, the meaning of some mode elements will change.</p>
+<table>
+<thead>
+<tr>
+<th>mode</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>Match the beginning of the string</td>
+</tr>
+<tr>
+<td>$</td>
+<td>Matches the end of the string.</td>
+</tr>
+<tr>
+<td>.</td>
+<td>Matches any character except the newline character. When the <code>re.DOTALL</code> tag is specified, it can match any character that includes a newline character.</td>
+</tr>
+<tr>
+<td>[…]</td>
+<td>Used to represent a set of characters, listed separately: [amk] matches ‘a’, ‘m’ or ‘k’</td>
+</tr>
+<tr>
+<td>[^…]</td>
+<td>Characters not in []: [^abc] matches characters other than a, b, c.</td>
+</tr>
+<tr>
+<td>re*</td>
+<td>Matches zero or more expressions.</td>
+</tr>
+<tr>
+<td>re+</td>
+<td>Match one or more expressions.</td>
+</tr>
+<tr>
+<td>re?</td>
+<td>Match 0 or 1 fragment defined by the previous regular expression, non-greedy</td>
+</tr>
+<tr>
+<td>re{ n}</td>
+<td>Match exactly n previous expressions. For example, o{2} cannot match “o” in “Bob” but matches two o in “food”.</td>
+</tr>
+<tr>
+<td>re{ n,}</td>
+<td>Match n previous expressions. For example, o{2,} cannot match “o” in “Bob” but matches all o in “foooood”. “o{1,}” is equivalent to “o+”. “o{0,}” is equivalent to “o*”.</td>
+</tr>
+<tr>
+<td>re{ n, m}</td>
+<td>Match n to m times the fragment defined by the previous regular expression, greedy</td>
+</tr>
+<tr>
+<td>(re)</td>
+<td>Matches the expression in parentheses and also represents a group</td>
+</tr>
+<tr>
+<td>(?imx)</td>
+<td>Regular expressions contain three optional flags: i, m, or x . Only affect the area in parentheses.</td>
+</tr>
+<tr>
+<td>(?-imx)</td>
+<td>Regular expressions turn off i, m, or x optional flags. Only affect the area in parentheses.</td>
+</tr>
+<tr>
+<td>(?: re)</td>
+<td>Similar to (…) but does not represent a group</td>
+</tr>
+<tr>
+<td>(?imx: re)</td>
+<td>Use i, m, or x optional flags in parentheses</td>
+</tr>
+<tr>
+<td>(?-imx: re)</td>
+<td>Do not use i, m, or x optional flags in parentheses</td>
+</tr>
+<tr>
+<td>(?#…)</td>
+<td>Comment.</td>
+</tr>
+<tr>
+<td>(?= re)</td>
+<td>Forward positive delimiter. If the regular expression is included, it is represented by …, it succeeds when the current position is successfully matched, otherwise it fails. But once the included expression has been tried, the matching engine does not improve at all; the rest of the pattern tries to delimit the right side of the character.</td>
+</tr>
+<tr>
+<td>(?! re)</td>
+<td>Forward negation delimiter. Contrary to a positive delimiter; succeeds when the contained expression cannot match at the current position of the string</td>
+</tr>
+<tr>
+<td>(?&gt; re)</td>
+<td>Matching independent mode, eliminating backtracking.</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>Match alphanumeric and underline</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>Match non-alphanumeric and underline</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>Matches any whitespace character, equivalent to [\t\n\r\f].</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>Match any non-null character</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>Match any number, equivalent to [0-9].</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>Match any non-number</td>
+</tr>
+<tr>
+<td>\A</td>
+<td>Match string start</td>
+</tr>
+<tr>
+<td>\Z</td>
+<td>Matches the end of the string. If there is a newline, it only matches the ending string before the newline.</td>
+</tr>
+<tr>
+<td>\z</td>
+<td>Match string end</td>
+</tr>
+<tr>
+<td>\G</td>
+<td>Matches the location where the last match was completed.</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>Matches a word boundary, which is the position between a word and a space. For example, ‘er\b’ can match ‘er’ in “never” but not ‘er’ in “verb”.</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>Match non-word boundaries. ‘er\B’ matches ‘er’ in “verb” but does not match ‘er’ in “never”.</td>
+</tr>
+<tr>
+<td>\n, \t,</td>
+<td>Matches a newline character. Matches a tab. </td>
+</tr>
+<tr>
+<td>\1…\9</td>
+<td>Matches the content of the nth packet.</td>
+</tr>
+<tr>
+<td>\10</td>
+<td>Matches the contents of the nth packet if it matches. Otherwise it refers to the expression of the octal character code.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="Regular-expression-instance"><a href="#Regular-expression-instance" class="headerlink" title="Regular expression instance"></a>Regular expression instance</h2><p><strong>Character matching</strong></p>
+<table>
+<thead>
+<tr>
+<th>Instance</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>python</td>
+<td>Match “python”.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Character class</strong></p>
+<table>
+<thead>
+<tr>
+<th>Instance</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[Pp]ython</td>
+<td>Match “Python” or “python”</td>
+</tr>
+<tr>
+<td>rub[ye]</td>
+<td>Match “ruby” or “rube”</td>
+</tr>
+<tr>
+<td>[aeiou]</td>
+<td>Match any letter in brackets</td>
+</tr>
+<tr>
+<td>[0-9]</td>
+<td>Match any number. Similar to [0123456789]</td>
+</tr>
+<tr>
+<td>[a-z]</td>
+<td>Match any lowercase letters</td>
+</tr>
+<tr>
+<td>[A-Z]</td>
+<td>Match any uppercase letter</td>
+</tr>
+<tr>
+<td>[a-zA-Z0-9]</td>
+<td>Match any letters and numbers</td>
+</tr>
+<tr>
+<td>[^aeiou]</td>
+<td>All characters except the aeiou letter</td>
+</tr>
+<tr>
+<td>[^0-9]</td>
+<td>Match characters other than numbers </td>
+</tr>
+</tbody>
+</table>
+<p><strong>Special character class</strong></p>
+<table>
+<thead>
+<tr>
+<th>Instance</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.</td>
+<td>Matches any single character except “\n”. To match any character that includes ‘\n’, use a pattern like ‘[.\n]’.</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>Matches a numeric character. Equivalent to [0-9].</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>Matches a non-numeric character. Equivalent to [^0-9].</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>Matches any whitespace characters, including spaces, tabs, page breaks, and more. Equivalent to [ \f\n\r\t\v].</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>Matches any non-whitespace characters. Equivalent to [^ \f\n\r\t\v].</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>Matches any word character that includes an underscore. Equivalent to ‘[A-Za-z0-9_]’.</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>Matches any non-word characters. Equivalent to ‘[^A-Za-z0-9_]’.</td>
+</tr>
+</tbody>
+</table>
 
           
         

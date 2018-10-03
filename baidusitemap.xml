@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://www.zenroad.club/archives/86e5f9e1.html</loc>
-    <lastmod>2018-10-03T08:04:38.729Z</lastmod>
+    <lastmod>2018-10-03T09:22:08.608Z</lastmod>
     <data>
         <display>
         <title>Python regular expression</title>
@@ -97,12 +97,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/17d589f8.html</loc>
+    <loc>https://www.zenroad.club/archives/89b0a2ac.html</loc>
     <lastmod>2018-09-18T11:58:34.716Z</lastmod>
     <data>
         <display>
-        <title>pytorch处理类别不平衡问题</title>
-        <pubTime>2018-09-18T11:31:54.000Z</pubTime>
+        <title>how to handle imbalanced classes with pytorch</title>
+        <pubTime>2018-09-18T11:02:28.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -119,12 +119,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/89b0a2ac.html</loc>
+    <loc>https://www.zenroad.club/archives/17d589f8.html</loc>
     <lastmod>2018-09-18T11:58:34.716Z</lastmod>
     <data>
         <display>
-        <title>how to handle imbalanced classes with pytorch</title>
-        <pubTime>2018-09-18T11:02:28.000Z</pubTime>
+        <title>pytorch处理类别不平衡问题</title>
+        <pubTime>2018-09-18T11:31:54.000Z</pubTime>
         
         <tag>pytorch</tag>
          
