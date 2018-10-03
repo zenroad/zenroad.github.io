@@ -97,12 +97,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/17d589f8.html</loc>
+    <loc>https://www.zenroad.club/archives/89b0a2ac.html</loc>
     <lastmod>2018-09-18T11:58:34.716Z</lastmod>
     <data>
         <display>
-        <title>pytorch处理类别不平衡问题</title>
-        <pubTime>2018-09-18T11:31:54.000Z</pubTime>
+        <title>how to handle imbalanced classes with pytorch</title>
+        <pubTime>2018-09-18T11:02:28.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -119,12 +119,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/89b0a2ac.html</loc>
+    <loc>https://www.zenroad.club/archives/17d589f8.html</loc>
     <lastmod>2018-09-18T11:58:34.716Z</lastmod>
     <data>
         <display>
-        <title>how to handle imbalanced classes with pytorch</title>
-        <pubTime>2018-09-18T11:02:28.000Z</pubTime>
+        <title>pytorch处理类别不平衡问题</title>
+        <pubTime>2018-09-18T11:31:54.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -181,26 +181,6 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/f9c83459.html</loc>
-    <lastmod>2018-09-13T06:57:28.000Z</lastmod>
-    <data>
-        <display>
-        <title>linux cp first n files (linux下一次cp前n个文件)</title>
-        <pubTime>2018-09-13T05:23:26.000Z</pubTime>
-        
-        <tag>tips</tag>
-         
-         
-           
-             
-              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.zenroad.club/archives/342de388.html</loc>
     <lastmod>2018-09-13T06:57:28.000Z</lastmod>
     <data>
@@ -214,6 +194,26 @@
            
              
               <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/f9c83459.html</loc>
+    <lastmod>2018-09-13T06:57:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>linux cp first n files (linux下一次cp前n个文件)</title>
+        <pubTime>2018-09-13T05:23:26.000Z</pubTime>
+        
+        <tag>tips</tag>
+         
+         
+           
+             
+              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
           
         </display>
     </data>
@@ -486,34 +486,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
+    <loc>https://www.zenroad.club/archives/91ff9728.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练03逻辑回归</title>
+        <title>pytorch入门——边学边练04一个简单网络</title>
         <pubTime>2018-08-24T06:56:55.000Z</pubTime>
-        
-        <tag>pytorch</tag>
-         
-        <tag>tutorial</tag>
-         
-         
-           
-             
-              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
-    <lastmod>2018-08-25T13:14:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>pytorch入门——边学边练01基础知识</title>
-        <pubTime>2018-08-23T12:49:44.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -552,12 +530,34 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/91ff9728.html</loc>
+    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练04一个简单网络</title>
+        <title>pytorch入门——边学边练03逻辑回归</title>
         <pubTime>2018-08-24T06:56:55.000Z</pubTime>
+        
+        <tag>pytorch</tag>
+         
+        <tag>tutorial</tag>
+         
+         
+           
+             
+              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
+    <lastmod>2018-08-25T13:14:36.000Z</lastmod>
+    <data>
+        <display>
+        <title>pytorch入门——边学边练01基础知识</title>
+        <pubTime>2018-08-23T12:49:44.000Z</pubTime>
         
         <tag>pytorch</tag>
          
