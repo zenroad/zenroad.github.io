@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://www.zenroad.club/archives/11c79d56.html</loc>
-    <lastmod>2018-10-01T02:41:21.281Z</lastmod>
+    <lastmod>2018-10-03T02:04:52.206Z</lastmod>
     <data>
         <display>
         <title>Markdown introduction</title>
@@ -15,6 +15,28 @@
          
          
            
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/86e5f9e1.html</loc>
+    <lastmod>2018-10-01T13:27:26.431Z</lastmod>
+    <data>
+        <display>
+        <title>Python regular expression</title>
+        <pubTime>2018-10-01T13:04:33.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+        <tag>Regular expression</tag>
+         
+         
+           
+             
+              <breadCrumb title="python" url="https://www.zenroad.club/categories/python/"/>
+          
         </display>
     </data>
     </url>
@@ -139,19 +161,19 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/342de388.html</loc>
+    <loc>https://www.zenroad.club/archives/be5c905.html</loc>
     <lastmod>2018-09-13T06:57:28.000Z</lastmod>
     <data>
         <display>
-        <title>Assertion t >= 0 && t < n_classes failed</title>
-        <pubTime>2018-09-13T06:47:35.000Z</pubTime>
+        <title>linux 显示文件夹中有多少个文件</title>
+        <pubTime>2018-09-13T05:28:26.000Z</pubTime>
         
-        <tag>error</tag>
+        <tag>tips</tag>
          
          
            
              
-              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
+              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
           
         </display>
     </data>
@@ -179,19 +201,19 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/be5c905.html</loc>
+    <loc>https://www.zenroad.club/archives/342de388.html</loc>
     <lastmod>2018-09-13T06:57:28.000Z</lastmod>
     <data>
         <display>
-        <title>linux 显示文件夹中有多少个文件</title>
-        <pubTime>2018-09-13T05:28:26.000Z</pubTime>
+        <title>Assertion t >= 0 && t < n_classes failed</title>
+        <pubTime>2018-09-13T06:47:35.000Z</pubTime>
         
-        <tag>tips</tag>
+        <tag>error</tag>
          
          
            
              
-              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
+              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
           
         </display>
     </data>
@@ -486,12 +508,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/83c5e701.html</loc>
+    <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练02线性回归</title>
-        <pubTime>2018-08-24T05:27:00.000Z</pubTime>
+        <title>pytorch入门——边学边练01基础知识</title>
+        <pubTime>2018-08-23T12:49:44.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -508,12 +530,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
+    <loc>https://www.zenroad.club/archives/83c5e701.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练01基础知识</title>
-        <pubTime>2018-08-23T12:49:44.000Z</pubTime>
+        <title>pytorch入门——边学边练02线性回归</title>
+        <pubTime>2018-08-24T05:27:00.000Z</pubTime>
         
         <tag>pytorch</tag>
          

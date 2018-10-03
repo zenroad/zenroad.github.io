@@ -66,7 +66,7 @@
 
 
 
-  <meta name="keywords" content="pytorch,tutorial," />
+  <meta name="keywords" content="python,Regular expression," />
 
 
 
@@ -77,20 +77,18 @@
 
 
 
-<meta name="description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。">
-<meta name="keywords" content="pytorch,tutorial">
+<meta name="description" content="A regular expression is a special sequence of characters that helps you easily check if a string matches a pattern.Python has added the re module since version 1.5, which provides a Perl-style regular">
+<meta name="keywords" content="python,Regular expression">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pytorch入门——边学边练02线性回归">
-<meta property="og:url" content="https://www.zenroad.club/archives/83c5e701.html">
+<meta property="og:title" content="Python regular expression">
+<meta property="og:url" content="https://www.zenroad.club/archives/86e5f9e1.html">
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
-<meta property="og:description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。">
+<meta property="og:description" content="A regular expression is a special sequence of characters that helps you easily check if a string matches a pattern.Python has added the re module since version 1.5, which provides a Perl-style regular">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://user-images.githubusercontent.com/42510101/44569144-fd8e2e80-a7ab-11e8-818e-aab486e717ca.png">
-<meta property="og:updated_time" content="2018-08-25T13:14:36.000Z">
+<meta property="og:updated_time" content="2018-10-01T13:27:26.431Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="pytorch入门——边学边练02线性回归">
-<meta name="twitter:description" content="写在前面如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用pytorch实现呢？接下来我们进行实战操作。完整代码请参见linear_regression。 我们会用到什么包呢？本节，我打算要用到Linear那么肯定要引入torch.nn。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。">
-<meta name="twitter:image" content="https://user-images.githubusercontent.com/42510101/44569144-fd8e2e80-a7ab-11e8-818e-aab486e717ca.png">
+<meta name="twitter:title" content="Python regular expression">
+<meta name="twitter:description" content="A regular expression is a special sequence of characters that helps you easily check if a string matches a pattern.Python has added the re module since version 1.5, which provides a Perl-style regular">
 
 
 
@@ -120,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="https://www.zenroad.club/archives/83c5e701.html"/>
+  <link rel="canonical" href="https://www.zenroad.club/archives/86e5f9e1.html"/>
 
 
 
 
 
-  <title>pytorch入门——边学边练02线性回归 | Zenroad's Blog</title>
+  <title>Python regular expression | Zenroad's Blog</title>
   
 
 
@@ -274,7 +272,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/83c5e701.html">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/86e5f9e1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="zfish">
@@ -291,7 +289,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">pytorch入门——边学边练02线性回归</h2>
+          <h2 class="post-title" itemprop="name headline">Python regular expression</h2>
         
 
         <div class="post-meta">
@@ -303,8 +301,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T13:27:00+08:00">
-                2018-08-24
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-01T21:04:33+08:00">
+                2018-10-01
               </time>
             
 
@@ -326,8 +324,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -344,9 +342,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/archives/83c5e701.html#comments" itemprop="discussionUrl">
+                <a href="/archives/86e5f9e1.html#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/83c5e701.html" itemprop="commentCount"></span>
+                        data-disqus-identifier="archives/86e5f9e1.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -354,7 +352,7 @@
 
           
           
-             <span id="/archives/83c5e701.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练02线性回归">
+             <span id="/archives/86e5f9e1.html" class="leancloud_visitors" data-flag-title="Python regular expression">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -390,16 +388,35 @@
       
 
       
-        <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>如果您先前看过吴恩达的机器学习教程，想必您对线性回归并不陌生。这个问题要如何用<code>pytorch</code>实现呢？接下来我们进行实战操作。完整代码请参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/linear_regression" target="_blank" rel="noopener">linear_regression</a>。</p>
-<h1 id="我们会用到什么包呢？"><a href="#我们会用到什么包呢？" class="headerlink" title="我们会用到什么包呢？"></a>我们会用到什么包呢？</h1><p>本节，我打算要用到<code>Linear</code>那么肯定要引入<code>torch.nn</code>。然后要画图，还要设置数据～所以我们先导入下面的包吧，不够再加。<br><a id="more"></a><br><figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure></p>
-<h1 id="数据从哪里来？"><a href="#数据从哪里来？" class="headerlink" title="数据从哪里来？"></a>数据从哪里来？</h1><p>这里我们构造一个简单的数据集合，用<code>x</code>去拟合<code>y</code>吧。<br><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Toy dataset</span><br><span class="line">x_train = np.array(<span class="comment">[<span class="comment">[3.3]</span>, <span class="comment">[4.4]</span>, <span class="comment">[5.5]</span>, <span class="comment">[6.71]</span>, <span class="comment">[6.93]</span>, <span class="comment">[4.168]</span>, </span></span><br><span class="line"><span class="comment">                    <span class="comment">[9.779]</span>, <span class="comment">[6.182]</span>, <span class="comment">[7.59]</span>, <span class="comment">[2.167]</span>, <span class="comment">[7.042]</span>, </span></span><br><span class="line"><span class="comment">                    <span class="comment">[10.791]</span>, <span class="comment">[5.313]</span>, <span class="comment">[7.997]</span>, <span class="comment">[3.1]</span>]</span>, dtype=np.float32)</span><br><span class="line"></span><br><span class="line">y_train = np.array(<span class="comment">[<span class="comment">[1.7]</span>, <span class="comment">[2.76]</span>, <span class="comment">[2.09]</span>, <span class="comment">[3.19]</span>, <span class="comment">[1.694]</span>, <span class="comment">[1.573]</span>, </span></span><br><span class="line"><span class="comment">                    <span class="comment">[3.366]</span>, <span class="comment">[2.596]</span>, <span class="comment">[2.53]</span>, <span class="comment">[1.221]</span>, <span class="comment">[2.827]</span>, </span></span><br><span class="line"><span class="comment">                    <span class="comment">[3.465]</span>, <span class="comment">[1.65]</span>, <span class="comment">[2.904]</span>, <span class="comment">[1.3]</span>]</span>, dtype=np.float32)</span><br></pre></td></tr></table></figure></p>
-<h1 id="基本思路说一下"><a href="#基本思路说一下" class="headerlink" title="基本思路说一下"></a>基本思路说一下</h1><p>还记得上一节我们介绍的<a href="https://www.zenroad.club/2018/08/23/pytorchbasic1/">复杂一些的例子</a>吗？里面提到了如何去构造一组线性关系。我们的思路很简单，确定好输入输出<code>tensor</code>的维度，再利用<code>nn.Linear()</code>算一下就好了。<br>之前的例子里，我们只进行了一次求导，似乎效果不是很好。这次我们就加个循环多做几次。而且本例是线性回归，直接就是一条直线，其实还比前面的例子简单些……</p>
-<h1 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h1><p>记住我们的目标就是让预测值与真实值<code>y</code>之间的差距越小越好。预测值是什么？就是<code>x</code>经过<code>Linear</code>后得到的东西吧！让我们先看看代码。<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"># Hyper-<span class="keyword">parameters</span></span><br><span class="line">input_size <span class="comment">= 1</span></span><br><span class="line">output_size <span class="comment">= 1</span></span><br><span class="line">num_epochs <span class="comment">= 60</span></span><br><span class="line">learning_rate <span class="comment">= 0.001</span></span><br><span class="line"># Linear <span class="comment">regression model</span></span><br><span class="line">model <span class="comment">= nn.Linear(input_size, output_size)</span></span><br><span class="line"></span><br><span class="line"># Loss <span class="comment">and optimizer</span></span><br><span class="line">criterion <span class="comment">= nn.MSELoss()</span></span><br><span class="line">optimizer <span class="comment">= torch.optim.SGD(model.parameters(), lr=learning_rate)</span>  </span><br><span class="line"></span><br><span class="line"># Train <span class="comment">the model</span></span><br><span class="line">for <span class="comment">epoch in range(num_epochs):</span></span><br><span class="line">    # Convert <span class="comment">numpy arrays to torch tensors</span></span><br><span class="line">    inputs <span class="comment">= torch.from_numpy(x_train)</span></span><br><span class="line">    targets <span class="comment">= torch.from_numpy(y_train)</span></span><br><span class="line"></span><br><span class="line">    # Forward <span class="comment">pass</span></span><br><span class="line">    outputs <span class="comment">= model(inputs)</span></span><br><span class="line">    loss <span class="comment">= criterion(outputs, targets)</span></span><br><span class="line">    </span><br><span class="line">    # Backward <span class="comment">and optimize</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    if <span class="comment">(epoch+1) % 5 == 0:</span></span><br><span class="line">        print <span class="comment">(</span><span class="comment">'Epoch [&#123;&#125;/&#123;&#125;], Loss: &#123;:.4f&#125;'</span><span class="comment">.format(epoch+1, num_epochs, loss.item()))</span></span><br></pre></td></tr></table></figure></p>
-<p>结果如下所示：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Epoch</span> <span class="selector-attr">[5/60]</span>, <span class="selector-tag">Loss</span>: 1<span class="selector-class">.7156</span></span><br><span class="line"><span class="selector-tag">Epoch</span> <span class="selector-attr">[10/60]</span>, <span class="selector-tag">Loss</span>: 0<span class="selector-class">.8695</span></span><br><span class="line"><span class="selector-tag">Epoch</span> <span class="selector-attr">[15/60]</span>, <span class="selector-tag">Loss</span>: 0<span class="selector-class">.5265</span></span><br><span class="line"><span class="selector-tag">Epoch</span> <span class="selector-attr">[20/60]</span>, <span class="selector-tag">Loss</span>: 0<span class="selector-class">.3873</span></span><br><span class="line"><span class="selector-tag">Epoch</span> <span class="selector-attr">[25/60]</span>, <span class="selector-tag">Loss</span>: 0<span class="selector-class">.3308</span></span><br><span class="line"><span class="selector-tag">Epoch</span> <span class="selector-attr">[30/60]</span>, <span class="selector-tag">Loss</span>: 0<span class="selector-class">.3077</span></span><br><span class="line"><span class="selector-tag">Epoch</span> <span class="selector-attr">[35/60]</span>, <span class="selector-tag">Loss</span>: 0<span class="selector-class">.2981</span></span><br><span class="line"><span class="selector-tag">Epoch</span> <span class="selector-attr">[40/60]</span>, <span class="selector-tag">Loss</span>: 0<span class="selector-class">.2941</span></span><br><span class="line"><span class="selector-tag">Epoch</span> <span class="selector-attr">[45/60]</span>, <span class="selector-tag">Loss</span>: 0<span class="selector-class">.2923</span></span><br><span class="line"><span class="selector-tag">Epoch</span> <span class="selector-attr">[50/60]</span>, <span class="selector-tag">Loss</span>: 0<span class="selector-class">.2913</span></span><br><span class="line"><span class="selector-tag">Epoch</span> <span class="selector-attr">[55/60]</span>, <span class="selector-tag">Loss</span>: 0<span class="selector-class">.2908</span></span><br><span class="line"><span class="selector-tag">Epoch</span> <span class="selector-attr">[60/60]</span>, <span class="selector-tag">Loss</span>: 0<span class="selector-class">.2904</span></span><br></pre></td></tr></table></figure></p>
-<p>上一节只是单纯的求导一次，现在我们看看多次求导的情况。每一轮从<code>numpy</code>中读取训练数据以及目标数据<code>y</code>。把<code>input</code>送入<code>model</code>（实际上就是一个<code>nn.Linear</code>），计算损失MSE。这里的损失计算我们为了减少工作量，采用<code>pytorch</code>提供的包来完成，具体计算过程参见上节，里面有详细公式以及说明。<br>设置好了<code>loss</code>，我们求一下导数，利用优化器里提供的方法使<code>loss</code>不断变小。每轮<code>optimizer.step()</code>执行一次。就是这么简单。</p>
-<h1 id="看看结果如何"><a href="#看看结果如何" class="headerlink" title="看看结果如何"></a>看看结果如何</h1><p>说了这么多，我们看看怎么可视化训练结果吧。此处我们用到了<code>plt</code>模块。复杂的功能后续再接触。注意经过之前的训练<code>model</code>的参数已经优化了。我们只要再把<code>traindata</code>再输入一遍<code>model</code>就可以了，此处<code>detach</code>的意思也就是不再跟踪梯度。<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Plot the graph</span></span><br><span class="line">predicted = model(torch.from_numpy(x_train)).detach().numpy()</span><br><span class="line">plt.plot(x_train, y_train, <span class="string">'ro'</span>, <span class="keyword">label</span><span class="bash">=<span class="string">'Original data'</span>)</span></span><br><span class="line"><span class="bash">plt.plot(x_train, predicted, label=<span class="string">'Fitted line'</span>)</span></span><br><span class="line"><span class="bash">plt.legend()</span></span><br><span class="line"><span class="bash">plt.show()</span></span><br></pre></td></tr></table></figure></p>
-<p><img src="https://user-images.githubusercontent.com/42510101/44569144-fd8e2e80-a7ab-11e8-818e-aab486e717ca.png" alt="image"><br>别忘了保存一下模型：<br><figure class="highlight stan"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Save the model checkpoint</span></span><br><span class="line">torch.save(<span class="title">model</span>.state_dict(), '<span class="title">model</span>.ckpt')</span><br></pre></td></tr></table></figure></p>
-<p>线性回归的内容就介绍到这里了～</p>
+        <p>A regular expression is a special sequence of characters that helps you easily check if a string matches a pattern.<br>Python has added the <code>re</code> module since version 1.5, which provides a <code>Perl-style</code> regular expression pattern.<br>The <code>re</code> module gives the Python language full of regular expression functionality.<br>The <code>compile</code> function generates a regular expression object based on a pattern string and optional flag parameters. This object has a set of methods for regular expression matching and replacement.<br>This chapter focuses on regular expression processing functions commonly used in Python.</p>
+<h2 id="re-match-function"><a href="#re-match-function" class="headerlink" title="re.match function"></a>re.match function</h2><p><code>re.match</code> attempts to match a pattern from the beginning of the string. If the starting position is not matched successfully, <code>match()</code> returns none.<br><strong>Function syntax:</strong></p>
+<blockquote>
+<p>re.match(pattern, string, flags=0)</p>
+</blockquote>
+<p><strong>Description of function parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description           </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pattern</td>
+<td>Matched regular expression </td>
+</tr>
+<tr>
+<td>string</td>
+<td>The string to match.  </td>
+</tr>
+<tr>
+<td>flags</td>
+<td>Flag bit, used to control how regular expressions are matched, such as whether to distinguish between uppercase and lowercase, multi-line matching</td>
+</tr>
+</tbody>
+</table>
+<p>Matches the successful <code>re.match</code> method to return a matching object, otherwise returns None.</p>
 
       
     </div>
@@ -423,9 +440,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/pytorch/" rel="tag"># pytorch</a>
+            <a href="/tags/python/" rel="tag"># python</a>
           
-            <a href="/tags/tutorial/" rel="tag"># tutorial</a>
+            <a href="/tags/Regular-expression/" rel="tag"># Regular expression</a>
           
         </div>
       
@@ -438,8 +455,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/archives/1effc38e.html" rel="next" title="pytorch入门——边学边练01基础知识">
-                <i class="fa fa-chevron-left"></i> pytorch入门——边学边练01基础知识
+              <a href="/archives/11c79d56.html" rel="next" title="Markdown introduction">
+                <i class="fa fa-chevron-left"></i> Markdown introduction
               </a>
             
           </div>
@@ -447,10 +464,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/archives/e77a54cd.html" rel="prev" title="pytorch入门——边学边练03逻辑回归">
-                pytorch入门——边学边练03逻辑回归 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -596,7 +609,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写在前面"><span class="nav-number">1.</span> <span class="nav-text">写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#我们会用到什么包呢？"><span class="nav-number">2.</span> <span class="nav-text">我们会用到什么包呢？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据从哪里来？"><span class="nav-number">3.</span> <span class="nav-text">数据从哪里来？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本思路说一下"><span class="nav-number">4.</span> <span class="nav-text">基本思路说一下</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体实现"><span class="nav-number">5.</span> <span class="nav-text">具体实现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#看看结果如何"><span class="nav-number">6.</span> <span class="nav-text">看看结果如何</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#re-match-function"><span class="nav-number">1.</span> <span class="nav-text">re.match function</span></a></li></ol></div>
             
 
           </div>
@@ -777,9 +790,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://www.zenroad.club/archives/83c5e701.html';
-          this.page.identifier = 'archives/83c5e701.html';
-          this.page.title = 'pytorch入门——边学边练02线性回归';
+          this.page.url = 'https://www.zenroad.club/archives/86e5f9e1.html';
+          this.page.identifier = 'archives/86e5f9e1.html';
+          this.page.title = 'Python regular expression';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://zenroad.disqus.com/embed.js';
