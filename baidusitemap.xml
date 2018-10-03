@@ -4,25 +4,8 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/11c79d56.html</loc>
-    <lastmod>2018-10-03T02:04:52.206Z</lastmod>
-    <data>
-        <display>
-        <title>Markdown introduction</title>
-        <pubTime>2018-10-01T00:26:35.000Z</pubTime>
-        
-        <tag>Markdown</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.zenroad.club/archives/86e5f9e1.html</loc>
-    <lastmod>2018-10-01T13:27:26.431Z</lastmod>
+    <lastmod>2018-10-03T08:04:38.729Z</lastmod>
     <data>
         <display>
         <title>Python regular expression</title>
@@ -35,8 +18,25 @@
          
            
              
-              <breadCrumb title="python" url="https://www.zenroad.club/categories/python/"/>
+              <breadCrumb title="python tutorial" url="https://www.zenroad.club/categories/python-tutorial/"/>
           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/11c79d56.html</loc>
+    <lastmod>2018-10-03T02:04:52.206Z</lastmod>
+    <data>
+        <display>
+        <title>Markdown introduction</title>
+        <pubTime>2018-10-01T00:26:35.000Z</pubTime>
+        
+        <tag>Markdown</tag>
+         
+         
+           
         </display>
     </data>
     </url>
@@ -97,12 +97,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/89b0a2ac.html</loc>
+    <loc>https://www.zenroad.club/archives/17d589f8.html</loc>
     <lastmod>2018-09-18T11:58:34.716Z</lastmod>
     <data>
         <display>
-        <title>how to handle imbalanced classes with pytorch</title>
-        <pubTime>2018-09-18T11:02:28.000Z</pubTime>
+        <title>pytorch处理类别不平衡问题</title>
+        <pubTime>2018-09-18T11:31:54.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -119,12 +119,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/17d589f8.html</loc>
+    <loc>https://www.zenroad.club/archives/89b0a2ac.html</loc>
     <lastmod>2018-09-18T11:58:34.716Z</lastmod>
     <data>
         <display>
-        <title>pytorch处理类别不平衡问题</title>
-        <pubTime>2018-09-18T11:31:54.000Z</pubTime>
+        <title>how to handle imbalanced classes with pytorch</title>
+        <pubTime>2018-09-18T11:02:28.000Z</pubTime>
         
         <tag>pytorch</tag>
          

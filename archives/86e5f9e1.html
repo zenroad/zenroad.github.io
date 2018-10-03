@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
 <meta property="og:description" content="A regular expression is a special sequence of characters that helps you easily check if a string matches a pattern.Python has added the re module since version 1.5, which provides a Perl-style regular">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-01T13:27:26.431Z">
+<meta property="og:updated_time" content="2018-10-03T08:04:38.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python regular expression">
 <meta name="twitter:description" content="A regular expression is a special sequence of characters that helps you easily check if a string matches a pattern.Python has added the re module since version 1.5, which provides a Perl-style regular">
@@ -324,8 +324,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index">
-                    <span itemprop="name">python</span>
+                  <a href="/categories/python-tutorial/" itemprop="url" rel="index">
+                    <span itemprop="name">python tutorial</span>
                   </a>
                 </span>
 
@@ -417,6 +417,114 @@
 </tbody>
 </table>
 <p>Matches the successful <code>re.match</code> method to return a matching object, otherwise returns None.</p>
+<table>
+<thead>
+<tr>
+<th>Matching object method</th>
+<th>Description </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>group(num=0)</td>
+<td>A string that matches the entire expression, group() can enter multiple group numbers at a time, in which case it returns a tuple containing the values for those groups.</td>
+</tr>
+<tr>
+<td>groups()</td>
+<td>Returns a tuple containing all the group strings, from 1 to the included team number.</td>
+</tr>
+</tbody>
+</table>
+<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*- </span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">print(re.match(<span class="string">'www'</span>, <span class="string">'www.mysite.com'</span>).span()) <span class="comment"># Match at the starting position</span></span><br><span class="line">print(re.match(<span class="string">'com'</span>, <span class="string">'www.mysite.com'</span>))    <span class="comment"># Does not match at the starting position</span></span><br></pre></td></tr></table></figure></p>
+<p>result<br><figure class="highlight hy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0</span>, <span class="number">3</span>)</span><br><span class="line"><span class="literal">None</span></span><br></pre></td></tr></table></figure></p>
+<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span></span><br><span class="line"> </span><br><span class="line">matchObj = re.match( <span class="string">r'(.*) are (.*?) .*'</span>, line, re.M|re.I)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"matchObj.group() : "</span>, matchObj.group()</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"matchObj.group(1) : "</span>, matchObj.group(<span class="number">1</span>)</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"matchObj.group(2) : "</span>, matchObj.group(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"No match!!"</span></span><br></pre></td></tr></table></figure></p>
+<p>The above example execution results are as follows:<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">match</span>Obj.<span class="keyword">group</span>() :  Cats are smarter than dogs</span><br><span class="line"><span class="built_in">match</span>Obj.<span class="keyword">group</span>(<span class="number">1</span>) :  Cats</span><br><span class="line"><span class="built_in">match</span>Obj.<span class="keyword">group</span>(<span class="number">2</span>) :  smarter</span><br></pre></td></tr></table></figure></p>
+<h2 id="re-search-method"><a href="#re-search-method" class="headerlink" title="re.search method"></a>re.search method</h2><p>re.search scans the entire string and returns the first successful match.<br><strong>Function syntax:</strong></p>
+<blockquote>
+<p>re.search(pattern, string, flags=0)</p>
+</blockquote>
+<p><strong>Description of function parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description           </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pattern</td>
+<td>Matched regular expression </td>
+</tr>
+<tr>
+<td>string</td>
+<td>The string to match.  </td>
+</tr>
+<tr>
+<td>flags</td>
+<td>Flag bit, used to control how regular expressions are matched, such as whether to distinguish between uppercase and lowercase, multi-line matching</td>
+</tr>
+</tbody>
+</table>
+<p>Matches the successful <code>re.search</code> method to return a matching object, otherwise returns None.<br>We can use the group(num) or groups() matching object functions to get the matching expression.</p>
+<table>
+<thead>
+<tr>
+<th>Matching object method</th>
+<th>Description </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>group(num=0)</td>
+<td>A string that matches the entire expression, group() can enter multiple group numbers at a time, in which case it returns a tuple containing the values for those groups.</td>
+</tr>
+<tr>
+<td>groups()</td>
+<td>Returns a tuple containing all the group strings, from 1 to the included team number.</td>
+</tr>
+</tbody>
+</table>
+<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*- </span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">print(re.search(<span class="string">'www'</span>, <span class="string">'www.mysite.com'</span>).span())  <span class="comment"># 在起始位置匹配</span></span><br><span class="line">print(re.search(<span class="string">'com'</span>, <span class="string">'www.mysite.com'</span>).span())         <span class="comment"># 不在起始位置匹配</span></span><br></pre></td></tr></table></figure></p>
+<p>result<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0</span>, <span class="number">3</span>)</span><br><span class="line">(<span class="number">11</span>, <span class="number">14</span>)</span><br></pre></td></tr></table></figure></p>
+<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"> </span><br><span class="line">searchObj = re.search( <span class="string">r'(.*) are (.*?) .*'</span>, line, re.M|re.I)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> searchObj:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"searchObj.group() : "</span>, searchObj.group()</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"searchObj.group(1) : "</span>, searchObj.group(<span class="number">1</span>)</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"searchObj.group(2) : "</span>, searchObj.group(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"Nothing found!!"</span></span><br></pre></td></tr></table></figure></p>
+<p>The above example execution results are as follows:<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">searchObj.group() :  <span class="type">Cats</span> are smarter than dogs</span><br><span class="line">searchObj.group(<span class="number">1</span>) :  <span class="type">Cats</span></span><br><span class="line">searchObj.group(<span class="number">2</span>) :  <span class="type">smarter</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="The-difference-between-re-match-and-re-search"><a href="#The-difference-between-re-match-and-re-search" class="headerlink" title="The difference between re.match and re.search"></a>The difference between re.match and re.search</h2><p>re.match only matches the <code>beginning</code> of the string. If the string does not match the regular expression, the match fails, the function returns None; and re.search matches the <code>entire</code> string until a match is found.</p>
+<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"> </span><br><span class="line">matchObj = re.match( <span class="string">r'dogs'</span>, line, re.M|re.I)</span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"match --&gt; matchObj.group() : "</span>, matchObj.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"No match!!"</span></span><br><span class="line"> </span><br><span class="line">matchObj = re.search( <span class="string">r'dogs'</span>, line, re.M|re.I)</span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"search --&gt; matchObj.group() : "</span>, matchObj.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"No match!!"</span></span><br></pre></td></tr></table></figure></p>
+<p>The above example execution results are as follows:<br><figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">No match!!</span><br><span class="line">search --&gt; matchObj.group() :  dogs</span><br></pre></td></tr></table></figure></p>
+<h2 id="Retrieve-and-replace"><a href="#Retrieve-and-replace" class="headerlink" title="Retrieve and replace"></a>Retrieve and replace</h2><p>Python’s re module provides re.sub for replacing matches in strings.<br><strong>grammar:</strong></p>
+<blockquote>
+<p>re.sub(pattern, repl, string, count=0, flags=0)</p>
+</blockquote>
+<p>parameter:</p>
+<ul>
+<li>pattern : The pattern string in the regular.</li>
+<li>repl : The replaced string, which can also be a function.</li>
+<li>string : The original string to be replaced by the lookup.</li>
+<li>count : The maximum number of substitutions after pattern matching. The default 0 means to replace all matches.</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">phone = <span class="string">"2004-959-559 # This a phone number"</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Remove Python comments from strings</span></span><br><span class="line">num = re.sub(<span class="string">r'#.*$'</span>, <span class="string">""</span>, phone)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"phone number is: "</span>, num</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Delete non-numeric (-) strings </span></span><br><span class="line">num = re.sub(<span class="string">r'\D'</span>, <span class="string">""</span>, phone)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"phone number is : "</span>, num</span><br></pre></td></tr></table></figure>
+<p>The above example execution results are as follows:<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This <span class="keyword">a</span> phone <span class="built_in">number</span>:  <span class="number">2004</span><span class="number">-959</span><span class="number">-559</span> </span><br><span class="line">This <span class="keyword">a</span> phone <span class="built_in">number</span> :  <span class="number">2004959559</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="The-repl-argument-is-a-function"><a href="#The-repl-argument-is-a-function" class="headerlink" title="The repl argument is a function"></a>The repl argument is a function</h2><p>In the following example, multiply the matching number in the string by 2:<br>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line"><span class="comment"># multiply the matching number in the string by 2</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">double</span><span class="params">(matched)</span>:</span></span><br><span class="line">    value = int(matched.group(<span class="string">'value'</span>))</span><br><span class="line">    <span class="keyword">return</span> str(value * <span class="number">2</span>)</span><br><span class="line"> </span><br><span class="line">s = <span class="string">'A23G4HFD567'</span></span><br><span class="line">print(re.sub(<span class="string">'(?P&lt;value&gt;\d+)'</span>, double, s))</span><br></pre></td></tr></table></figure></p>
+<p>The execution output is:<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A<span class="number">46</span><span class="name">G8</span>HFD<span class="number">1134</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="re-compile-function"><a href="#re-compile-function" class="headerlink" title="re.compile function"></a>re.compile function</h2><p>The <code>compile</code> function is used to compile a regular expression and generate a regular expression (<code>pattern</code> ) object for use by the <code>match()</code> and <code>search()</code> functions.<br><strong>The syntax is:</strong></p>
+<blockquote>
+<p>re.compile(pattern[, flags])</p>
+</blockquote>
+<p><strong>parameter:</strong></p>
+<ul>
+<li>pattern : a regular expression in the form of a string</li>
+<li>flags : Optional, indicating matching mode, such as ignoring case, multi-line mode, etc. The specific parameters are:<ol>
+<li>re.I ignores case</li>
+<li>re.L indicates that the special character set \w, \W, \b, \B, \s, \S depends on the current environment</li>
+<li>re.M multi-line mode</li>
+<li>re.S is . and any character including line breaks (. does not include newline characters)</li>
+<li>re.U indicates a special character set \w, \W, \b, \B, \d, \D, \s, \S depends on the Unicode character attribute database</li>
+<li>re.X to increase readability, ignore spaces and comments after #</li>
+</ol>
+</li>
+</ul>
+<p>example</p>
 
       
     </div>
@@ -609,7 +717,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#re-match-function"><span class="nav-number">1.</span> <span class="nav-text">re.match function</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#re-match-function"><span class="nav-number">1.</span> <span class="nav-text">re.match function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-search-method"><span class="nav-number">2.</span> <span class="nav-text">re.search method</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-difference-between-re-match-and-re-search"><span class="nav-number">3.</span> <span class="nav-text">The difference between re.match and re.search</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Retrieve-and-replace"><span class="nav-number">4.</span> <span class="nav-text">Retrieve and replace</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-repl-argument-is-a-function"><span class="nav-number">5.</span> <span class="nav-text">The repl argument is a function</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-compile-function"><span class="nav-number">6.</span> <span class="nav-text">re.compile function</span></a></li></ol></div>
             
 
           </div>
