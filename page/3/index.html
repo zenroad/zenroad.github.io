@@ -77,17 +77,17 @@
 
 
 
-<meta name="description" content="士不可不弘毅">
+<meta name="description" content="keep learning">
 <meta name="keywords" content="learning">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Zenroad&#39;s Blog">
 <meta property="og:url" content="https://www.zenroad.club/page/3/index.html">
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
-<meta property="og:description" content="士不可不弘毅">
+<meta property="og:description" content="keep learning">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Zenroad&#39;s Blog">
-<meta name="twitter:description" content="士不可不弘毅">
+<meta name="twitter:description" content="keep learning">
 
 
 
@@ -258,6 +258,201 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/f93ca93e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/f93ca93e.html" itemprop="url">Install LevelDB</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-28T09:42:24+08:00">
+                2018-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/software/" itemprop="url" rel="index">
+                    <span itemprop="name">software</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/f93ca93e.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/f93ca93e.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/f93ca93e.html" class="leancloud_visitors" data-flag-title="Install LevelDB">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Download"><a href="#Download" class="headerlink" title="Download"></a>Download</h1><p>LevelDB is a fast key-value storage library written at Google that provides an ordered mapping from string keys to string values.<br>The project page is <a href="https://github.com/google/leveldb" target="_blank" rel="noopener">leveldb</a><br>After cloning the project,then let’s build the project.</p>
+<h1 id="Building"><a href="#Building" class="headerlink" title="Building"></a>Building</h1><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">mkdir</span> -p <span class="keyword">build </span>&amp;&amp; cd <span class="keyword">build</span></span><br><span class="line"><span class="keyword">cmake </span>-DCMAKE_BUILD_TYPE<span class="symbol">=Release</span> .. &amp;&amp; cmake --<span class="keyword">build </span>.</span><br></pre></td></tr></table></figure>
+<p>I just uing Ubuntu16.04. I have encountered an error as shown below.<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CMake Error <span class="keyword">at</span> CMakeLists.txt:<span class="number">5</span> (cmake_minimum_required):</span><br><span class="line">  CMake <span class="number">3.9</span> <span class="keyword">or</span> higher <span class="keyword">is</span> required.  You are <span class="built_in">running</span> <span class="built_in">version</span> <span class="number">3.5</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">-- Configuring incomplete, errors occurred!</span></span><br></pre></td></tr></table></figure></p>
+<p>Let us solve this problem. </p>
+<ol>
+<li><p>To install the latest version,we have first to remove the installed version.</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">sudo apt purge cmake</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Then go to  <a href="https://cmake.org/download/" target="_blank" rel="noopener">cmake</a>  and download the latest version you need.</p>
+</li>
+</ol>
+<ul>
+<li>In my case cmake-3.12.1-Linux-x86_64.sh is sufficient.</li>
+</ul>
+<ol start="3">
+<li><code>chmod +x /path/to/cmake-3.12.1-Linux-x86_64.sh</code> (use your own file location here, but chmod makes the script executable)</li>
+<li><code>sudo ./path/to/cmake-3.12.1-Linux-x86_64.sh</code> (you’ll need to press y twice)</li>
+<li><code>sudo ln -s /path/to/cmake-3.6.2-Linux-x86_64/bin/* /usr/local/bin</code>(Use absolute path.)</li>
+<li>Test your results with <code>cmake --version</code><br>type <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cmake <span class="attribute">-DCMAKE_BUILD_TYPE</span>=Release <span class="built_in">..</span> &amp;&amp; cmake --build .</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Successful.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1239,185 +1434,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/e77a54cd.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/e77a54cd.html" itemprop="url">pytorch入门——边学边练03逻辑回归</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T14:56:55+08:00">
-                2018-08-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/e77a54cd.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/e77a54cd.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/e77a54cd.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练03逻辑回归">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>我们来探讨一下逻辑回归的问题吧！顺便把前面的知识点再整合一次！完整代码参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/logistic_regression" target="_blank" rel="noopener">logistic_regression</a></p>
-<h1 id="什么是逻辑回归"><a href="#什么是逻辑回归" class="headerlink" title="什么是逻辑回归"></a>什么是逻辑回归</h1><p>我们先想想逻辑回归问题是什么样的一个问题。简单的说，<code>Logistic Regression</code>是一个解决0/1分类问题的方法。那么再往深处想一想，<code>Logistics Regression</code>的数学模型是什么？为什么我们可以实现0,1分类？逻辑回归（<code>Logistic Regression</code>）与线性回归（<code>Linear Regression</code>）都是一种广义线性模型（<code>generalized linear model</code>）。逻辑回归假设因变量 <code>y</code> 服从伯努利分布，而线性回归假设因变量 <code>y</code> 服从高斯分布。 因此与线性回归有很多相同之处，去除<code>Sigmoid</code>映射函数的话，逻辑回归算法就是一个线性回归。可以说，逻辑回归是以线性回归为理论支持的，但是逻辑回归通过<code>Sigmoid</code>函数引入了非线性因素，因此可以轻松处理0/1分类问题。<br>既然与线性如此相似，那么我们是否可以继续套用上一节使用的模型呢？似乎是可行的。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/archives/e77a54cd.html#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/91ff9728.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1537,6 +1553,185 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/archives/91ff9728.html#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/e77a54cd.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/e77a54cd.html" itemprop="url">pytorch入门——边学边练03逻辑回归</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-24T14:56:55+08:00">
+                2018-08-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/e77a54cd.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/e77a54cd.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/e77a54cd.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练03逻辑回归">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>我们来探讨一下逻辑回归的问题吧！顺便把前面的知识点再整合一次！完整代码参见<a href="https://github.com/yunjey/pytorch-tutorial/tree/master/tutorials/01-basics/logistic_regression" target="_blank" rel="noopener">logistic_regression</a></p>
+<h1 id="什么是逻辑回归"><a href="#什么是逻辑回归" class="headerlink" title="什么是逻辑回归"></a>什么是逻辑回归</h1><p>我们先想想逻辑回归问题是什么样的一个问题。简单的说，<code>Logistic Regression</code>是一个解决0/1分类问题的方法。那么再往深处想一想，<code>Logistics Regression</code>的数学模型是什么？为什么我们可以实现0,1分类？逻辑回归（<code>Logistic Regression</code>）与线性回归（<code>Linear Regression</code>）都是一种广义线性模型（<code>generalized linear model</code>）。逻辑回归假设因变量 <code>y</code> 服从伯努利分布，而线性回归假设因变量 <code>y</code> 服从高斯分布。 因此与线性回归有很多相同之处，去除<code>Sigmoid</code>映射函数的话，逻辑回归算法就是一个线性回归。可以说，逻辑回归是以线性回归为理论支持的，但是逻辑回归通过<code>Sigmoid</code>函数引入了非线性因素，因此可以轻松处理0/1分类问题。<br>既然与线性如此相似，那么我们是否可以继续套用上一节使用的模型呢？似乎是可行的。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/archives/e77a54cd.html#more" rel="contents">
               Read more &raquo;
             </a>
           </div>
@@ -1996,7 +2191,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2007,7 +2202,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2018,7 +2213,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

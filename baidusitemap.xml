@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://www.zenroad.club/archives/bc60cdc1.html</loc>
+    <lastmod>2018-10-04T13:47:18.608Z</lastmod>
+    <data>
+        <display>
+        <title>Leetcode Two Sum [easy] (Python)</title>
+        <pubTime>2018-10-04T13:25:18.000Z</pubTime>
+        
+        <tag>Leetcode</tag>
+         
+         
+           
+             
+              <breadCrumb title="Leetcode" url="https://www.zenroad.club/categories/Leetcode/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.zenroad.club/archives/b82d8975.html</loc>
     <lastmod>2018-10-04T08:19:36.719Z</lastmod>
     <data>
@@ -114,12 +134,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/89b0a2ac.html</loc>
+    <loc>https://www.zenroad.club/archives/17d589f8.html</loc>
     <lastmod>2018-09-18T11:58:34.716Z</lastmod>
     <data>
         <display>
-        <title>how to handle imbalanced classes with pytorch</title>
-        <pubTime>2018-09-18T11:02:28.000Z</pubTime>
+        <title>pytorch处理类别不平衡问题</title>
+        <pubTime>2018-09-18T11:31:54.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -136,12 +156,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/17d589f8.html</loc>
+    <loc>https://www.zenroad.club/archives/89b0a2ac.html</loc>
     <lastmod>2018-09-18T11:58:34.716Z</lastmod>
     <data>
         <display>
-        <title>pytorch处理类别不平衡问题</title>
-        <pubTime>2018-09-18T11:31:54.000Z</pubTime>
+        <title>how to handle imbalanced classes with pytorch</title>
+        <pubTime>2018-09-18T11:02:28.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -171,26 +191,6 @@
            
              
               <breadCrumb title="tools" url="https://www.zenroad.club/categories/tools/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.zenroad.club/archives/be5c905.html</loc>
-    <lastmod>2018-09-13T06:57:28.000Z</lastmod>
-    <data>
-        <display>
-        <title>linux 显示文件夹中有多少个文件</title>
-        <pubTime>2018-09-13T05:28:26.000Z</pubTime>
-        
-        <tag>tips</tag>
-         
-         
-           
-             
-              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
           
         </display>
     </data>
@@ -238,12 +238,52 @@
 
     
   <url>
+    <loc>https://www.zenroad.club/archives/be5c905.html</loc>
+    <lastmod>2018-09-13T06:57:28.000Z</lastmod>
+    <data>
+        <display>
+        <title>linux 显示文件夹中有多少个文件</title>
+        <pubTime>2018-09-13T05:28:26.000Z</pubTime>
+        
+        <tag>tips</tag>
+         
+         
+           
+             
+              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://www.zenroad.club/archives/bb1543db.html</loc>
     <lastmod>2018-09-07T08:54:50.000Z</lastmod>
     <data>
         <display>
         <title>vim 卡住 死机 没有任何反应</title>
         <pubTime>2018-09-07T07:48:42.000Z</pubTime>
+        
+        <tag>error</tag>
+         
+         
+           
+             
+              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/f1636a03.html</loc>
+    <lastmod>2018-09-07T07:00:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>ERROR  Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</title>
+        <pubTime>2018-09-07T06:48:43.000Z</pubTime>
         
         <tag>error</tag>
          
@@ -278,12 +318,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/f1636a03.html</loc>
-    <lastmod>2018-09-07T07:00:34.000Z</lastmod>
+    <loc>https://www.zenroad.club/archives/5370e07a.html</loc>
+    <lastmod>2018-09-04T07:43:20.000Z</lastmod>
     <data>
         <display>
-        <title>ERROR  Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</title>
-        <pubTime>2018-09-07T06:48:43.000Z</pubTime>
+        <title>python3 Python.h No such file or directory</title>
+        <pubTime>2018-09-04T07:28:33.000Z</pubTime>
         
         <tag>error</tag>
          
@@ -304,26 +344,6 @@
         <display>
         <title>google dense_hash_map  No such file or directory</title>
         <pubTime>2018-09-04T07:33:39.000Z</pubTime>
-        
-        <tag>error</tag>
-         
-         
-           
-             
-              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.zenroad.club/archives/5370e07a.html</loc>
-    <lastmod>2018-09-04T07:43:20.000Z</lastmod>
-    <data>
-        <display>
-        <title>python3 Python.h No such file or directory</title>
-        <pubTime>2018-09-04T07:28:33.000Z</pubTime>
         
         <tag>error</tag>
          
@@ -503,12 +523,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
+    <loc>https://www.zenroad.club/archives/83c5e701.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练03逻辑回归</title>
-        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
+        <title>pytorch入门——边学边练02线性回归</title>
+        <pubTime>2018-08-24T05:27:00.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -525,12 +545,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/83c5e701.html</loc>
+    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练02线性回归</title>
-        <pubTime>2018-08-24T05:27:00.000Z</pubTime>
+        <title>pytorch入门——边学边练03逻辑回归</title>
+        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
         
         <tag>pytorch</tag>
          
