@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://www.zenroad.club/archives/b82d8975.html</loc>
-    <lastmod>2018-10-04T08:19:14.200Z</lastmod>
+    <lastmod>2018-10-04T08:19:36.719Z</lastmod>
     <data>
         <display>
         <title>免费VPN 推荐 —— ProtonVPN</title>
@@ -258,26 +258,6 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/f1636a03.html</loc>
-    <lastmod>2018-09-07T07:00:34.000Z</lastmod>
-    <data>
-        <display>
-        <title>ERROR  Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</title>
-        <pubTime>2018-09-07T06:48:43.000Z</pubTime>
-        
-        <tag>error</tag>
-         
-         
-           
-             
-              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://www.zenroad.club/archives/6c83df.html</loc>
     <lastmod>2018-09-07T07:00:34.000Z</lastmod>
     <data>
@@ -291,6 +271,26 @@
            
              
               <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://www.zenroad.club/archives/f1636a03.html</loc>
+    <lastmod>2018-09-07T07:00:34.000Z</lastmod>
+    <data>
+        <display>
+        <title>ERROR  Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</title>
+        <pubTime>2018-09-07T06:48:43.000Z</pubTime>
+        
+        <tag>error</tag>
+         
+         
+           
+             
+              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
           
         </display>
     </data>
@@ -503,12 +503,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/83c5e701.html</loc>
+    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练02线性回归</title>
-        <pubTime>2018-08-24T05:27:00.000Z</pubTime>
+        <title>pytorch入门——边学边练03逻辑回归</title>
+        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
         
         <tag>pytorch</tag>
          
@@ -525,12 +525,12 @@
 
     
   <url>
-    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
+    <loc>https://www.zenroad.club/archives/83c5e701.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
     <data>
         <display>
-        <title>pytorch入门——边学边练03逻辑回归</title>
-        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
+        <title>pytorch入门——边学边练02线性回归</title>
+        <pubTime>2018-08-24T05:27:00.000Z</pubTime>
         
         <tag>pytorch</tag>
          
