@@ -81,7 +81,7 @@
 <meta name="keywords" content="learning">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Zenroad&#39;s Blog">
-<meta property="og:url" content="https://www.zenroad.club/archives/2018/page/3/index.html">
+<meta property="og:url" content="https://www.zenroad.club/page/4/index.html">
 <meta property="og:site_name" content="Zenroad&#39;s Blog">
 <meta property="og:description" content="keep learning">
 <meta property="og:locale" content="default">
@@ -117,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="https://www.zenroad.club/archives/2018/page/3/"/>
+  <link rel="canonical" href="https://www.zenroad.club/page/4/"/>
 
 
 
 
 
-  <title>Archive | Zenroad's Blog</title>
+  <title>Zenroad's Blog</title>
   
 
 
@@ -153,7 +153,8 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -256,410 +257,193 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-         
-        
-        OK! 31 posts in total. Keep on posting.
-      </span>
-
+  <section id="posts" class="posts-expand">
+    
       
 
-        
-        
-        
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/1effc38e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
 
         
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/1effc38e.html" itemprop="url">pytorch入门——边学边练01基础知识</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-23T20:49:44+08:00">
+                2018-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-          <div class="collection-title">
-            <h2 class="archive-year" id="archive-year-2018">2018</h2>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/1effc38e.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/1effc38e.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/1effc38e.html" class="leancloud_visitors" data-flag-title="pytorch入门——边学边练01基础知识">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>首先说一下写作目的，很多时候，看了官网的教程，感觉看懂了，但在实际操作的时候又无从下手，所以我打算整理几篇博文帮助大家迅速入门，如果大家有什么好的意见建议，欢迎在文末留言。</p>
+<h1 id="一、pytorch简介"><a href="#一、pytorch简介" class="headerlink" title="一、pytorch简介"></a>一、pytorch简介</h1><p>现在流行的机器学习框架很多，比如<code>tensorflow</code>、<code>Keras</code>等等，那么我为什么要用<code>pytorch</code>呢？之前我一直在使用<code>Keras</code>，然而毕竟多套了一层，不够灵活。而<code>pytorch</code>又很好学，所以我打算把一部分工作迁移到<code>pytorch</code>上来，也算是多掌握一门手艺活。<br>从今天开始，我会和大家一起学习<code>pytorch</code>。<br><code>pytorch</code>的学习资源，文档很详细，github上也有很多代码。<code>pytorch</code>的官网应该没有被墙吧？<a href="https://pytorch.org/" target="_blank" rel="noopener">pytorch</a>官网上有详细的安装教程以及相关文档，所以本文就不讲如何安装<code>pytorch</code>了。有时间我再把安装配置CUDA环境的博文补上，我发现好多博文里基本不讲CUDA编程的知识，其实这部分也十分有趣。<br>我琢磨了一下，从何讲起呢？翻来覆去想了想不如按照github上面的教程<a href="https://github.com/yunjey/pytorch-tutorial" target="_blank" rel="noopener">pytorch-tutorial</a>讲解吧！还是动手敲敲代码学习得快。<br>下面展示一下我的学习过程～～<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/archives/1effc38e.html#more" rel="contents">
+              Read more &raquo;
+            </a>
           </div>
+          <!--/noindex-->
         
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/archives/c61c6fd.html" itemprop="url">
-              
-                <span itemprop="name">aboutme</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-28T22:32:59+08:00"
-              content="2018-08-28" >
-          08-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/archives/f93ca93e.html" itemprop="url">
-              
-                <span itemprop="name">Install LevelDB</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-28T09:42:24+08:00"
-              content="2018-08-28" >
-          08-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/archives/f367cc38.html" itemprop="url">
-              
-                <span itemprop="name">pytorch入门——边学边练07 Recurrent Neural Network</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-27T21:42:36+08:00"
-              content="2018-08-27" >
-          08-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/archives/272cdd5e.html" itemprop="url">
-              
-                <span itemprop="name">pytorch入门——边学边练06 Residual_Network</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-27T11:44:43+08:00"
-              content="2018-08-27" >
-          08-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/archives/b147bf13.html" itemprop="url">
-              
-                <span itemprop="name">不用手机号就能注册的邮箱</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-26T16:10:20+08:00"
-              content="2018-08-26" >
-          08-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/archives/da231408.html" itemprop="url">
-              
-                <span itemprop="name">国外的免费的接码平台网站 free sms receive website</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-26T15:51:01+08:00"
-              content="2018-08-26" >
-          08-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/archives/e03a8d1f.html" itemprop="url">
-              
-                <span itemprop="name">pytorch入门——边学边练05卷积神经网络</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-25T21:28:34+08:00"
-              content="2018-08-25" >
-          08-25
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/archives/e77a54cd.html" itemprop="url">
-              
-                <span itemprop="name">pytorch入门——边学边练03逻辑回归</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-24T14:56:55+08:00"
-              content="2018-08-24" >
-          08-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/archives/91ff9728.html" itemprop="url">
-              
-                <span itemprop="name">pytorch入门——边学边练04一个简单网络</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-24T14:56:55+08:00"
-              content="2018-08-24" >
-          08-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/archives/83c5e701.html" itemprop="url">
-              
-                <span itemprop="name">pytorch入门——边学边练02线性回归</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-24T13:27:00+08:00"
-              content="2018-08-24" >
-          08-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </div>
   
   
   
+  </article>
+
+
+    
+  </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2018/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2018/">1</a><a class="page-number" href="/archives/2018/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/archives/2018/page/4/">4</a><a class="extend next" rel="next" href="/archives/2018/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
   </nav>
-
 
 
 

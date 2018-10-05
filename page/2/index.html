@@ -272,6 +272,181 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/342de388.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/342de388.html" itemprop="url">Assertion t >= 0 && t < n_classes failed</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-13T14:47:35+08:00">
+                2018-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/error/" itemprop="url" rel="index">
+                    <span itemprop="name">error</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/342de388.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/342de388.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/342de388.html" class="leancloud_visitors" data-flag-title="Assertion t >= 0 && t < n_classes failed">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在pytorch中遇到如下错误：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libraries<span class="regexp">/torch/</span>extra<span class="regexp">/cunn/</span>lib<span class="regexp">/THCUNN/</span>ClassNLLCriterion.<span class="string">cu:</span><span class="number">52</span>: <span class="keyword">void</span> cunn_ClassNLLCriterion_updateOutput_kernel(Dtype *, Dtype *, Dtype *, <span class="keyword">long</span> *, Dtype *, <span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>) [with Dtype = <span class="keyword">float</span>, Acctype = <span class="keyword">float</span>]: <span class="string">block:</span> [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>], <span class="string">thread:</span> [<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>] Assertiont &gt;= <span class="number">0</span> &amp;&amp; t &lt; n_classesfailed.</span><br></pre></td></tr></table></figure></p>
+<p>造成这个问题的原因就是在做分类任务时，训练数据中存在超出<em>分类数目</em>的标签。比如我一共设置了<code>8</code>个类，但是训练数据中的标签里出现了<code>9</code>，就会报这个错误。<br>那么问题来了，这里有一个陷阱。<br>训练数据中的标签含<code>0</code>也会报上述错误。这个就非常诡异了。一般我们都从<code>0</code>开始数，但是在<code>pytorch</code>里<code>0</code>以下的类别标签都是要报错的。所以如果类别标签从<code>0</code>开始，要给所有类别标签都加上一。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/be5c905.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1852,164 +2027,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/c61c6fd.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/c61c6fd.html" itemprop="url">aboutme</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-28T22:32:59+08:00">
-                2018-08-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/c61c6fd.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/c61c6fd.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/c61c6fd.html" class="leancloud_visitors" data-flag-title="aboutme">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Email"><a href="#Email" class="headerlink" title="Email"></a>Email</h1><p><a href="mailto:chengzhong9203@gmail.com" target="_blank" rel="noopener">chengzhong9203@gmail.com</a></p>
-<h1 id="Personal-Information"><a href="#Personal-Information" class="headerlink" title="Personal Information"></a>Personal Information</h1><p>emmm maybe no thing~~~</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2059,7 +2081,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
