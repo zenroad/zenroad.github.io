@@ -1,614 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-
-    
   <url>
     <loc>https://www.zenroad.club/archives/bc60cdc1.html</loc>
-    <lastmod>2018-10-04T13:47:18.608Z</lastmod>
-    <data>
-        <display>
-        <title>Leetcode Two Sum [easy] (Python)</title>
-        <pubTime>2018-10-04T13:25:18.000Z</pubTime>
-        
-        <tag>Leetcode</tag>
-         
-         
-           
-             
-              <breadCrumb title="Leetcode" url="https://www.zenroad.club/categories/Leetcode/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+    <lastmod>2018-10-04T13:51:13.278Z</lastmod>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/b82d8975.html</loc>
     <lastmod>2018-10-04T08:19:36.719Z</lastmod>
-    <data>
-        <display>
-        <title>免费VPN 推荐 —— ProtonVPN</title>
-        <pubTime>2018-10-04T01:07:06.000Z</pubTime>
-        
-        <tag>vpn</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/11c79d56.html</loc>
     <lastmod>2018-10-03T11:55:57.002Z</lastmod>
-    <data>
-        <display>
-        <title>Markdown introduction</title>
-        <pubTime>2018-10-01T00:26:35.000Z</pubTime>
-        
-        <tag>Markdown</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/86e5f9e1.html</loc>
     <lastmod>2018-10-03T09:22:08.608Z</lastmod>
-    <data>
-        <display>
-        <title>Python regular expression</title>
-        <pubTime>2018-10-01T13:04:33.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-        <tag>Regular expression</tag>
-         
-         
-           
-             
-              <breadCrumb title="python tutorial" url="https://www.zenroad.club/categories/python-tutorial/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/98dacf19.html</loc>
     <lastmod>2018-09-29T14:21:06.796Z</lastmod>
-    <data>
-        <display>
-        <title>Difference between frompyfunc() and vectorize() in Numpy</title>
-        <pubTime>2018-09-29T13:41:04.000Z</pubTime>
-        
-        <tag>numpy</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/c226393d.html</loc>
     <lastmod>2018-09-28T13:59:50.369Z</lastmod>
-    <data>
-        <display>
-        <title>numpy split usage</title>
-        <pubTime>2018-09-28T12:50:32.000Z</pubTime>
-        
-        <tag>numpy</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/a9604481.html</loc>
     <lastmod>2018-09-24T08:51:39.718Z</lastmod>
-    <data>
-        <display>
-        <title>查看docker运行中的命令行输出</title>
-        <pubTime>2018-09-24T08:32:39.000Z</pubTime>
-        
-        <tag>docker</tag>
-         
-         
-           
-             
-              <breadCrumb title="docker" url="https://www.zenroad.club/categories/docker/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/17d589f8.html</loc>
     <lastmod>2018-09-18T11:58:34.716Z</lastmod>
-    <data>
-        <display>
-        <title>pytorch处理类别不平衡问题</title>
-        <pubTime>2018-09-18T11:31:54.000Z</pubTime>
-        
-        <tag>pytorch</tag>
-         
-        <tag>tutorial</tag>
-         
-         
-           
-             
-              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/89b0a2ac.html</loc>
     <lastmod>2018-09-18T11:58:34.716Z</lastmod>
-    <data>
-        <display>
-        <title>how to handle imbalanced classes with pytorch</title>
-        <pubTime>2018-09-18T11:02:28.000Z</pubTime>
-        
-        <tag>pytorch</tag>
-         
-        <tag>tutorial</tag>
-         
-         
-           
-             
-              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/da231408.html</loc>
     <lastmod>2018-09-14T05:54:46.000Z</lastmod>
-    <data>
-        <display>
-        <title>国外的免费的接码平台网站 free sms receive website</title>
-        <pubTime>2018-08-26T07:51:01.000Z</pubTime>
-        
-        <tag>tools</tag>
-         
-         
-           
-             
-              <breadCrumb title="tools" url="https://www.zenroad.club/categories/tools/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/342de388.html</loc>
     <lastmod>2018-09-13T06:57:28.000Z</lastmod>
-    <data>
-        <display>
-        <title>Assertion t >= 0 && t < n_classes failed</title>
-        <pubTime>2018-09-13T06:47:35.000Z</pubTime>
-        
-        <tag>error</tag>
-         
-         
-           
-             
-              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.zenroad.club/archives/f9c83459.html</loc>
-    <lastmod>2018-09-13T06:57:28.000Z</lastmod>
-    <data>
-        <display>
-        <title>linux cp first n files (linux下一次cp前n个文件)</title>
-        <pubTime>2018-09-13T05:23:26.000Z</pubTime>
-        
-        <tag>tips</tag>
-         
-         
-           
-             
-              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/be5c905.html</loc>
     <lastmod>2018-09-13T06:57:28.000Z</lastmod>
-    <data>
-        <display>
-        <title>linux 显示文件夹中有多少个文件</title>
-        <pubTime>2018-09-13T05:28:26.000Z</pubTime>
-        
-        <tag>tips</tag>
-         
-         
-           
-             
-              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
+    <loc>https://www.zenroad.club/archives/f9c83459.html</loc>
+    <lastmod>2018-09-13T06:57:28.000Z</lastmod>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/bb1543db.html</loc>
     <lastmod>2018-09-07T08:54:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>vim 卡住 死机 没有任何反应</title>
-        <pubTime>2018-09-07T07:48:42.000Z</pubTime>
-        
-        <tag>error</tag>
-         
-         
-           
-             
-              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/f1636a03.html</loc>
     <lastmod>2018-09-07T07:00:34.000Z</lastmod>
-    <data>
-        <display>
-        <title>ERROR  Unexpected bus error encountered in worker. This might be caused by insufficient shared memory (shm).</title>
-        <pubTime>2018-09-07T06:48:43.000Z</pubTime>
-        
-        <tag>error</tag>
-         
-         
-           
-             
-              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/6c83df.html</loc>
     <lastmod>2018-09-07T07:00:34.000Z</lastmod>
-    <data>
-        <display>
-        <title>查看CUDA版本 查看cudnn版本</title>
-        <pubTime>2018-09-07T01:41:53.000Z</pubTime>
-        
-        <tag>tips</tag>
-         
-         
-           
-             
-              <breadCrumb title="tips" url="https://www.zenroad.club/categories/tips/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/5370e07a.html</loc>
     <lastmod>2018-09-04T07:43:20.000Z</lastmod>
-    <data>
-        <display>
-        <title>python3 Python.h No such file or directory</title>
-        <pubTime>2018-09-04T07:28:33.000Z</pubTime>
-        
-        <tag>error</tag>
-         
-         
-           
-             
-              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/b3c8e38d.html</loc>
     <lastmod>2018-09-04T07:43:20.000Z</lastmod>
-    <data>
-        <display>
-        <title>google dense_hash_map  No such file or directory</title>
-        <pubTime>2018-09-04T07:33:39.000Z</pubTime>
-        
-        <tag>error</tag>
-         
-         
-           
-             
-              <breadCrumb title="error" url="https://www.zenroad.club/categories/error/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/f367cc38.html</loc>
     <lastmod>2018-09-02T02:48:12.000Z</lastmod>
-    <data>
-        <display>
-        <title>pytorch入门——边学边练07 Recurrent Neural Network</title>
-        <pubTime>2018-08-27T13:42:36.000Z</pubTime>
-        
-        <tag>pytorch</tag>
-         
-        <tag>tutorial</tag>
-         
-         
-           
-             
-              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/9051cccd.html</loc>
     <lastmod>2018-09-02T01:46:34.000Z</lastmod>
-    <data>
-        <display>
-        <title>3D Semantic Segmentation with Submanifold Sparse Convolutional Networks 论文翻译</title>
-        <pubTime>2018-08-30T09:33:46.000Z</pubTime>
-        
-        <tag>3D Semantic Segmentation</tag>
-         
-        <tag>paper</tag>
-         
-         
-           
-             
-              <breadCrumb title="Paper" url="https://www.zenroad.club/categories/Paper/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/1d0202a.html</loc>
     <lastmod>2018-09-01T07:58:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>Install android on VMware</title>
-        <pubTime>2018-08-29T11:39:03.000Z</pubTime>
-        
-        <tag>tools</tag>
-         
-         
-           
-             
-              <breadCrumb title="software" url="https://www.zenroad.club/categories/software/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/b147bf13.html</loc>
     <lastmod>2018-09-01T07:58:40.000Z</lastmod>
-    <data>
-        <display>
-        <title>不用手机号就能注册的邮箱</title>
-        <pubTime>2018-08-26T08:10:20.000Z</pubTime>
-        
-        <tag>tools</tag>
-         
-         
-           
-             
-              <breadCrumb title="tools" url="https://www.zenroad.club/categories/tools/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/c61c6fd.html</loc>
     <lastmod>2018-08-28T14:37:16.000Z</lastmod>
-    <data>
-        <display>
-        <title>aboutme</title>
-        <pubTime>2018-08-28T14:32:59.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/f93ca93e.html</loc>
     <lastmod>2018-08-28T08:10:34.000Z</lastmod>
-    <data>
-        <display>
-        <title>Install LevelDB</title>
-        <pubTime>2018-08-28T01:42:24.000Z</pubTime>
-        
-        <tag>leveldb</tag>
-         
-        <tag>googlestore</tag>
-         
-         
-           
-             
-              <breadCrumb title="software" url="https://www.zenroad.club/categories/software/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/272cdd5e.html</loc>
     <lastmod>2018-08-27T09:47:12.000Z</lastmod>
-    <data>
-        <display>
-        <title>pytorch入门——边学边练06 Residual_Network</title>
-        <pubTime>2018-08-27T03:44:43.000Z</pubTime>
-        
-        <tag>pytorch</tag>
-         
-        <tag>tutorial</tag>
-         
-         
-           
-             
-              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/e03a8d1f.html</loc>
     <lastmod>2018-08-27T03:37:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>pytorch入门——边学边练05卷积神经网络</title>
-        <pubTime>2018-08-25T13:28:34.000Z</pubTime>
-        
-        <tag>pytorch</tag>
-         
-        <tag>tutorial</tag>
-         
-         
-           
-             
-              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.zenroad.club/archives/83c5e701.html</loc>
-    <lastmod>2018-08-25T13:14:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>pytorch入门——边学边练02线性回归</title>
-        <pubTime>2018-08-24T05:27:00.000Z</pubTime>
-        
-        <tag>pytorch</tag>
-         
-        <tag>tutorial</tag>
-         
-         
-           
-             
-              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
-    <lastmod>2018-08-25T13:14:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>pytorch入门——边学边练03逻辑回归</title>
-        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
-        
-        <tag>pytorch</tag>
-         
-        <tag>tutorial</tag>
-         
-         
-           
-             
-              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
-    <lastmod>2018-08-25T13:14:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>pytorch入门——边学边练01基础知识</title>
-        <pubTime>2018-08-23T12:49:44.000Z</pubTime>
-        
-        <tag>pytorch</tag>
-         
-        <tag>tutorial</tag>
-         
-         
-           
-             
-              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
+  </url>  <url>
     <loc>https://www.zenroad.club/archives/91ff9728.html</loc>
     <lastmod>2018-08-25T13:14:36.000Z</lastmod>
-    <data>
-        <display>
-        <title>pytorch入门——边学边练04一个简单网络</title>
-        <pubTime>2018-08-24T06:56:55.000Z</pubTime>
-        
-        <tag>pytorch</tag>
-         
-        <tag>tutorial</tag>
-         
-         
-           
-             
-              <breadCrumb title="Machine Learning" url="https://www.zenroad.club/categories/Machine-Learning/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-    
+  </url>  <url>
+    <loc>https://www.zenroad.club/archives/83c5e701.html</loc>
+    <lastmod>2018-08-25T13:14:36.000Z</lastmod>
+  </url>  <url>
+    <loc>https://www.zenroad.club/archives/e77a54cd.html</loc>
+    <lastmod>2018-08-25T13:14:36.000Z</lastmod>
+  </url>  <url>
+    <loc>https://www.zenroad.club/archives/1effc38e.html</loc>
+    <lastmod>2018-08-25T13:14:36.000Z</lastmod>
+  </url>
 </urlset>
