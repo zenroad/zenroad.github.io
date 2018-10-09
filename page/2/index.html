@@ -272,6 +272,182 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/17d589f8.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/17d589f8.html" itemprop="url">pytorch处理类别不平衡问题</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-18T19:31:54+08:00">
+                2018-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/17d589f8.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/17d589f8.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/17d589f8.html" class="leancloud_visitors" data-flag-title="pytorch处理类别不平衡问题">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>当训练样本不均匀时，我们可以采用过采样、欠采样、数据增强等手段来避免过拟合。今天遇到一个3d点云数据集合，样本分布极不均匀，正例与负例相差4-5个数量级。数据增强效果就不会太好了，另外过采样也不太合适，因为是空间数据，新增的点有可能会对真实分布产生未知影响。所以采用欠采样来缓解类别不平衡的问题。<br>下面的代码展示了如何使用<code>WeightedRandomSampler</code>来完成抽样。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">numDataPoints = <span class="number">1000</span></span><br><span class="line">data_dim = <span class="number">5</span></span><br><span class="line">bs = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"># Create dummy <span class="keyword">data</span> with <span class="keyword">class</span> imbalance <span class="number">9</span> to <span class="number">1</span></span><br><span class="line"><span class="keyword">data</span> = torch.FloatTensor(numDataPoints, data_dim)</span><br><span class="line"><span class="keyword">target</span> = np.hstack((np.zeros(<span class="built_in">int</span>(numDataPoints * <span class="number">0.9</span>), dtype=np.int32),</span><br><span class="line">                    np.ones(<span class="built_in">int</span>(numDataPoints * <span class="number">0.1</span>), dtype=np.int32)))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">'target train 0/1: &#123;&#125;/&#123;&#125;'</span>.<span class="keyword">format</span>(</span><br><span class="line">    len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">0</span>)[<span class="number">0</span>]), len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">1</span>)[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == t)[<span class="number">0</span>]) for t <span class="keyword">in</span> np.unique(<span class="keyword">target</span>)])</span><br><span class="line">weight = <span class="number">1.</span> / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t <span class="keyword">in</span> <span class="keyword">target</span>])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.<span class="keyword">double</span>()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br><span class="line"></span><br><span class="line"><span class="keyword">target</span> = torch.from_numpy(<span class="keyword">target</span>).long()</span><br><span class="line">train_dataset = torch.utils.<span class="keyword">data</span>.TensorDataset(<span class="keyword">data</span>, <span class="keyword">target</span>)</span><br><span class="line"></span><br><span class="line">train_loader = DataLoader(</span><br><span class="line">    train_dataset, batch_size=bs, num_workers=<span class="number">1</span>, sampler=sampler)</span><br><span class="line"></span><br><span class="line">for i, (<span class="keyword">data</span>, <span class="keyword">target</span>) <span class="keyword">in</span> enumerate(train_loader):</span><br><span class="line">    <span class="built_in">print</span> <span class="string">"batch index &#123;&#125;, 0/1: &#123;&#125;/&#123;&#125;"</span>.<span class="keyword">format</span>(</span><br><span class="line">        i,</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">0</span>)[<span class="number">0</span>]),</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">1</span>)[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure></p>
+<p>核心部分为实际使用时替换下变量把<code>sampler</code>传递给<code>DataLoader</code>即可，注意使用了<code>sampler</code>就不能使用<code>shuffle</code>，另外需要指定<em>采样点个数</em>：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.where(target == t)[0]) for t in np.unique(target)])</span><br><span class="line">weight = 1. / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t in target])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.double()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://discuss.pytorch.org/t/how-to-handle-imbalanced-classes/11264/2" target="_blank" rel="noopener">参考</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/89b0a2ac.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1833,185 +2009,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/9051cccd.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/9051cccd.html" itemprop="url">3D Semantic Segmentation with Submanifold Sparse Convolutional Networks 论文翻译</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-30T17:33:46+08:00">
-                2018-08-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Paper/" itemprop="url" rel="index">
-                    <span itemprop="name">Paper</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/9051cccd.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/9051cccd.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/9051cccd.html" class="leancloud_visitors" data-flag-title="3D Semantic Segmentation with Submanifold Sparse Convolutional Networks 论文翻译">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="3D-Semantic-Segmentation-with-Submanifold-Sparse-Convolutional-Networks"><a href="#3D-Semantic-Segmentation-with-Submanifold-Sparse-Convolutional-Networks" class="headerlink" title="3D Semantic Segmentation with Submanifold Sparse Convolutional Networks"></a>3D Semantic Segmentation with Submanifold Sparse Convolutional Networks</h1><h1 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h1><p>翻译内容如有不当之处，请多多批评指正。</p>
-<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>卷积网络是分析时空数据比如图像、视频、3D形状的事实标准。虽然其中一些数据是天然密集的（比如照片），但还有许多其它的数据本质上是稀疏的。示例包括使用<code>LiDAR</code>扫描器或者<code>RGB-D</code>获得的3D点云。当面对这种稀疏数据时，卷积网络的标准“密集”实现效率非常低。我们引入了新的稀疏卷积运算，旨在更有效地处理空间稀疏数据，并使用它们来构造空间稀疏卷积网络。我们在涉及3D点云的语义分割的两个任务中证明了所得模型的强大性能，称为<code>submanifold sparse convolutional networks（SSCNs）</code>。特别是我们的模型在最近的语义分割竞赛的测试集上优于所有先前的<code>state-of-the=art</code>技术。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/archives/9051cccd.html#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2066,7 +2063,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
