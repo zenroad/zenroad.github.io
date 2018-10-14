@@ -387,8 +387,7 @@
       
         
           
-            <p>‘’’<br>docker ps -a | grep “Exited” | awk ‘{print $1 }’|xargs docker stop<br>docker ps -a | grep “Exited” | awk ‘{print $1 }’|xargs docker rm<br>docker images|grep none|awk ‘{print $3 }’|xargs docker rmi<br>‘’’</p>
-
+            <figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a | <span class="type">grep</span> <span class="string">"Exited"</span> | <span class="type">awk</span> '&#123;print $<span class="number">1</span> &#125;'|<span class="type">xargs</span> docker stop</span><br><span class="line">docker ps -a | <span class="type">grep</span> <span class="string">"Exited"</span> | <span class="type">awk</span> '&#123;print $<span class="number">1</span> &#125;'|<span class="type">xargs</span> docker rm</span><br><span class="line">docker images|<span class="type">grep</span> none|<span class="type">awk</span> '&#123;print $<span class="number">3</span> &#125;'|<span class="type">xargs</span> docker rmi</span><br></pre></td></tr></table></figure>
           
         
       
