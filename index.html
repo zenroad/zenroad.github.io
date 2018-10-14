@@ -272,6 +272,1238 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/8fbf1da1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/8fbf1da1.html" itemprop="url">MPI_Comm_group与MPI_Comm_create_group小例子</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:27:14+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mpi/" itemprop="url" rel="index">
+                    <span itemprop="name">mpi</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/8fbf1da1.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/8fbf1da1.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/8fbf1da1.html" class="leancloud_visitors" data-flag-title="MPI_Comm_group与MPI_Comm_create_group小例子">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>函数原型<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MPI_Comm_group</span>(</span><br><span class="line">	<span class="built_in">MPI_Comm</span> comm,</span><br><span class="line">	<span class="built_in">MPI_Group</span>* group)</span><br></pre></td></tr></table></figure></p>
+<p>group 和communicator类似，但是缺少上下文所以无法实现进程间通信，只能获取组间的rank以及size。<br>MPI_Comm_create_group是与group相关的最常用函数之一，它可以利用一个group对象创建新的通信域。<br>函数原型：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MPI_Comm_create_group</span>(</span><br><span class="line">	<span class="built_in">MPI_Comm</span> comm,</span><br><span class="line">	<span class="built_in">MPI_Group</span> group,</span><br><span class="line">	<span class="keyword">int</span> tag,</span><br><span class="line">	<span class="built_in">MPI_Comm</span>* newcomm)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>MPI_Group_incl函数：挑选组内特定rank进程构建新的group<br>函数原型：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MPI_Group_incl</span>(</span><br><span class="line">	<span class="built_in">MPI_Group</span> group,</span><br><span class="line">	<span class="keyword">int</span> n,</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> ranks[],</span><br><span class="line">	<span class="built_in">MPI_Group</span>* newgroup)</span><br></pre></td></tr></table></figure></p>
+<p>下面展示一个实例：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get the rank and size in the original communicator</span></span><br><span class="line"><span class="keyword">int</span> world_rank, world_size;</span><br><span class="line"><span class="built_in">MPI_Comm_rank</span>(<span class="built_in">MPI_COMM_WORLD</span>, &amp;world_rank);</span><br><span class="line"><span class="built_in">MPI_Comm_size</span>(<span class="built_in">MPI_COMM_WORLD</span>, &amp;world_size);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get the group of processes in MPI_COMM_WORLD</span></span><br><span class="line"><span class="built_in">MPI_Group</span> world_group;</span><br><span class="line"><span class="built_in">MPI_Comm_group</span>(<span class="built_in">MPI_COMM_WORLD</span>, &amp;world_group);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n = <span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ranks[<span class="number">7</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Construct a group containing all of the prime ranks in world_group</span></span><br><span class="line"><span class="built_in">MPI_Group</span> prime_group;</span><br><span class="line"><span class="built_in">MPI_Group_incl</span>(world_group, <span class="number">7</span>, ranks, &amp;prime_group);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a new communicator based on the group</span></span><br><span class="line"><span class="built_in">MPI_Comm</span> prime_comm;</span><br><span class="line"><span class="built_in">MPI_Comm_create_group</span>(<span class="built_in">MPI_COMM_WORLD</span>, prime_group, <span class="number">0</span>, &amp;prime_comm);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> prime_rank = <span class="number">-1</span>, prime_size = <span class="number">-1</span>;</span><br><span class="line"><span class="comment">// If this rank isn't in the new communicator, it will be</span></span><br><span class="line"><span class="comment">// MPI_COMM_NULL. Using MPI_COMM_NULL for MPI_Comm_rank or</span></span><br><span class="line"><span class="comment">// MPI_Comm_size is erroneous</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">MPI_COMM_NULL</span> != prime_comm) &#123;</span><br><span class="line">	<span class="built_in">MPI_Comm_rank</span>(prime_comm, &amp;prime_rank);</span><br><span class="line">	<span class="built_in">MPI_Comm_size</span>(prime_comm, &amp;prime_size);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printf(<span class="string">"WORLD RANK/SIZE: %d/%d \t PRIME RANK/SIZE: %d/%d\n"</span>,</span><br><span class="line">	world_rank, world_size, prime_rank, prime_size);</span><br><span class="line"></span><br><span class="line"><span class="built_in">MPI_Group_free</span>(&amp;world_group);</span><br><span class="line"><span class="built_in">MPI_Group_free</span>(&amp;prime_group);</span><br><span class="line"><span class="built_in">MPI_Comm_free</span>(&amp;prime_comm);</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/4de3a9e8.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/4de3a9e8.html" itemprop="url">MPI_Comm_split小例子</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:26:07+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mpi/" itemprop="url" rel="index">
+                    <span itemprop="name">mpi</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/4de3a9e8.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/4de3a9e8.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/4de3a9e8.html" class="leancloud_visitors" data-flag-title="MPI_Comm_split小例子">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MPI_Comm_split函数用于划分通信子域。<br>函数原型<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MPI_Comm_split</span>(</span><br><span class="line">	<span class="built_in">MPI_Comm</span> comm,</span><br><span class="line">	<span class="keyword">int</span> color,</span><br><span class="line">	<span class="keyword">int</span> key,</span><br><span class="line">	<span class="built_in">MPI_Comm</span>* newcomm)</span><br></pre></td></tr></table></figure></p>
+<p>MPI_Comm_split主要有以下四个参数：<br>第一个参数comm为原来的域的整体范围，也就是被划分的范围。<br>第二个参数为color，相同的color的节点会被划分成同一个子域。如果color被置为MPI_UNDEFINED，进程不会被纳入通信域。<br>第三个参数为key，在每个子域中会有诸多节点，节点在子域中的rank是多少，是通过key从小到大进行排列从而产生的。rank最小的进程会被置为0，第二小的会被置为1，以此类推。<br>第四个参数为newcomm，也就是一个新的通信域。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get the rank and size in the original communicator</span></span><br><span class="line"><span class="keyword">int</span> world_rank, world_size;</span><br><span class="line"><span class="built_in">MPI_Comm_rank</span>(<span class="built_in">MPI_COMM_WORLD</span>, &amp;world_rank);</span><br><span class="line"><span class="built_in">MPI_Comm_size</span>(<span class="built_in">MPI_COMM_WORLD</span>, &amp;world_size);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> color = world_rank / <span class="number">4</span>; <span class="comment">// Determine color based on row</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Split the communicator based on the color and use the</span></span><br><span class="line"><span class="comment">// original rank for ordering</span></span><br><span class="line"><span class="built_in">MPI_Comm</span> row_comm;</span><br><span class="line"><span class="built_in">MPI_Comm_split</span>(<span class="built_in">MPI_COMM_WORLD</span>, color, world_rank, &amp;row_comm);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> row_rank, row_size;</span><br><span class="line"><span class="built_in">MPI_Comm_rank</span>(row_comm, &amp;row_rank);</span><br><span class="line"><span class="built_in">MPI_Comm_size</span>(row_comm, &amp;row_size);</span><br><span class="line"></span><br><span class="line">printf(<span class="string">"WORLD RANK/SIZE: %d/%d \t ROW RANK/SIZE: %d/%d\n"</span>,</span><br><span class="line">	world_rank, world_size, row_rank, row_size);</span><br><span class="line"></span><br><span class="line"><span class="built_in">MPI_Comm_free</span>(&amp;row_comm);</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/fa48f8b1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/fa48f8b1.html" itemprop="url">MPI_Gatherv小例子</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:25:02+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mpi/" itemprop="url" rel="index">
+                    <span itemprop="name">mpi</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/fa48f8b1.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/fa48f8b1.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/fa48f8b1.html" class="leancloud_visitors" data-flag-title="MPI_Gatherv小例子">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MPI_Gatherv的作用：从一组进程中收集数据，汇总到根进程中。MPI_GATHERV扩展了MPI_GATHER的功能, 它可以从不同的进程接收不同数量的数 据,因为此时recvcounts是一个数组,除此之外,它还提供了更大的灵活性,比如它提供了一个新的参数displs,用户可以将接收的数据存放到根进程消息缓冲区的任意处.<br>MPI_GATHER 接收到的数据在接收缓冲区中是连续存放的, 而MPI_GATHERV 接收到的数据在接收缓冲区中是不连续存放的。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="built_in">MPI_Gatherv</span>(<span class="keyword">const</span> <span class="keyword">void</span> *sendbuf,<span class="keyword">int</span> sendcount,<span class="built_in">MPI_Datatype</span> sendtype,<span class="keyword">void</span> *recvbuf,<span class="keyword">const</span> <span class="keyword">int</span> *recvcounts,<span class="keyword">const</span> <span class="keyword">int</span> *displs,<span class="built_in">MPI_Datatype</span> rectype,<span class="keyword">int</span> root,<span class="built_in">MPI_Comm</span> comm)</span><br></pre></td></tr></table></figure></p>
+<p>下面展示具体代码：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Gathers into specified locations from all processes in a group</span></span><br><span class="line"><span class="meta">#include <span class="meta-string">"mpi.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main( <span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[] )&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> rank, nproc;</span><br><span class="line">    <span class="keyword">int</span> isend[<span class="number">3</span>],iscnt,irecv[<span class="number">6</span>];</span><br><span class="line">    <span class="keyword">int</span> ircnt[<span class="number">3</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;, idisp[<span class="number">3</span>] = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>&#125;;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">MPI_Init</span>( &amp;argc, &amp;argv );</span><br><span class="line">    <span class="built_in">MPI_Comm_size</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;nproc );</span><br><span class="line">    <span class="built_in">MPI_Comm_rank</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;rank );</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> ( rank == <span class="number">0</span> ) printf(<span class="string">"This program must run with 3 processes: np = 3 \n"</span>);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">3</span>; i++)</span><br><span class="line">        isend[i] = rank + <span class="number">1</span>;</span><br><span class="line">        iscnt = rank + <span class="number">1</span>;</span><br><span class="line"><span class="comment">//int MPI_Gatherv(const void *sendbuf,int sendcount,MPI_Datatype sendtype,void *recvbuf,const int *recvcounts,const int *displs,MPI_Datatype rectype,int root,MPI_Comm comm)</span></span><br><span class="line"><span class="comment">//displs</span></span><br><span class="line"><span class="comment">//integer array (of length group size). Entry i specifies the displacement relative to recvbuf at which to place the incoming data from process i (significant only at root)</span></span><br><span class="line">       <span class="built_in">MPI_Gatherv</span>( isend, iscnt, <span class="built_in">MPI_INT</span>, irecv, ircnt, idisp, </span><br><span class="line">                               <span class="built_in">MPI_INT</span>, <span class="number">0</span>, <span class="built_in">MPI_COMM_WORLD</span>);</span><br><span class="line">       <span class="keyword">if</span>(rank == <span class="number">0</span>) &#123;</span><br><span class="line">             <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">6</span>; i++)  printf(<span class="string">"irecv = %d\n"</span>, irecv[i]);</span><br><span class="line">       &#125;</span><br><span class="line">    <span class="built_in">MPI_Finalize</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/dbebb1c.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/dbebb1c.html" itemprop="url">MPI_Gather小例子</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:24:10+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mpi/" itemprop="url" rel="index">
+                    <span itemprop="name">mpi</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/dbebb1c.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/dbebb1c.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/dbebb1c.html" class="leancloud_visitors" data-flag-title="MPI_Gather小例子">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MPI_Gather的作用：从一组进程中收集数据，汇总到根进程中。<br>每个进程(包括根进程)将其发送缓冲区中的内容发送到根进程,根进程根据发送这些数据的进程的序列号将它们依次存放到自已的消息缓冲区中.其结果就象一个组中的n个进程(包括根进程在内)都执行了一个调用:<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">MPI_Send</span>(<span class="params">sendbuf, sendcount, sendtype, root, ...</span>)</span>,</span><br></pre></td></tr></table></figure></p>
+<p>同时根进程执行了n次调用:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">MPI_Recv</span><span class="params">(recvbuf+i*recvcount*extent(recvtype)</span></span>, recvcount, recvtype, <span class="selector-tag">i</span>,...)</span><br></pre></td></tr></table></figure></p>
+<p>函数原型：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="built_in">MPI_Gather</span>(<span class="keyword">const</span> <span class="keyword">void</span> *sendbuf,<span class="keyword">int</span> sendcount,<span class="built_in">MPI_Datatype</span> sendtype,<span class="keyword">void</span> *recvbuf,<span class="keyword">int</span> recvcount,<span class="built_in">MPI_Datatype</span> sendtype,<span class="keyword">int</span> root,<span class="built_in">MPI_Comm</span> comm)</span><br></pre></td></tr></table></figure></p>
+<p>直接展示结果似乎更为清晰，以下展示一个例子：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">rank=0, sbuf[0]=0</span><br><span class="line">rank=0, sbuf[1]=0</span><br><span class="line">rank=0, sbuf[2]=0</span><br><span class="line">rank=1, sbuf[0]=1</span><br><span class="line">rank=1, sbuf[1]=1</span><br><span class="line">rank=1, sbuf[2]=1</span><br><span class="line">rank=2, sbuf[0]=2</span><br><span class="line">rank=2, sbuf[1]=2</span><br><span class="line">rank=2, sbuf[2]=2</span><br><span class="line">after MPI_Gather rbuf value:</span><br><span class="line">rank=0, rbuf[0]=0</span><br><span class="line">rank=0, rbuf[1]=0</span><br><span class="line">rank=0, rbuf[2]=0</span><br><span class="line">rank=0, rbuf[3]=1</span><br><span class="line">rank=0, rbuf[4]=1</span><br><span class="line">rank=0, rbuf[5]=1</span><br><span class="line">rank=0, rbuf[6]=2</span><br><span class="line">rank=0, rbuf[7]=2</span><br><span class="line">rank=0, rbuf[8]=2</span><br></pre></td></tr></table></figure></p>
+<p>下面展示代码示例：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#include <span class="meta-string">"mpi.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main( <span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[] )&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> rank, nproc;</span><br><span class="line">    <span class="keyword">int</span> isend, irecv[<span class="number">32</span>];</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">MPI_Init</span>( &amp;argc, &amp;argv );</span><br><span class="line">    <span class="built_in">MPI_Comm_size</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;nproc );</span><br><span class="line">    <span class="built_in">MPI_Comm_rank</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;rank );</span><br><span class="line"></span><br><span class="line">    isend = rank + <span class="number">1</span>;</span><br><span class="line">	<span class="comment">//int MPI_Gather(const void *sendbuf,int sendcount,MPI_Datatype sendtype,void *recvbuf,int recvcount,MPI_Datatype sendtype,int root,MPI_Comm comm)</span></span><br><span class="line">    <span class="built_in">MPI_Gather</span>( &amp;isend, <span class="number">1</span>, <span class="built_in">MPI_INT</span>, irecv, <span class="number">1</span>, <span class="built_in">MPI_INT</span>, <span class="number">0</span>,</span><br><span class="line">                           <span class="built_in">MPI_COMM_WORLD</span>);</span><br><span class="line">    <span class="keyword">if</span>(rank == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;nproc; i++)</span><br><span class="line">            printf(<span class="string">"irecv = %d\n"</span>, irecv[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">MPI_Finalize</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/f1b9f217.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/f1b9f217.html" itemprop="url">MPI_Bcast小例子</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:22:51+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mpi/" itemprop="url" rel="index">
+                    <span itemprop="name">mpi</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/f1b9f217.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/f1b9f217.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/f1b9f217.html" class="leancloud_visitors" data-flag-title="MPI_Bcast小例子">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>代码比较简单，主要为说明MPI_Bcast功能。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//广播实例：先为所有非根进程置零，根进程向每个进程广播12345</span></span><br><span class="line"><span class="meta">#include <span class="meta-string">"mpi.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main( <span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[] )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> rank;</span><br><span class="line">    <span class="keyword">int</span> ibuf;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">MPI_Init</span>( &amp;argc, &amp;argv );</span><br><span class="line">    <span class="built_in">MPI_Comm_rank</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;rank );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(rank == <span class="number">0</span>) ibuf = <span class="number">12345</span>;</span><br><span class="line">    <span class="keyword">else</span> ibuf = <span class="number">0</span>; <span class="comment">// set ibuf Zero for non-root processes</span></span><br><span class="line">	<span class="comment">//MPI_Bcast(void *buffer,int count,MPI_Datatype datatype ,int root,MPI_Comm comm)</span></span><br><span class="line">    <span class="built_in">MPI_Bcast</span>(&amp;ibuf, <span class="number">1</span>, <span class="built_in">MPI_INT</span>, <span class="number">0</span>, <span class="built_in">MPI_COMM_WORLD</span>);</span><br><span class="line">    <span class="keyword">if</span> (rank !=<span class="number">0</span> ) printf(<span class="string">"my rank = %d  ibuf = %d\n"</span>, rank,ibuf);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">MPI_Finalize</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/2d632503.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/2d632503.html" itemprop="url">MPI计算pi值</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:21:04+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mpi/" itemprop="url" rel="index">
+                    <span itemprop="name">mpi</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/2d632503.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/2d632503.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/2d632503.html" class="leancloud_visitors" data-flag-title="MPI计算pi值">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="http://upload-images.jianshu.io/upload_images/8842375-a3a469090335049f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image"><br>π的求解方式：<br><img src="http://upload-images.jianshu.io/upload_images/8842375-3d501b6c7bcab37b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//由高数里的知识可知，根据上述公式可以求得pi/4。</span></span><br><span class="line"><span class="meta">#include<span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#include<span class="meta-string">&lt;mpi.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])&#123;</span><br><span class="line">	<span class="keyword">int</span> my_rank,num_procs;</span><br><span class="line">	<span class="keyword">int</span> i,n = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">double</span> sum,width,local,mypi,pi;</span><br><span class="line">	<span class="keyword">double</span> start =<span class="number">0.0</span>,stop = <span class="number">0.0</span>;</span><br><span class="line">	<span class="keyword">int</span> proc_len;</span><br><span class="line">	<span class="comment">//MPI_MAX_PROCESSOR_NAME是MPI预定义的宏，，即MPI所允许的机器名字的最大长度。</span></span><br><span class="line">	<span class="keyword">char</span> processor_name[<span class="built_in">MPI_MAX_PROCESSOR_NAME</span>];</span><br><span class="line">	<span class="built_in">MPI_Init</span>(&amp;argc,&amp;argv);</span><br><span class="line">	<span class="built_in">MPI_Comm_size</span>(<span class="built_in">MPI_COMM_WORLD</span>,&amp;num_procs);</span><br><span class="line">	<span class="comment">//determines the rank of the calling process in the communicator</span></span><br><span class="line">	<span class="built_in">MPI_Comm_rank</span>(<span class="built_in">MPI_COMM_WORLD</span>,&amp;my_rank);</span><br><span class="line">	<span class="comment">//mpi接口获取进程名 int MPI_Get_processor_name(char *name,int *resultlen)</span></span><br><span class="line">	<span class="built_in">MPI_Get_processor_name</span>(processor_name,&amp;proc_len);</span><br><span class="line">	printf(<span class="string">"Process %d of %d\n"</span>,my_rank,num_procs);</span><br><span class="line">	<span class="keyword">if</span>(my_rank == <span class="number">0</span>)&#123;</span><br><span class="line">		scanf(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">		printf(<span class="string">"\n"</span>);</span><br><span class="line">		<span class="comment">//MPI_Wtime返回一个用浮点数表示的秒数</span></span><br><span class="line">		start = <span class="built_in">MPI_Wtime</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//MPI_Bcast(void *buffer,int count,MPI_Datatype datatype ,int root,MPI_Comm comm)</span></span><br><span class="line">	<span class="built_in">MPI_Bcast</span>(&amp;n,<span class="number">1</span>,<span class="built_in">MPI_INT</span>,<span class="number">0</span>,<span class="built_in">MPI_COMM_WORLD</span>);</span><br><span class="line">	sum =<span class="number">0.0</span>;</span><br><span class="line">	width = <span class="number">1.0</span>/n;</span><br><span class="line">	<span class="comment">//每个进程my_rank，计算4.0/(1.0+local*local)放入sum</span></span><br><span class="line">	<span class="keyword">for</span>(i = my_rank;i&lt;n;i+=num_procs)&#123;</span><br><span class="line">		local =width*((<span class="keyword">double</span>)i+<span class="number">0.5</span>);</span><br><span class="line">		sum += <span class="number">4.0</span>/(<span class="number">1.0</span>+local*local);</span><br><span class="line">	&#125;</span><br><span class="line">	mypi = width*sum;</span><br><span class="line">	<span class="built_in">MPI_Reduce</span>(&amp;mypi,&amp;pi,<span class="number">1</span>,<span class="built_in">MPI_DOUBLE</span>,<span class="built_in">MPI_SUM</span>,<span class="number">0</span>,<span class="built_in">MPI_COMM_WORLD</span>);</span><br><span class="line">	<span class="comment">//打印结果</span></span><br><span class="line">	<span class="keyword">if</span>(my_rank == <span class="number">0</span>)&#123;</span><br><span class="line">		printf(<span class="string">"PI is %.20f\n"</span>,pi);</span><br><span class="line">		stop = <span class="built_in">MPI_Wtime</span>();</span><br><span class="line">		printf(<span class="string">"Time:%f on %s\n"</span>,stop-start,processor_name);</span><br><span class="line">		fflush(stdout);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">MPI_Finalize</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/d25d3b5e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/d25d3b5e.html" itemprop="url">Python解析IP地址CIDR的形式</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:18:09+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-tutorial/" itemprop="url" rel="index">
+                    <span itemprop="name">python tutorial</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/d25d3b5e.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/d25d3b5e.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/d25d3b5e.html" class="leancloud_visitors" data-flag-title="Python解析IP地址CIDR的形式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>###使用IPy库<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> IPy <span class="keyword">import</span> IP</span><br><span class="line">ip = IP(<span class="string">'127.0.0.0/30'</span>)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> ip:</span><br><span class="line">	<span class="built_in">print</span>(x)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span></span><br><span class="line">127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.1</span></span><br><span class="line">127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.2</span></span><br><span class="line">127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.3</span></span><br></pre></td></tr></table></figure>
+<p>###使用netaddr库<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from netaddr import *</span><br><span class="line">ip = IPNetwork('<span class="number">192.0</span>.<span class="number">2.16</span>/29')</span><br><span class="line">ip_list = list(<span class="name">ip</span>)</span><br><span class="line">print(<span class="name">ip_list</span>)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="name">IPAddress</span>(<span class="symbol">'192.0.2.16</span>'), IPAddress(<span class="symbol">'192.0.2.17</span>'), IPAddress(<span class="symbol">'192.0.2.18</span>'), IPAddress(<span class="symbol">'192.0.2.19</span>'), IPAddress(<span class="symbol">'192.0.2.20</span>'), IPAddress(<span class="symbol">'192.0.2.21</span>'), IPAddress(<span class="symbol">'192.0.2.22</span>'), IPAddress(<span class="symbol">'192.0.2.23</span>')]</span><br></pre></td></tr></table></figure>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> netaddr <span class="keyword">import</span> *</span><br><span class="line">startip = <span class="string">'208.130.29.30'</span></span><br><span class="line">endip = <span class="string">'208.130.29.35'</span></span><br><span class="line">cidrs = netaddr.iprange_to_cidrs(startip, endip)</span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> enumerate(cidrs):</span><br><span class="line">    iplist = v</span><br><span class="line">    <span class="built_in">print</span> iplist</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">208.130</span><span class="number">.29</span><span class="number">.30</span>/<span class="number">31</span></span><br><span class="line"><span class="number">208.130</span><span class="number">.29</span><span class="number">.32</span>/<span class="number">30</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/5599f08d.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -800,1855 +2032,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/bc60cdc1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/bc60cdc1.html" itemprop="url">Leetcode Two Sum [easy] (Python)</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T21:25:18+08:00">
-                2018-10-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/bc60cdc1.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/bc60cdc1.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/bc60cdc1.html" class="leancloud_visitors" data-flag-title="Leetcode Two Sum [easy] (Python)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
-<p>You may assume that each input would have exactly one solution, and you may not use the same element twice.<br><strong>Example:</strong></p>
-<blockquote>
-<p>Given nums = [2, 7, 11, 15], target = 9,<br>Because nums[0] + nums[1] = 2 + 7 = 9,<br>return [0, 1].</p>
-</blockquote>
-<h2 id="Solution1"><a href="#Solution1" class="headerlink" title="Solution1"></a>Solution1</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums) - <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>, len(nums)):</span><br><span class="line">                <span class="keyword">if</span> nums[i] + nums[j] == target:</span><br><span class="line">                    <span class="keyword">return</span> [i, j]</span><br></pre></td></tr></table></figure>
-<p>Intuitive ideas, violent solutions, two cycles. low efficiency.</p>
-<h2 id="Solution2"><a href="#Solution2" class="headerlink" title="Solution2"></a>Solution2</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        keys = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> target - nums[i] <span class="keyword">in</span> keys:</span><br><span class="line">                <span class="keyword">return</span> [keys[target - nums[i]], i]</span><br><span class="line">            <span class="keyword">if</span> nums[i] <span class="keyword">not</span> <span class="keyword">in</span> keys:</span><br><span class="line">                keys[nums[i]] = i</span><br></pre></td></tr></table></figure>
-<h2 id="Solution3"><a href="#Solution3" class="headerlink" title="Solution3"></a>Solution3</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        collected = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> idx,val <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            diff = target - val</span><br><span class="line">            <span class="keyword">if</span> diff <span class="keyword">in</span> collected:</span><br><span class="line">                <span class="keyword">return</span> [collected[diff], idx]</span><br><span class="line">            collected[val] = idx</span><br></pre></td></tr></table></figure>
-<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>enumerate()</p>
-<h3 id="description"><a href="#description" class="headerlink" title="description"></a>description</h3><p>The enumerate() function is used to combine a traversable data object (such as a list, tuple, or string) into an index sequence, listing both data and data subscripts, typically used in a for loop.</p>
-<h4 id="grammar"><a href="#grammar" class="headerlink" title="grammar"></a>grammar</h4><p>以下是 enumerate() 方法的语法:</p>
-<blockquote>
-<p>enumerate(sequence, [start=0])</p>
-</blockquote>
-<h4 id="parameter"><a href="#parameter" class="headerlink" title="parameter"></a>parameter</h4><ul>
-<li>Sequence – A sequence, iterator, or other support iterative object.</li>
-<li>Start – the starting position of the subscript.</li>
-</ul>
-<h4 id="return-value"><a href="#return-value" class="headerlink" title="return value"></a>return value</h4><p>Returns the enumerate object.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/b82d8975.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/b82d8975.html" itemprop="url">免费VPN 推荐 —— ProtonVPN</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T09:07:06+08:00">
-                2018-10-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/b82d8975.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/b82d8975.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/b82d8975.html" class="leancloud_visitors" data-flag-title="免费VPN 推荐 —— ProtonVPN">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>我在之前的博文中提到过<code>Protonmail</code>这个免费的邮箱产品。<code>ProtonMail</code>是一个加密的webmail服务，于2013年由欧洲原子能研究组织（CERN）成员Jason Stockman、Andy Yen和Wei Sun创建。<code>ProtonMail</code>现由总部设在瑞士日内瓦州的Proton Technologies AG经营。ProtonMail的两个服务器分别设在瑞士的Lausanne和Attinghausen。 就我个人而言，这个邮箱兼具几大优点：</p>
-<ol>
-<li>不需要绑定手机号即可使用；</li>
-<li>没有被墙，国内国外皆可访问；</li>
-<li>可以绑定其它邮箱实现密码找回以及新邮件提醒；</li>
-<li>可用于申请<code>Facebook</code>以及<code>Gmail</code>；</li>
-<li>空间相对充裕（免费版500M）。</li>
-</ol>
-<p><strong>注意！注意！注意!大陆可能直接把openvpn协议给封了，而ProtonVPN采用openvpn协议，所以在大陆的大部分地方是暂时没办法使用ProtonVPN的，期待以后的更新吧！</strong><br>今天我再向各位读者介绍另一个<code>Proton</code>系列产品——<code>ProtonVPN</code>。<code>ProtonVPN</code>分为免费版、付费版和加强版等若干版本。<br>emmmmm 貌似免费版也够用了。<br><code>ProtonVPN</code>支持平台包括：</p>
-<ul>
-<li>macOS</li>
-<li>Linux</li>
-<li>Windows</li>
-<li>Android</li>
-<li>iOS</li>
-<li>Router<br>对的，居然还包括路由器～<br>下面我以<code>ubuntu16.04</code>为例，演示如何使用<code>ProtonVPN</code></li>
-</ul>
-<h1 id="申请ProtonVPN"><a href="#申请ProtonVPN" class="headerlink" title="申请ProtonVPN"></a>申请<code>ProtonVPN</code></h1><p><code>ProtonVPN</code>与<code>ProtonMail</code>可以公用一个账户或者单独分别申请，但个人建议先注册<code>ProtonMail</code>，原因如下：</p>
-<ul>
-<li>方便找回密码;</li>
-<li><code>ProtonMail</code>不需要手机号等等，利用<code>ProtoMail</code>申请<code>VPN</code>可以尽可能的在互联网上<code>不留痕迹</code>。</li>
-</ul>
-<p>当然，如果您想用自己的邮箱或者手机号注册<code>ProtonVPN</code>也十分方便，直接访问<a href="https://account.protonvpn.com/signup" target="_blank" rel="noopener">注册地址</a>注册即可。</p>
-<h2 id="注册ProtonMail"><a href="#注册ProtonMail" class="headerlink" title="注册ProtonMail"></a>注册<code>ProtonMail</code></h2><p>我们首先来注册一个<code>ProtoMail</code>账号。</p>
-<ol>
-<li>在<code>google</code>或者<code>百度</code>搜索<code>ProtoMail</code>;</li>
-<li>访问<a href="https://mail.protonmail.com/" target="_blank" rel="noopener">https://mail.protonmail.com/</a></li>
-<li>选择 Create Account</li>
-</ol>
-<p><img src="https://user-images.githubusercontent.com/42510101/46448953-17179280-c7bc-11e8-9410-11bf20bb1f37.png" alt="login"></p>
-<ol start="4">
-<li>接着点击<code>free</code>选择免费版<br><img src="https://user-images.githubusercontent.com/42510101/46449026-65c52c80-c7bc-11e8-9e17-6d635e5c2271.png" alt="freeaccount"></li>
-<li>在新打开的页面完善信息<br><img src="https://user-images.githubusercontent.com/42510101/46449091-b0df3f80-c7bc-11e8-8f99-5e268e83d391.png" alt="register"></li>
-</ol>
-<p>好了！注册成功。</p>
-<h2 id="注册ProtonVPN"><a href="#注册ProtonVPN" class="headerlink" title="注册ProtonVPN"></a>注册<code>ProtonVPN</code></h2><ol>
-<li>访问如下地址 <a href="https://account.protonvpn.com/signup" target="_blank" rel="noopener">https://account.protonvpn.com/signup</a></li>
-<li>选择免费版<br><img src="https://user-images.githubusercontent.com/42510101/46449227-6c07d880-c7bd-11e8-928b-d3e6de013062.png" alt="registervpn"></li>
-<li>填写邮箱信息，直接选择<code>log in with ProtonMail account</code>，用刚刚注册的邮箱登录。<br><img src="https://user-images.githubusercontent.com/42510101/46449271-b8531880-c7bd-11e8-9306-168af8a95736.png" alt="emailfield"><br>我们可以看到免费版具有如下功能：<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Access <span class="keyword">to</span> <span class="number">3</span> countries</span><br><span class="line"><span class="number">1</span> device</span><br><span class="line">Free trial <span class="keyword">of</span> Plus account <span class="keyword">for</span> <span class="number">7</span> days</span><br><span class="line">Multi-<span class="keyword">platform</span> support</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>其中前7天我们可以体验加强版的所有服务。<br>至此账号申请完毕。</p>
-<h1 id="配置ProtonVPN"><a href="#配置ProtonVPN" class="headerlink" title="配置ProtonVPN"></a>配置<code>ProtonVPN</code></h1><p>您可以使用<code>openvpn</code>软件包和<code>ProtonVPN</code>服务器的相应配置文件为<code>Linux</code>设置VPN。</p>
-<h2 id="准备Linux-VPN设置："><a href="#准备Linux-VPN设置：" class="headerlink" title="准备Linux VPN设置："></a>准备Linux VPN设置：</h2><h3 id="1-安装必要的包："><a href="#1-安装必要的包：" class="headerlink" title="1.安装必要的包："></a>1.安装必要的包：</h3><p><strong>通过打开终端安装OpenVPN软件包（按Ctrl + Alt + T）并输入：</strong></p>
-<blockquote>
-<p>sudo apt-get install openvpn</p>
-</blockquote>
-<ul>
-<li>它会提示您输入密码以允许安装，输入密码以继续</li>
-<li>当它提示您确认安装时，按’y’并按“[Enter]”</li>
-</ul>
-<p><em>注意：如果您的计算机上没有管理员权限，请与系统管理员联系并要求他们为您执行安装。</em></p>
-<p><strong>安装’network-manager-openvpn-gnome’软件包，以便更容易地使用和与Ubuntu Network Manager GUI兼容，输入：</strong></p>
-<blockquote>
-<p>sudo apt-get install network-manager-openvpn-gnome</p>
-</blockquote>
-<ul>
-<li>按[Y]，然后按[Enter]确认安装。</li>
-</ul>
-<p>另外，确保已安装resolvconf：</p>
-<blockquote>
-<p>sudo apt install resolvconf</p>
-</blockquote>
-<h3 id="2-获取ProtonVPN配置文件："><a href="#2-获取ProtonVPN配置文件：" class="headerlink" title="2.获取ProtonVPN配置文件："></a>2.获取ProtonVPN配置文件：</h3><p>下载所需的配置文件:</p>
-<ul>
-<li>登录您的ProtonVPN仪表板，地址为 account.protonvpn.com/login</li>
-<li>选择左侧导航栏中的 <strong>Downloads</strong></li>
-<li>找到OpenVPN配置文件部分并选择:<ul>
-<li>Platform: Linux</li>
-<li>协议：UDP（推荐）/ TCP（这使用端口443,如果您遇到VPN速度慢的情况请使用该协议）</li>
-<li>单击要下载的服务器的下载图标<br><img src="https://user-images.githubusercontent.com/42510101/46449860-d8d0a200-c7c0-11e8-982c-c487ac971b7c.png" alt="server"><br>我们点击带<code>free</code>标志的图标进行下载，可选国家有日本、美国、新西兰。<br><img src="https://user-images.githubusercontent.com/42510101/46449948-39f87580-c7c1-11e8-8d93-7653d7df5086.png" alt="japan"><br>保存配置文件。</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-找到您的OpenVPN凭证"><a href="#3-找到您的OpenVPN凭证" class="headerlink" title="3.找到您的OpenVPN凭证"></a>3.找到您的OpenVPN凭证</h3><p>为了提高安全性，ProtonVPN设置了两个单独的凭据来验证连接。<br>登录ProtonVPN仪表板，单击“帐户”选项卡。 在这里，您将看到两种类型的凭据。证书ProtonVPN登录（ProtonVPN Login）在我们的应用程序中使用。OpenVPN / IKEv2用户名（ OpenVPN / IKEv2 Username）用于手动连接。 因此，请根据您的偏好配置OpenVPN凭据，因为您需要使用它们来建立Linux VPN连接。<br><img src="https://user-images.githubusercontent.com/42510101/46450094-18e45480-c7c2-11e8-82a7-70dc3c065199.png" alt="example"></p>
-<h2 id="使用VPN"><a href="#使用VPN" class="headerlink" title="使用VPN"></a>使用VPN</h2><h3 id="方案A：使用网络管理器进行Linux-VPN设置"><a href="#方案A：使用网络管理器进行Linux-VPN设置" class="headerlink" title="方案A：使用网络管理器进行Linux VPN设置"></a>方案A：使用网络管理器进行Linux VPN设置</h3><p>注意该方案可能会存在DNS问题，故暂不介绍。</p>
-<h3 id="方案B：使用终端（CLI）进行Linux的VPN设置"><a href="#方案B：使用终端（CLI）进行Linux的VPN设置" class="headerlink" title="方案B：使用终端（CLI）进行Linux的VPN设置"></a>方案B：使用终端（CLI）进行Linux的VPN设置</h3><p><em>注意：如果您的计算机上没有管理员权限，请与系统管理员联系并要求他们为您执行连接</em><br>打开终端（按<code>Ctrl + Alt + T</code>）并导航到包含配置文件的文件夹。<br><img src="https://user-images.githubusercontent.com/42510101/46450333-53022600-c7c3-11e8-88e6-f766594cc1d2.png" alt="files"><br>如果您发现使用CD命令行难以导航，则可以使用任何文件管理器打开文件所在的文件夹，然后右键单击&gt;在终端中打开。<br>输入以下内容以初始化新连接：</p>
-<blockquote>
-<p><code>sudo openvpn &lt;config.ovpn&gt;</code></p>
-</blockquote>
-<p>其中&lt;config.ovpn&gt;是您要连接的服务器的配置文件名，例如:<br>de-03.protonvpn.com.udp1194.ovpn 为德国＃3服务器。<br>输入您的PC管理员密码以执行（openvpn将修改您的网络适配器并需要root权限）</p>
-<p><img src="https://user-images.githubusercontent.com/42510101/46450446-dde32080-c7c3-11e8-8680-68c115ac4df0.png" alt="cmd"><br>随后，系统将提示您从步骤3获取OpenVPN凭据，输入您的凭据进行身份验证。<br><img src="https://user-images.githubusercontent.com/42510101/46450486-1125af80-c7c4-11e8-8d08-57ec9d051a6f.png" alt="setup"><br>当您看到<code>Initialization Sequence Completed</code>。您已完成Linux VPN设置并成功连接到ProtonVPN服务器。<br><img src="https://user-images.githubusercontent.com/42510101/46450576-86918000-c7c4-11e8-9ec6-a82444b21f74.png" alt="success"><br>保持此终端开放，以保持与ProtonVPN的连接。 如果关闭终端，VPN连接将断开连接。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/86e5f9e1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/86e5f9e1.html" itemprop="url">Python regular expression</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-01T21:04:33+08:00">
-                2018-10-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python-tutorial/" itemprop="url" rel="index">
-                    <span itemprop="name">python tutorial</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/86e5f9e1.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/86e5f9e1.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/86e5f9e1.html" class="leancloud_visitors" data-flag-title="Python regular expression">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>A regular expression is a special sequence of characters that helps you easily check if a string matches a pattern.<br>Python has added the <code>re</code> module since version 1.5, which provides a <code>Perl-style</code> regular expression pattern.<br>The <code>re</code> module gives the Python language full of regular expression functionality.<br>The <code>compile</code> function generates a regular expression object based on a pattern string and optional flag parameters. This object has a set of methods for regular expression matching and replacement.<br>This chapter focuses on regular expression processing functions commonly used in Python.</p>
-<h2 id="re-match-function"><a href="#re-match-function" class="headerlink" title="re.match function"></a>re.match function</h2><p><code>re.match</code> attempts to match a pattern from the beginning of the string. If the starting position is not matched successfully, <code>match()</code> returns none.<br><strong>Function syntax:</strong></p>
-<blockquote>
-<p>re.match(pattern, string, flags=0)</p>
-</blockquote>
-<p><strong>Description of function parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description           </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pattern</td>
-<td>Matched regular expression </td>
-</tr>
-<tr>
-<td>string</td>
-<td>The string to match.  </td>
-</tr>
-<tr>
-<td>flags</td>
-<td>Flag bit, used to control how regular expressions are matched, such as whether to distinguish between uppercase and lowercase, multi-line matching</td>
-</tr>
-</tbody>
-</table>
-<p>Matches the successful <code>re.match</code> method to return a matching object, otherwise returns None.</p>
-<table>
-<thead>
-<tr>
-<th>Matching object method</th>
-<th>Description </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>group(num=0)</td>
-<td>A string that matches the entire expression, group() can enter multiple group numbers at a time, in which case it returns a tuple containing the values for those groups.</td>
-</tr>
-<tr>
-<td>groups()</td>
-<td>Returns a tuple containing all the group strings, from 1 to the included team number.</td>
-</tr>
-</tbody>
-</table>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*- </span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">print(re.match(<span class="string">'www'</span>, <span class="string">'www.mysite.com'</span>).span()) <span class="comment"># Match at the starting position</span></span><br><span class="line">print(re.match(<span class="string">'com'</span>, <span class="string">'www.mysite.com'</span>))    <span class="comment"># Does not match at the starting position</span></span><br></pre></td></tr></table></figure></p>
-<p>result<br><figure class="highlight hy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0</span>, <span class="number">3</span>)</span><br><span class="line"><span class="literal">None</span></span><br></pre></td></tr></table></figure></p>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span></span><br><span class="line"> </span><br><span class="line">matchObj = re.match( <span class="string">r'(.*) are (.*?) .*'</span>, line, re.M|re.I)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"matchObj.group() : "</span>, matchObj.group()</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"matchObj.group(1) : "</span>, matchObj.group(<span class="number">1</span>)</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"matchObj.group(2) : "</span>, matchObj.group(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"No match!!"</span></span><br></pre></td></tr></table></figure></p>
-<p>The above example execution results are as follows:<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">match</span>Obj.<span class="keyword">group</span>() :  Cats are smarter than dogs</span><br><span class="line"><span class="built_in">match</span>Obj.<span class="keyword">group</span>(<span class="number">1</span>) :  Cats</span><br><span class="line"><span class="built_in">match</span>Obj.<span class="keyword">group</span>(<span class="number">2</span>) :  smarter</span><br></pre></td></tr></table></figure></p>
-<h2 id="re-search-method"><a href="#re-search-method" class="headerlink" title="re.search method"></a>re.search method</h2><p>re.search scans the entire string and returns the first successful match.<br><strong>Function syntax:</strong></p>
-<blockquote>
-<p>re.search(pattern, string, flags=0)</p>
-</blockquote>
-<p><strong>Description of function parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description           </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pattern</td>
-<td>Matched regular expression </td>
-</tr>
-<tr>
-<td>string</td>
-<td>The string to match.  </td>
-</tr>
-<tr>
-<td>flags</td>
-<td>Flag bit, used to control how regular expressions are matched, such as whether to distinguish between uppercase and lowercase, multi-line matching</td>
-</tr>
-</tbody>
-</table>
-<p>Matches the successful <code>re.search</code> method to return a matching object, otherwise returns None.<br>We can use the group(num) or groups() matching object functions to get the matching expression.</p>
-<table>
-<thead>
-<tr>
-<th>Matching object method</th>
-<th>Description </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>group(num=0)</td>
-<td>A string that matches the entire expression, group() can enter multiple group numbers at a time, in which case it returns a tuple containing the values for those groups.</td>
-</tr>
-<tr>
-<td>groups()</td>
-<td>Returns a tuple containing all the group strings, from 1 to the included team number.</td>
-</tr>
-</tbody>
-</table>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*- </span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">print(re.search(<span class="string">'www'</span>, <span class="string">'www.mysite.com'</span>).span())  <span class="comment"># 在起始位置匹配</span></span><br><span class="line">print(re.search(<span class="string">'com'</span>, <span class="string">'www.mysite.com'</span>).span())         <span class="comment"># 不在起始位置匹配</span></span><br></pre></td></tr></table></figure></p>
-<p>result<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0</span>, <span class="number">3</span>)</span><br><span class="line">(<span class="number">11</span>, <span class="number">14</span>)</span><br></pre></td></tr></table></figure></p>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"> </span><br><span class="line">searchObj = re.search( <span class="string">r'(.*) are (.*?) .*'</span>, line, re.M|re.I)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> searchObj:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"searchObj.group() : "</span>, searchObj.group()</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"searchObj.group(1) : "</span>, searchObj.group(<span class="number">1</span>)</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"searchObj.group(2) : "</span>, searchObj.group(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"Nothing found!!"</span></span><br></pre></td></tr></table></figure></p>
-<p>The above example execution results are as follows:<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">searchObj.group() :  <span class="type">Cats</span> are smarter than dogs</span><br><span class="line">searchObj.group(<span class="number">1</span>) :  <span class="type">Cats</span></span><br><span class="line">searchObj.group(<span class="number">2</span>) :  <span class="type">smarter</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="The-difference-between-re-match-and-re-search"><a href="#The-difference-between-re-match-and-re-search" class="headerlink" title="The difference between re.match and re.search"></a>The difference between re.match and re.search</h2><p>re.match only matches the <code>beginning</code> of the string. If the string does not match the regular expression, the match fails, the function returns None; and re.search matches the <code>entire</code> string until a match is found.</p>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"> </span><br><span class="line">matchObj = re.match( <span class="string">r'dogs'</span>, line, re.M|re.I)</span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"match --&gt; matchObj.group() : "</span>, matchObj.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"No match!!"</span></span><br><span class="line"> </span><br><span class="line">matchObj = re.search( <span class="string">r'dogs'</span>, line, re.M|re.I)</span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"search --&gt; matchObj.group() : "</span>, matchObj.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"No match!!"</span></span><br></pre></td></tr></table></figure></p>
-<p>The above example execution results are as follows:<br><figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">No match!!</span><br><span class="line">search --&gt; matchObj.group() :  dogs</span><br></pre></td></tr></table></figure></p>
-<h2 id="Retrieve-and-replace"><a href="#Retrieve-and-replace" class="headerlink" title="Retrieve and replace"></a>Retrieve and replace</h2><p>Python’s re module provides re.sub for replacing matches in strings.<br><strong>grammar:</strong></p>
-<blockquote>
-<p>re.sub(pattern, repl, string, count=0, flags=0)</p>
-</blockquote>
-<p>parameter:</p>
-<ul>
-<li>pattern : The pattern string in the regular.</li>
-<li>repl : The replaced string, which can also be a function.</li>
-<li>string : The original string to be replaced by the lookup.</li>
-<li>count : The maximum number of substitutions after pattern matching. The default 0 means to replace all matches.</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">phone = <span class="string">"2004-959-559 # This a phone number"</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Remove Python comments from strings</span></span><br><span class="line">num = re.sub(<span class="string">r'#.*$'</span>, <span class="string">""</span>, phone)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"phone number is: "</span>, num</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Delete non-numeric (-) strings </span></span><br><span class="line">num = re.sub(<span class="string">r'\D'</span>, <span class="string">""</span>, phone)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"phone number is : "</span>, num</span><br></pre></td></tr></table></figure>
-<p>The above example execution results are as follows:<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This <span class="keyword">a</span> phone <span class="built_in">number</span>:  <span class="number">2004</span><span class="number">-959</span><span class="number">-559</span> </span><br><span class="line">This <span class="keyword">a</span> phone <span class="built_in">number</span> :  <span class="number">2004959559</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="The-repl-argument-is-a-function"><a href="#The-repl-argument-is-a-function" class="headerlink" title="The repl argument is a function"></a>The repl argument is a function</h2><p>In the following example, multiply the matching number in the string by 2:<br>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line"><span class="comment"># multiply the matching number in the string by 2</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">double</span><span class="params">(matched)</span>:</span></span><br><span class="line">    value = int(matched.group(<span class="string">'value'</span>))</span><br><span class="line">    <span class="keyword">return</span> str(value * <span class="number">2</span>)</span><br><span class="line"> </span><br><span class="line">s = <span class="string">'A23G4HFD567'</span></span><br><span class="line">print(re.sub(<span class="string">'(?P&lt;value&gt;\d+)'</span>, double, s))</span><br></pre></td></tr></table></figure></p>
-<p>The execution output is:<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A<span class="number">46</span><span class="name">G8</span>HFD<span class="number">1134</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="re-compile-function"><a href="#re-compile-function" class="headerlink" title="re.compile function"></a>re.compile function</h2><p>The <code>compile</code> function is used to compile a regular expression and generate a regular expression (<code>pattern</code> ) object for use by the <code>match()</code> and <code>search()</code> functions.<br><strong>The syntax is:</strong></p>
-<blockquote>
-<p>re.compile(pattern[, flags])</p>
-</blockquote>
-<p><strong>parameter:</strong></p>
-<ul>
-<li>pattern : a regular expression in the form of a string</li>
-<li>flags : Optional, indicating matching mode, such as ignoring case, multi-line mode, etc. The specific parameters are:<ol>
-<li>re.I ignores case</li>
-<li>re.L indicates that the special character set \w, \W, \b, \B, \s, \S depends on the current environment</li>
-<li>re.M multi-line mode</li>
-<li>re.S is . and any character including line breaks (. does not include newline characters)</li>
-<li>re.U indicates a special character set \w, \W, \b, \B, \d, \D, \s, \S depends on the Unicode character attribute database</li>
-<li>re.X to increase readability, ignore spaces and comments after #</li>
-</ol>
-</li>
-</ul>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'\d+'</span>)                    <span class="comment"># Used to match at least one number</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="string">'one12twothree34four'</span>)        <span class="comment"># Lookup head, no match</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> m</span><br><span class="line"><span class="keyword">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="string">'one12twothree34four'</span>, <span class="number">2</span>, <span class="number">10</span>) <span class="comment"># Matching from the 'e' position, no match</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> m</span><br><span class="line"><span class="keyword">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="string">'one12twothree34four'</span>, <span class="number">3</span>, <span class="number">10</span>) <span class="comment"># Matches from the '1' position, just matching</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> m                                         <span class="comment"># Return a Match object</span></span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x10a42aac0</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">0</span>)   </span><br><span class="line"><span class="string">'12'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.start(<span class="number">0</span>)   </span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.end(<span class="number">0</span>)     </span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.span(<span class="number">0</span>)    </span><br><span class="line">(<span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure></p>
-<p>Above, when the match is successful, a <code>Match</code> object is returned, where:</p>
-<ul>
-<li>The <code>group([group1, ...])</code> method is used to obtain one or more group matching strings. When you want to get the entire matching substring, you can use group() or group(0) directly.</li>
-<li>The <code>start([group])</code> method is used to obtain the starting position of the substring matched by the group in the entire string (the index of the first character of the substring), and the default value of the parameter is 0;</li>
-<li>The <code>end([group])</code> method is used to obtain the end position of the substring matched by the packet in the entire string (index +1 of the last character of the substring), and the default value of the parameter is 0;</li>
-<li>The <code>span([group])</code> method returns <code>(start(group), end(group))</code>.</li>
-</ul>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'([a-z]+) ([a-z]+)'</span>, re.I)   <span class="comment"># re.I means ignore case</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="string">'Hello World Wide Web'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> m                               <span class="comment"># Matches successfully, returns a Match object</span></span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x10bea83e8</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">0</span>)                            <span class="comment"># Returns the entire substring of the matching success</span></span><br><span class="line"><span class="string">'Hello World'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.span(<span class="number">0</span>)                             <span class="comment"># Returns the index of the entire substring that matched the success</span></span><br><span class="line">(<span class="number">0</span>, <span class="number">11</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">1</span>)                            <span class="comment"># Returns the substring of the first group matching success</span></span><br><span class="line"><span class="string">'Hello'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.span(<span class="number">1</span>)                             <span class="comment"># Returns the index of the substring that the first packet matches successfully</span></span><br><span class="line">(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">2</span>)                            <span class="comment"># Returns the substring of the second group matching success</span></span><br><span class="line"><span class="string">'World'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.span(<span class="number">2</span>)                             <span class="comment"># Returns the substring of the second group matching success</span></span><br><span class="line">(<span class="number">6</span>, <span class="number">11</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.groups()                            <span class="comment"># Equivalent to (m.group(1), m.group(2), ...)</span></span><br><span class="line">(<span class="string">'Hello'</span>, <span class="string">'World'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">3</span>)                            <span class="comment"># There is no third grouping</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">IndexError: no such group</span><br></pre></td></tr></table></figure></p>
-<h2 id="findall"><a href="#findall" class="headerlink" title="findall"></a>findall</h2><p>Find all substrings matched by the regular expression in the string and return a list. If no match is found, an empty list is returned.<br>Note: match and search are matched once and findall matches all.<br><strong>The syntax is:</strong></p>
-<blockquote>
-<p>findall(string[, pos[, endpos]])</p>
-</blockquote>
-<p><strong>parameter:</strong></p>
-<ul>
-<li>string : The string to be matched.</li>
-<li>pos : Optional parameter specifying the starting position of the string. The default is 0.</li>
-<li>endpos : An optional parameter that specifies the end position of the string. The default is the length of the string.<br>Find all the numbers in the string<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:UTF8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">pattern = re.compile(<span class="string">r'\d+'</span>)   <span class="comment"># Find numbers</span></span><br><span class="line">result1 = pattern.findall(<span class="string">'runoob 123 google 456'</span>)</span><br><span class="line">result2 = pattern.findall(<span class="string">'run88oob123google456'</span>, <span class="number">0</span>, <span class="number">10</span>)</span><br><span class="line"> </span><br><span class="line">print(result1)</span><br><span class="line">print(result2)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>Output result:<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">'123</span>', <span class="symbol">'456</span>']</span><br><span class="line">[<span class="symbol">'88</span>', <span class="symbol">'12</span>']</span><br></pre></td></tr></table></figure></p>
-<h2 id="re-finditer"><a href="#re-finditer" class="headerlink" title="re.finditer"></a>re.finditer</h2><p>Similar to <code>findall</code>, find all substrings matched by the regular expression in the string and return them as an iterator.</p>
-<blockquote>
-<p>re.finditer(pattern, string, flags=0)</p>
-</blockquote>
-<p><strong>Description of function parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description           </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pattern</td>
-<td>Matched regular expression </td>
-</tr>
-<tr>
-<td>string</td>
-<td>The string to match.  </td>
-</tr>
-<tr>
-<td>flags</td>
-<td>Flag bit, used to control how regular expressions are matched, such as whether to distinguish between uppercase and lowercase, multi-line matching</td>
-</tr>
-</tbody>
-</table>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">it = re.finditer(<span class="string">r"\d+"</span>,<span class="string">"12a32bc43jf3"</span>) </span><br><span class="line"><span class="keyword">for</span> match <span class="keyword">in</span> it: </span><br><span class="line">    <span class="keyword">print</span> (match.group() )</span><br></pre></td></tr></table></figure></p>
-<p>Output result:<br><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">12 </span></span><br><span class="line"><span class="symbol">32 </span></span><br><span class="line"><span class="symbol">43 </span></span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="re-split"><a href="#re-split" class="headerlink" title="re.split"></a>re.split</h2><p>The <code>split</code> method splits the string into a list according to the substring that can be matched. It is used in the following form:</p>
-<blockquote>
-<p>re.split(pattern, string[, maxsplit=0, flags=0])</p>
-</blockquote>
-<p><strong>Description of function parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description           </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pattern</td>
-<td>Matched regular expression </td>
-</tr>
-<tr>
-<td>string</td>
-<td>The string to match.  </td>
-</tr>
-<tr>
-<td>maxsplit</td>
-<td>The number of separations, maxsplit=1 is separated once, the default is 0, and the number of times is not limited.</td>
-</tr>
-<tr>
-<td>flags</td>
-<td>Flag bit, used to control how regular expressions are matched, such as whether to distinguish between uppercase and lowercase, multi-line matching</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Regular-expression-pattern"><a href="#Regular-expression-pattern" class="headerlink" title="Regular expression pattern"></a>Regular expression pattern</h2><p>A pattern string uses a special syntax to represent a regular expression:<br>Letters and numbers represent themselves. The letters and numbers in a regular expression pattern match the same string.<br>Most letters and numbers have a different meaning when preceded by a backslash.<br>Punctuation marks match themselves only when they are escaped, otherwise they represent special meanings.<br>The backslash itself needs to be escaped with a backslash.<br>Since regular expressions usually contain backslashes, you’d better use primitive strings to represent them. Pattern elements (such as r’\t’, equivalent to ‘\t’) match the corresponding special characters.<br>The following table lists the special elements in the regular expression pattern syntax. If you use the mode while providing optional flag parameters, the meaning of some mode elements will change.</p>
-<table>
-<thead>
-<tr>
-<th>mode</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>^</td>
-<td>Match the beginning of the string</td>
-</tr>
-<tr>
-<td>$</td>
-<td>Matches the end of the string.</td>
-</tr>
-<tr>
-<td>.</td>
-<td>Matches any character except the newline character. When the <code>re.DOTALL</code> tag is specified, it can match any character that includes a newline character.</td>
-</tr>
-<tr>
-<td>[…]</td>
-<td>Used to represent a set of characters, listed separately: [amk] matches ‘a’, ‘m’ or ‘k’</td>
-</tr>
-<tr>
-<td>[^…]</td>
-<td>Characters not in []: [^abc] matches characters other than a, b, c.</td>
-</tr>
-<tr>
-<td>re*</td>
-<td>Matches zero or more expressions.</td>
-</tr>
-<tr>
-<td>re+</td>
-<td>Match one or more expressions.</td>
-</tr>
-<tr>
-<td>re?</td>
-<td>Match 0 or 1 fragment defined by the previous regular expression, non-greedy</td>
-</tr>
-<tr>
-<td>re{ n}</td>
-<td>Match exactly n previous expressions. For example, o{2} cannot match “o” in “Bob” but matches two o in “food”.</td>
-</tr>
-<tr>
-<td>re{ n,}</td>
-<td>Match n previous expressions. For example, o{2,} cannot match “o” in “Bob” but matches all o in “foooood”. “o{1,}” is equivalent to “o+”. “o{0,}” is equivalent to “o*”.</td>
-</tr>
-<tr>
-<td>re{ n, m}</td>
-<td>Match n to m times the fragment defined by the previous regular expression, greedy</td>
-</tr>
-<tr>
-<td>(re)</td>
-<td>Matches the expression in parentheses and also represents a group</td>
-</tr>
-<tr>
-<td>(?imx)</td>
-<td>Regular expressions contain three optional flags: i, m, or x . Only affect the area in parentheses.</td>
-</tr>
-<tr>
-<td>(?-imx)</td>
-<td>Regular expressions turn off i, m, or x optional flags. Only affect the area in parentheses.</td>
-</tr>
-<tr>
-<td>(?: re)</td>
-<td>Similar to (…) but does not represent a group</td>
-</tr>
-<tr>
-<td>(?imx: re)</td>
-<td>Use i, m, or x optional flags in parentheses</td>
-</tr>
-<tr>
-<td>(?-imx: re)</td>
-<td>Do not use i, m, or x optional flags in parentheses</td>
-</tr>
-<tr>
-<td>(?#…)</td>
-<td>Comment.</td>
-</tr>
-<tr>
-<td>(?= re)</td>
-<td>Forward positive delimiter. If the regular expression is included, it is represented by …, it succeeds when the current position is successfully matched, otherwise it fails. But once the included expression has been tried, the matching engine does not improve at all; the rest of the pattern tries to delimit the right side of the character.</td>
-</tr>
-<tr>
-<td>(?! re)</td>
-<td>Forward negation delimiter. Contrary to a positive delimiter; succeeds when the contained expression cannot match at the current position of the string</td>
-</tr>
-<tr>
-<td>(?&gt; re)</td>
-<td>Matching independent mode, eliminating backtracking.</td>
-</tr>
-<tr>
-<td>\w</td>
-<td>Match alphanumeric and underline</td>
-</tr>
-<tr>
-<td>\W</td>
-<td>Match non-alphanumeric and underline</td>
-</tr>
-<tr>
-<td>\s</td>
-<td>Matches any whitespace character, equivalent to [\t\n\r\f].</td>
-</tr>
-<tr>
-<td>\S</td>
-<td>Match any non-null character</td>
-</tr>
-<tr>
-<td>\d</td>
-<td>Match any number, equivalent to [0-9].</td>
-</tr>
-<tr>
-<td>\D</td>
-<td>Match any non-number</td>
-</tr>
-<tr>
-<td>\A</td>
-<td>Match string start</td>
-</tr>
-<tr>
-<td>\Z</td>
-<td>Matches the end of the string. If there is a newline, it only matches the ending string before the newline.</td>
-</tr>
-<tr>
-<td>\z</td>
-<td>Match string end</td>
-</tr>
-<tr>
-<td>\G</td>
-<td>Matches the location where the last match was completed.</td>
-</tr>
-<tr>
-<td>\b</td>
-<td>Matches a word boundary, which is the position between a word and a space. For example, ‘er\b’ can match ‘er’ in “never” but not ‘er’ in “verb”.</td>
-</tr>
-<tr>
-<td>\B</td>
-<td>Match non-word boundaries. ‘er\B’ matches ‘er’ in “verb” but does not match ‘er’ in “never”.</td>
-</tr>
-<tr>
-<td>\n, \t,</td>
-<td>Matches a newline character. Matches a tab. </td>
-</tr>
-<tr>
-<td>\1…\9</td>
-<td>Matches the content of the nth packet.</td>
-</tr>
-<tr>
-<td>\10</td>
-<td>Matches the contents of the nth packet if it matches. Otherwise it refers to the expression of the octal character code.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Regular-expression-instance"><a href="#Regular-expression-instance" class="headerlink" title="Regular expression instance"></a>Regular expression instance</h2><p><strong>Character matching</strong></p>
-<table>
-<thead>
-<tr>
-<th>Instance</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>python</td>
-<td>Match “python”.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Character class</strong></p>
-<table>
-<thead>
-<tr>
-<th>Instance</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[Pp]ython</td>
-<td>Match “Python” or “python”</td>
-</tr>
-<tr>
-<td>rub[ye]</td>
-<td>Match “ruby” or “rube”</td>
-</tr>
-<tr>
-<td>[aeiou]</td>
-<td>Match any letter in brackets</td>
-</tr>
-<tr>
-<td>[0-9]</td>
-<td>Match any number. Similar to [0123456789]</td>
-</tr>
-<tr>
-<td>[a-z]</td>
-<td>Match any lowercase letters</td>
-</tr>
-<tr>
-<td>[A-Z]</td>
-<td>Match any uppercase letter</td>
-</tr>
-<tr>
-<td>[a-zA-Z0-9]</td>
-<td>Match any letters and numbers</td>
-</tr>
-<tr>
-<td>[^aeiou]</td>
-<td>All characters except the aeiou letter</td>
-</tr>
-<tr>
-<td>[^0-9]</td>
-<td>Match characters other than numbers </td>
-</tr>
-</tbody>
-</table>
-<p><strong>Special character class</strong></p>
-<table>
-<thead>
-<tr>
-<th>Instance</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>.</td>
-<td>Matches any single character except “\n”. To match any character that includes ‘\n’, use a pattern like ‘[.\n]’.</td>
-</tr>
-<tr>
-<td>\d</td>
-<td>Matches a numeric character. Equivalent to [0-9].</td>
-</tr>
-<tr>
-<td>\D</td>
-<td>Matches a non-numeric character. Equivalent to [^0-9].</td>
-</tr>
-<tr>
-<td>\s</td>
-<td>Matches any whitespace characters, including spaces, tabs, page breaks, and more. Equivalent to [ \f\n\r\t\v].</td>
-</tr>
-<tr>
-<td>\S</td>
-<td>Matches any non-whitespace characters. Equivalent to [^ \f\n\r\t\v].</td>
-</tr>
-<tr>
-<td>\w</td>
-<td>Matches any word character that includes an underscore. Equivalent to ‘[A-Za-z0-9_]’.</td>
-</tr>
-<tr>
-<td>\W</td>
-<td>Matches any non-word characters. Equivalent to ‘[^A-Za-z0-9_]’.</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/11c79d56.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/11c79d56.html" itemprop="url">Markdown introduction</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-01T08:26:35+08:00">
-                2018-10-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/11c79d56.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/11c79d56.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/11c79d56.html" class="leancloud_visitors" data-flag-title="Markdown introduction">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Markdown is a lightweight markup language that lets authors focus on writing without paying attention to style.</p>
-<h2 id="title"><a href="#title" class="headerlink" title="title"></a>title</h2><p>When writing with Markdown, you only need to add 『#』 in front of the text to create a first-level title. Similarly, to create a secondary title, a third-level title, etc., only need to increase the number of 『#』, Markdown supports a total of six titles. As follows:</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># First level heading</span><br><span class="line">## Secondary title</span><br><span class="line">### Three-level title</span><br><span class="line">#### Four-level title</span><br><span class="line">##### Five-level title</span><br><span class="line">###### Six-level title</span><br></pre></td></tr></table></figure>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>The Markdown tag block reference is similar to the email referenced by 『&gt;』, just add 『&gt;』 at the top of the first line of the entire paragraph.<br>Block references can be nested, as long as different numbers of 『&gt;』 are added according to the level:</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; This <span class="keyword">is</span> <span class="keyword">the</span> <span class="keyword">first</span> level <span class="keyword">reference</span>.</span><br><span class="line">&gt;</span><br><span class="line">&gt; &gt; This <span class="keyword">is</span> <span class="keyword">the</span> <span class="keyword">second</span> level <span class="keyword">reference</span>.</span><br><span class="line">&gt;</span><br><span class="line">&gt; Now go <span class="keyword">back</span> <span class="keyword">to</span> <span class="keyword">the</span> <span class="keyword">first</span> level <span class="keyword">reference</span>.</span><br></pre></td></tr></table></figure>
-<p>example</p>
-<blockquote>
-<p>This is the first level reference.</p>
-<blockquote>
-<p>This is the second level reference.</p>
-</blockquote>
-<p>Now go back to the first level reference.</p>
-</blockquote>
-<p>Other Markdown syntaxes, including titles, lists, code blocks, etc., can also be used within the referenced block:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment">## This is a title.</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 1. This is the first line of list items.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 2. This is the second line of list items.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Give some example code:</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">return</span> shell_exec(`<span class="built_in">echo</span> <span class="variable">$input</span> | <span class="variable">$markdown_script</span>`);</span></span><br></pre></td></tr></table></figure>
-<p>example</p>
-<blockquote>
-<ol>
-<li>This is the first line of list items.</li>
-<li>This is the second line of list items.</li>
-</ol>
-<p>Give some example code:</p>
-<p>return shell_exec(<code>echo $input | $markdown_script</code>);</p>
-</blockquote>
-<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>The list item tag is usually placed on the far left, and the item tag is followed by a character space.<br><em>Unordered list</em>: use an asterisk, plus or minus sign as a list mark<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> Red</span></span><br><span class="line"><span class="ruby">- Green</span></span><br><span class="line"><span class="ruby">- Blue</span></span><br></pre></td></tr></table></figure></p>
-<p>example</p>
-<ul>
-<li>Red</li>
-<li>Green</li>
-<li>Blue</li>
-</ul>
-<p><em>Ordered list</em>: use numbers followed by an English period<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>Red</span><br><span class="line"><span class="bullet">2. </span>Green</span><br><span class="line"><span class="bullet">3. </span>Blue</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>Red</li>
-<li>Green</li>
-<li>Blue<br>If you want to put a reference in the list item, then 『&gt;』 needs to be indented:<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">*  </span>My Porject:</span><br><span class="line"><span class="code">    &gt; code1</span></span><br><span class="line"><span class="code">    &gt; code2    </span></span><br><span class="line"><span class="code">    &gt; code3</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>example</p>
-<ul>
-<li>My Porject:<blockquote>
-<p>code1<br>code2<br>code3 </p>
-</blockquote>
-</li>
-</ul>
-<p>Agent list: Indicates whether the list is checked or not (note: there must be spaces before and after [ ])<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> [ ] <span class="keyword">not</span> selected</span></span><br><span class="line"><span class="ruby">- [x] tick</span></span><br></pre></td></tr></table></figure></p>
-<p>example</p>
-<ul>
-<li style="list-style: none"><input type="checkbox"> not selected</li>
-<li style="list-style: none"><input type="checkbox" checked> tick</li>
-</ul>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>Just wrap your code block between “`, you don’t need to mark the code block by endless indentation. In a fenced code block, you can specify an optional language identifier, then we can Enable syntax coloring for it. For example, this can be used to color a piece of Ruby code:</p>
-<p>```ruby<br>require ‘redcarpet’<br>markdown = Redcarpet.new(“Hello World!”)<br>puts markdown.to_html<br>```</p>
-<p>example</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'redcarpet'</span></span><br><span class="line">markdown = Redcarpet.new(<span class="string">"Hello World!"</span>)</span><br><span class="line">puts markdown.to_html</span><br></pre></td></tr></table></figure>
-<h2 id="Emphasize"><a href="#Emphasize" class="headerlink" title="Emphasize"></a>Emphasize</h2><p>In Markdown, you can use * and _ to indicate italics and bold.<br><em>Italic:</em><br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">*Coding*</span></span><br><span class="line"><span class="emphasis">_Coding_</span></span><br></pre></td></tr></table></figure></p>
-<p><em>Coding</em><br><em>Coding</em></p>
-<p><em>Bold:</em></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**Coding**</span></span><br><span class="line"><span class="strong">__Coding__</span></span><br></pre></td></tr></table></figure>
-<p><strong>Coding</strong><br><strong>Coding</strong></p>
-<h2 id="Automatic-link"><a href="#Automatic-link" class="headerlink" title="Automatic link"></a>Automatic link</h2><p>Square brackets show the description, the URL is displayed in parentheses, and Markdown automatically converts it into a link, for example:<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">blog</span>](<span class="link">https://www.zenroad.club</span>)</span><br></pre></td></tr></table></figure></p>
-<p>example<br><a href="https://www.zenroad.club">blog</a></p>
-<h2 id="form"><a href="#form" class="headerlink" title="form"></a>form</h2><p>In Markdown, you can make a table, for example:</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">First Header |<span class="string"> Second Header </span>|<span class="string"> Third Header</span></span><br><span class="line"><span class="string">------------ </span>|<span class="string"> ------------- </span>|<span class="string"> ------------</span></span><br><span class="line"><span class="string">Content Cell </span>|<span class="string"> Content Cell  </span>|<span class="string"> Content Cell</span></span><br><span class="line"><span class="string">Content Cell </span>|<span class="string"> Content Cell  </span>|<span class="string"> Content Cell</span></span><br></pre></td></tr></table></figure>
-<p>example</p>
-<table>
-<thead>
-<tr>
-<th>First Header</th>
-<th>Second Header</th>
-<th>Third Header</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Content Cell</td>
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-<tr>
-<td>Content Cell</td>
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-</tbody>
-</table>
-<p>Or you can align the contents of the table and center the content, for example:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">First Header | Second Header | Third Header</span><br><span class="line"><span class="symbol">:-----------</span> | <span class="symbol">:-----------</span>: | -----------<span class="symbol">:</span></span><br><span class="line">Left         | Center        | Right</span><br><span class="line">Left         | Center        | Right</span><br></pre></td></tr></table></figure></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">First Header</th>
-<th style="text-align:center">Second Header</th>
-<th style="text-align:right">Third Header</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Left</td>
-<td style="text-align:center">Center</td>
-<td style="text-align:right">Right</td>
-</tr>
-<tr>
-<td style="text-align:left">Left</td>
-<td style="text-align:center">Center</td>
-<td style="text-align:right">Right</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Dividing-line"><a href="#Dividing-line" class="headerlink" title="Dividing line"></a>Dividing line</h2><p>In Markdown, you can create split lines using more than 3 『-』 symbols, for example:<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">123</span><br><span class="line">---</span><br><span class="line">456</span><br></pre></td></tr></table></figure></p>
-<p>123</p>
-<hr>
-<p>456</p>
-<h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><p>Markdown uses a link-like syntax to insert images, in two forms: inline and reference.<br>The inline picture syntax is as follows:<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">Alt text</span>](<span class="link">/path/to/img.jpg</span>)</span><br><span class="line">or</span><br><span class="line">![<span class="string">Alt text</span>](<span class="link">/path/to/img.jpg "Optional title"</span>)</span><br></pre></td></tr></table></figure></p>
-<p>That is:</p>
-<ul>
-<li>An exclamation mark 『!』</li>
-<li>Next a square bracket with an alternate text for the image</li>
-<li>Then there is an ordinary parenthesis, which is the URL of the image. Finally, you can enclose it in quotation marks and add the optional 『title』 text.<br>The quote picture syntax is as follows:</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">Alt text</span>][<span class="symbol">id</span>]</span><br></pre></td></tr></table></figure>
-<p>『id』 is the name of the image reference. The image reference uses the same syntax defined by the link:</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">id</span>]: url/<span class="keyword">to</span>/image <span class="string">"Optional title attribute"</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/98dacf19.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/98dacf19.html" itemprop="url">Difference between frompyfunc() and vectorize() in Numpy</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-29T21:41:04+08:00">
-                2018-09-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/98dacf19.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/98dacf19.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/98dacf19.html" class="leancloud_visitors" data-flag-title="Difference between frompyfunc() and vectorize() in Numpy">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>NumPy provides two basic objects <code>ndarray</code> (n-dimensional array) and <code>ufunc</code> (universal function), The latter refers to a function that can operate on each element in the array, which can improve the speed of the operation.<br>In order to convert ordinary functions that compute a single element into <code>ufunc</code> functions, <code>NumPy</code> provides two functions, <code>frompyfunc()</code> and <code>vectorize()</code>.By converting, the original function parameters can be accepted as <code>vector</code> input (in other words, the vector of the converted function is used as the <code>scalar</code> input function). However there is some problem.</p>
-<ul>
-<li>Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array? *</li>
-<li>Q2 What should I do when some of my input parameters should not to be vectorized? *</li>
-</ul>
-<p>Refer to the Numpy official manual for the declaration of these two functions.</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numpy.frompyfunc(func, nin, nout)</span><br><span class="line">class numpy.vectorize(pyfunc, <span class="attribute">otypes</span>=<span class="string">''</span>, <span class="attribute">doc</span>=None, <span class="attribute">excluded</span>=None, <span class="attribute">cache</span>=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>frompyfunc()</code> The input parameters of frompyfunc() are the function name, the number of input parameters, and the number of output parameters.</li>
-<li><code>vectorize()</code> Vectorize() has many output parameters, and the first two parameters are commonly used: function name and return type.<br>Note that in the document, the <code>vectorize()</code> function is essentially implemented in a loop, so it is used for convenience and not for efficiency. That is to say, <code>frompyfunc()</code> is more low-level and relatively more efficient.<h3 id="Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array"><a href="#Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array" class="headerlink" title="Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?"></a>Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?</h3></li>
-</ul>
-<p>code<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding: utf8</span></span><br><span class="line">import numpy as np</span><br><span class="line">def test1(x):</span><br><span class="line">    return x*np.array([0.0,1.0])</span><br><span class="line">fpf_test1 = np.frompyfunc(test1,1,1)</span><br><span class="line">vec_test1 = np.vectorize(test1)</span><br><span class="line">x = np.linspace(0,1,2)</span><br></pre></td></tr></table></figure></p>
-<p>result<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print fpf_test1(x)</span><br><span class="line">[array([ <span class="number">0.</span>,  <span class="number">0.</span>]) array([ <span class="number">0.</span>,  <span class="number">1.</span>])]</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print vec_test1(x)</span><br><span class="line">ValueError: setting an<span class="built_in"> array </span>element with a sequence.</span><br></pre></td></tr></table></figure>
-<p>The original function output is also an array. The test results show that the use of the <code>frompyfunc()</code> function achieves the expected result, while the <code>vectorize()</code> function causes an error.</p>
-<h3 id="Q2-What-should-I-do-when-some-of-my-input-parameters-should-not-to-be-vectorized"><a href="#Q2-What-should-I-do-when-some-of-my-input-parameters-should-not-to-be-vectorized" class="headerlink" title="Q2 What should I do when some of my input parameters should not to be vectorized?"></a>Q2 What should I do when some of my input parameters should not to be vectorized?</h3><p>code<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding: utf8</span></span><br><span class="line">import numpy as np</span><br><span class="line">def test2(x,y):</span><br><span class="line">    return x[int(y)]</span><br><span class="line">fpf_test2 = np.frompyfunc(test2,2,1)</span><br><span class="line">vec_test2 = np.vectorize(test2)</span><br><span class="line">x = np.linspace(0,4,5) * 10</span><br><span class="line">y = np.linspace(0,4,5)</span><br></pre></td></tr></table></figure></p>
-<p>result<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> fpf_test2(<span class="keyword">x</span>,<span class="keyword">y</span>)</span><br><span class="line">TypeError: <span class="string">'float'</span> object <span class="built_in">has</span> <span class="keyword">no</span> attribute <span class="string">'__getitem__'</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> vec_test2(<span class="keyword">x</span>,<span class="keyword">y</span>)</span><br><span class="line">IndexError: invalid <span class="keyword">index</span> to <span class="keyword">scalar</span> variable.</span><br></pre></td></tr></table></figure>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vec_test2.excluded.add(<span class="number">0</span>)</span><br><span class="line">print vec_test2(x,y)</span><br><span class="line">[  <span class="number">0.</span>  <span class="number">10.</span>  <span class="number">20.</span>  <span class="number">30.</span>  <span class="number">40.</span>]</span><br></pre></td></tr></table></figure>
-<p>As you can see, when you use the function directly, since x is also treated as a parameter that requires vectorization, a type error occurs (x is ultimately treated as a scalar).<br>Using the excluded attribute of the <code>vectorize</code> function class, after adding the input parameters that do not take into account the vectorization, the correct output is obtained.</p>
-<blockquote>
-<p>The excluded attribute is only supported in versions later than NumPy 1.7.</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/c226393d.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/c226393d.html" itemprop="url">numpy split usage</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-28T20:50:32+08:00">
-                2018-09-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/c226393d.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/c226393d.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/c226393d.html" class="leancloud_visitors" data-flag-title="numpy split usage">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>numpy.split</strong><br><strong>numpy.split(ary, indices_or_sections, axis=0)</strong></p>
-<p><em>Split an array into multiple sub-arrays.</em><br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Parameters:	</span><br><span class="line"></span><br><span class="line">ary<span class="keyword"> :</span> ndarray</span><br><span class="line"></span><br><span class="line">    Array to be divided into sub-arrays.</span><br><span class="line"></span><br><span class="line">indices_or_sections<span class="keyword"> :</span><span class="built_in"> int </span>or 1-D array</span><br><span class="line"></span><br><span class="line">    If indices_or_sections is an integer, N, the<span class="built_in"> array </span>will be divided into N equal arrays along axis. If such a split is<span class="built_in"> not </span>possible, an error is raised.</span><br><span class="line"></span><br><span class="line">    If indices_or_sections is a 1-D<span class="built_in"> array </span>of sorted integers, the entries indicate where along axis the<span class="built_in"> array </span>is split. For example, [2, 3] would, for axis=0, result in</span><br><span class="line"></span><br><span class="line">            ary[:2]</span><br><span class="line">            ary[2:3]</span><br><span class="line">            ary[3:]</span><br><span class="line"></span><br><span class="line">    If an index exceeds the dimension of the<span class="built_in"> array </span>along axis, an empty<span class="built_in"> sub-array </span>is returned correspondingly.</span><br><span class="line">axis<span class="keyword"> :</span> int, optional</span><br><span class="line"></span><br><span class="line">    The axis along which to split, default is 0.</span><br><span class="line"></span><br><span class="line">Returns:	</span><br><span class="line"></span><br><span class="line">sub-arrays<span class="keyword"> :</span> list of ndarrays</span><br><span class="line"></span><br><span class="line">    A list of sub-arrays.</span><br><span class="line"></span><br><span class="line">Raises:	</span><br><span class="line"></span><br><span class="line">ValueError</span><br><span class="line"></span><br><span class="line">    If indices_or_sections is given as an integer, but a split does<span class="built_in"> not </span>result in equal division.</span><br></pre></td></tr></table></figure></p>
-<p><strong>Example</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x = np.arange(<span class="number">9.0</span>)</span><br><span class="line">&gt;&gt;&gt; np.split(x, <span class="number">3</span>)</span><br><span class="line">[array([ <span class="number">0.</span>,  <span class="number">1.</span>,  <span class="number">2.</span>]), array([ <span class="number">3.</span>,  <span class="number">4.</span>,  <span class="number">5.</span>]), array([ <span class="number">6.</span>,  <span class="number">7.</span>,  <span class="number">8.</span>])]</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x = np.arange(<span class="number">8.0</span>)</span><br><span class="line">&gt;&gt;&gt; np.split(x, [<span class="number">3</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">10</span>])</span><br><span class="line">[array([ <span class="number">0.</span>,  <span class="number">1.</span>,  <span class="number">2.</span>]),</span><br><span class="line"> array([ <span class="number">3.</span>,  <span class="number">4.</span>]),</span><br><span class="line"> array([ <span class="number">5.</span>]),</span><br><span class="line"> array([ <span class="number">6.</span>,  <span class="number">7.</span>]),</span><br><span class="line"> array([], dtype=float64)]</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/a9604481.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/a9604481.html" itemprop="url">查看docker运行中的命令行输出</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-24T16:32:39+08:00">
-                2018-09-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/a9604481.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/a9604481.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/a9604481.html" class="leancloud_visitors" data-flag-title="查看docker运行中的命令行输出">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>当我在用docker跑pytorch时，因为训练时间长，网络不好的时候，终端会停止输出命令行结果。为了查看命令行的输出结果。我们可以运行如下命令：<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs <span class="string">[ID或者名字]</span> 可以查看容器内部的标准输出。</span><br></pre></td></tr></table></figure></p>
-<p>下面再附上常见的docker指令。<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">docker info </span><br><span class="line">sudo docker pull busybox 预构建Image (busybox是最小的Linux系统) </span><br><span class="line">docker logs 2b1b7a428627 查看容器内的输出 </span><br><span class="line">docker logs <span class="variable">$sample_job</span> 查看日志 </span><br><span class="line">docker <span class="keyword">help</span> </span><br><span class="line">docker ps 查看容器 </span><br><span class="line">docker stop <span class="variable">$sample_job</span> 停止容器 </span><br><span class="line">docker restart <span class="variable">$sample_job</span> </span><br><span class="line">docker stop <span class="variable">$sample_job</span>; </span><br><span class="line">docker <span class="keyword">rm</span> <span class="variable">$sample_job</span> </span><br><span class="line">docker images 查看镜像列表 </span><br><span class="line">docker <span class="keyword">search</span> (image-name) </span><br><span class="line">docker history (image_name) </span><br><span class="line">docker push (image_name) 将镜像推送到registry </span><br><span class="line">docker stats --<span class="keyword">help</span> 查看docker stats 的用法</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2703,7 +2086,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2714,7 +2097,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2725,7 +2108,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
