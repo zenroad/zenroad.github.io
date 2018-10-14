@@ -272,6 +272,1251 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/dbebb1c.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/dbebb1c.html" itemprop="url">MPI_Gather小例子</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:24:10+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mpi/" itemprop="url" rel="index">
+                    <span itemprop="name">mpi</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/dbebb1c.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/dbebb1c.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/dbebb1c.html" class="leancloud_visitors" data-flag-title="MPI_Gather小例子">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MPI_Gather的作用：从一组进程中收集数据，汇总到根进程中。<br>每个进程(包括根进程)将其发送缓冲区中的内容发送到根进程,根进程根据发送这些数据的进程的序列号将它们依次存放到自已的消息缓冲区中.其结果就象一个组中的n个进程(包括根进程在内)都执行了一个调用:<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">MPI_Send</span>(<span class="params">sendbuf, sendcount, sendtype, root, ...</span>)</span>,</span><br></pre></td></tr></table></figure></p>
+<p>同时根进程执行了n次调用:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">MPI_Recv</span><span class="params">(recvbuf+i*recvcount*extent(recvtype)</span></span>, recvcount, recvtype, <span class="selector-tag">i</span>,...)</span><br></pre></td></tr></table></figure></p>
+<p>函数原型：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="built_in">MPI_Gather</span>(<span class="keyword">const</span> <span class="keyword">void</span> *sendbuf,<span class="keyword">int</span> sendcount,<span class="built_in">MPI_Datatype</span> sendtype,<span class="keyword">void</span> *recvbuf,<span class="keyword">int</span> recvcount,<span class="built_in">MPI_Datatype</span> sendtype,<span class="keyword">int</span> root,<span class="built_in">MPI_Comm</span> comm)</span><br></pre></td></tr></table></figure></p>
+<p>直接展示结果似乎更为清晰，以下展示一个例子：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">rank=0, sbuf[0]=0</span><br><span class="line">rank=0, sbuf[1]=0</span><br><span class="line">rank=0, sbuf[2]=0</span><br><span class="line">rank=1, sbuf[0]=1</span><br><span class="line">rank=1, sbuf[1]=1</span><br><span class="line">rank=1, sbuf[2]=1</span><br><span class="line">rank=2, sbuf[0]=2</span><br><span class="line">rank=2, sbuf[1]=2</span><br><span class="line">rank=2, sbuf[2]=2</span><br><span class="line">after MPI_Gather rbuf value:</span><br><span class="line">rank=0, rbuf[0]=0</span><br><span class="line">rank=0, rbuf[1]=0</span><br><span class="line">rank=0, rbuf[2]=0</span><br><span class="line">rank=0, rbuf[3]=1</span><br><span class="line">rank=0, rbuf[4]=1</span><br><span class="line">rank=0, rbuf[5]=1</span><br><span class="line">rank=0, rbuf[6]=2</span><br><span class="line">rank=0, rbuf[7]=2</span><br><span class="line">rank=0, rbuf[8]=2</span><br></pre></td></tr></table></figure></p>
+<p>下面展示代码示例：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#include <span class="meta-string">"mpi.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main( <span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[] )&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> rank, nproc;</span><br><span class="line">    <span class="keyword">int</span> isend, irecv[<span class="number">32</span>];</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">MPI_Init</span>( &amp;argc, &amp;argv );</span><br><span class="line">    <span class="built_in">MPI_Comm_size</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;nproc );</span><br><span class="line">    <span class="built_in">MPI_Comm_rank</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;rank );</span><br><span class="line"></span><br><span class="line">    isend = rank + <span class="number">1</span>;</span><br><span class="line">	<span class="comment">//int MPI_Gather(const void *sendbuf,int sendcount,MPI_Datatype sendtype,void *recvbuf,int recvcount,MPI_Datatype sendtype,int root,MPI_Comm comm)</span></span><br><span class="line">    <span class="built_in">MPI_Gather</span>( &amp;isend, <span class="number">1</span>, <span class="built_in">MPI_INT</span>, irecv, <span class="number">1</span>, <span class="built_in">MPI_INT</span>, <span class="number">0</span>,</span><br><span class="line">                           <span class="built_in">MPI_COMM_WORLD</span>);</span><br><span class="line">    <span class="keyword">if</span>(rank == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;nproc; i++)</span><br><span class="line">            printf(<span class="string">"irecv = %d\n"</span>, irecv[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">MPI_Finalize</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/f1b9f217.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/f1b9f217.html" itemprop="url">MPI_Bcast小例子</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:22:51+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mpi/" itemprop="url" rel="index">
+                    <span itemprop="name">mpi</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/f1b9f217.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/f1b9f217.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/f1b9f217.html" class="leancloud_visitors" data-flag-title="MPI_Bcast小例子">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>代码比较简单，主要为说明MPI_Bcast功能。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//广播实例：先为所有非根进程置零，根进程向每个进程广播12345</span></span><br><span class="line"><span class="meta">#include <span class="meta-string">"mpi.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main( <span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[] )</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> rank;</span><br><span class="line">    <span class="keyword">int</span> ibuf;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">MPI_Init</span>( &amp;argc, &amp;argv );</span><br><span class="line">    <span class="built_in">MPI_Comm_rank</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;rank );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(rank == <span class="number">0</span>) ibuf = <span class="number">12345</span>;</span><br><span class="line">    <span class="keyword">else</span> ibuf = <span class="number">0</span>; <span class="comment">// set ibuf Zero for non-root processes</span></span><br><span class="line">	<span class="comment">//MPI_Bcast(void *buffer,int count,MPI_Datatype datatype ,int root,MPI_Comm comm)</span></span><br><span class="line">    <span class="built_in">MPI_Bcast</span>(&amp;ibuf, <span class="number">1</span>, <span class="built_in">MPI_INT</span>, <span class="number">0</span>, <span class="built_in">MPI_COMM_WORLD</span>);</span><br><span class="line">    <span class="keyword">if</span> (rank !=<span class="number">0</span> ) printf(<span class="string">"my rank = %d  ibuf = %d\n"</span>, rank,ibuf);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">MPI_Finalize</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/2d632503.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/2d632503.html" itemprop="url">MPI计算pi值</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:21:04+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mpi/" itemprop="url" rel="index">
+                    <span itemprop="name">mpi</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/2d632503.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/2d632503.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/2d632503.html" class="leancloud_visitors" data-flag-title="MPI计算pi值">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>π的求解方式：<br><img src="http://upload-images.jianshu.io/upload_images/8842375-3d501b6c7bcab37b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//由高数里的知识可知，根据上述公式可以求得pi/4。</span></span><br><span class="line"><span class="meta">#include<span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#include<span class="meta-string">&lt;mpi.h&gt;</span></span></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])&#123;</span><br><span class="line">	<span class="keyword">int</span> my_rank,num_procs;</span><br><span class="line">	<span class="keyword">int</span> i,n = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">double</span> sum,width,local,mypi,pi;</span><br><span class="line">	<span class="keyword">double</span> start =<span class="number">0.0</span>,stop = <span class="number">0.0</span>;</span><br><span class="line">	<span class="keyword">int</span> proc_len;</span><br><span class="line">	<span class="comment">//MPI_MAX_PROCESSOR_NAME是MPI预定义的宏，，即MPI所允许的机器名字的最大长度。</span></span><br><span class="line">	<span class="keyword">char</span> processor_name[<span class="built_in">MPI_MAX_PROCESSOR_NAME</span>];</span><br><span class="line">	<span class="built_in">MPI_Init</span>(&amp;argc,&amp;argv);</span><br><span class="line">	<span class="built_in">MPI_Comm_size</span>(<span class="built_in">MPI_COMM_WORLD</span>,&amp;num_procs);</span><br><span class="line">	<span class="comment">//determines the rank of the calling process in the communicator</span></span><br><span class="line">	<span class="built_in">MPI_Comm_rank</span>(<span class="built_in">MPI_COMM_WORLD</span>,&amp;my_rank);</span><br><span class="line">	<span class="comment">//mpi接口获取进程名 int MPI_Get_processor_name(char *name,int *resultlen)</span></span><br><span class="line">	<span class="built_in">MPI_Get_processor_name</span>(processor_name,&amp;proc_len);</span><br><span class="line">	printf(<span class="string">"Process %d of %d\n"</span>,my_rank,num_procs);</span><br><span class="line">	<span class="keyword">if</span>(my_rank == <span class="number">0</span>)&#123;</span><br><span class="line">		scanf(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">		printf(<span class="string">"\n"</span>);</span><br><span class="line">		<span class="comment">//MPI_Wtime返回一个用浮点数表示的秒数</span></span><br><span class="line">		start = <span class="built_in">MPI_Wtime</span>();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//MPI_Bcast(void *buffer,int count,MPI_Datatype datatype ,int root,MPI_Comm comm)</span></span><br><span class="line">	<span class="built_in">MPI_Bcast</span>(&amp;n,<span class="number">1</span>,<span class="built_in">MPI_INT</span>,<span class="number">0</span>,<span class="built_in">MPI_COMM_WORLD</span>);</span><br><span class="line">	sum =<span class="number">0.0</span>;</span><br><span class="line">	width = <span class="number">1.0</span>/n;</span><br><span class="line">	<span class="comment">//每个进程my_rank，计算4.0/(1.0+local*local)放入sum</span></span><br><span class="line">	<span class="keyword">for</span>(i = my_rank;i&lt;n;i+=num_procs)&#123;</span><br><span class="line">		local =width*((<span class="keyword">double</span>)i+<span class="number">0.5</span>);</span><br><span class="line">		sum += <span class="number">4.0</span>/(<span class="number">1.0</span>+local*local);</span><br><span class="line">	&#125;</span><br><span class="line">	mypi = width*sum;</span><br><span class="line">	<span class="built_in">MPI_Reduce</span>(&amp;mypi,&amp;pi,<span class="number">1</span>,<span class="built_in">MPI_DOUBLE</span>,<span class="built_in">MPI_SUM</span>,<span class="number">0</span>,<span class="built_in">MPI_COMM_WORLD</span>);</span><br><span class="line">	<span class="comment">//打印结果</span></span><br><span class="line">	<span class="keyword">if</span>(my_rank == <span class="number">0</span>)&#123;</span><br><span class="line">		printf(<span class="string">"PI is %.20f\n"</span>,pi);</span><br><span class="line">		stop = <span class="built_in">MPI_Wtime</span>();</span><br><span class="line">		printf(<span class="string">"Time:%f on %s\n"</span>,stop-start,processor_name);</span><br><span class="line">		fflush(stdout);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">MPI_Finalize</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/d25d3b5e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/d25d3b5e.html" itemprop="url">Python解析IP地址CIDR的形式</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:18:09+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python-tutorial/" itemprop="url" rel="index">
+                    <span itemprop="name">python tutorial</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/d25d3b5e.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/d25d3b5e.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/d25d3b5e.html" class="leancloud_visitors" data-flag-title="Python解析IP地址CIDR的形式">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>###使用IPy库<br><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> IPy <span class="keyword">import</span> IP</span><br><span class="line">ip = IP(<span class="string">'127.0.0.0/30'</span>)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> ip:</span><br><span class="line">	<span class="built_in">print</span>(x)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.0</span></span><br><span class="line">127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.1</span></span><br><span class="line">127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.2</span></span><br><span class="line">127<span class="selector-class">.0</span><span class="selector-class">.0</span><span class="selector-class">.3</span></span><br></pre></td></tr></table></figure>
+<p>###使用netaddr库<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">from netaddr import *</span><br><span class="line">ip = IPNetwork('<span class="number">192.0</span>.<span class="number">2.16</span>/29')</span><br><span class="line">ip_list = list(<span class="name">ip</span>)</span><br><span class="line">print(<span class="name">ip_list</span>)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="name">IPAddress</span>(<span class="symbol">'192.0.2.16</span>'), IPAddress(<span class="symbol">'192.0.2.17</span>'), IPAddress(<span class="symbol">'192.0.2.18</span>'), IPAddress(<span class="symbol">'192.0.2.19</span>'), IPAddress(<span class="symbol">'192.0.2.20</span>'), IPAddress(<span class="symbol">'192.0.2.21</span>'), IPAddress(<span class="symbol">'192.0.2.22</span>'), IPAddress(<span class="symbol">'192.0.2.23</span>')]</span><br></pre></td></tr></table></figure>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> netaddr <span class="keyword">import</span> *</span><br><span class="line">startip = <span class="string">'208.130.29.30'</span></span><br><span class="line">endip = <span class="string">'208.130.29.35'</span></span><br><span class="line">cidrs = netaddr.iprange_to_cidrs(startip, endip)</span><br><span class="line"><span class="keyword">for</span> k, v <span class="keyword">in</span> enumerate(cidrs):</span><br><span class="line">    iplist = v</span><br><span class="line">    <span class="built_in">print</span> iplist</span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">208.130</span><span class="number">.29</span><span class="number">.30</span>/<span class="number">31</span></span><br><span class="line"><span class="number">208.130</span><span class="number">.29</span><span class="number">.32</span>/<span class="number">30</span></span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/5599f08d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/5599f08d.html" itemprop="url">Leetcode_4 Median of Two Sorted Arrays</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-07T17:52:51+08:00">
+                2018-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/5599f08d.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/5599f08d.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/5599f08d.html" class="leancloud_visitors" data-flag-title="Leetcode_4 Median of Two Sorted Arrays">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>There are two sorted arrays nums1 and nums2 of size m and n respectively.<br>Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
+<p>You may assume nums1 and nums2 cannot be both empty.</p>
+<p><strong>Example 1:</strong><br>nums1 = [1, 3]<br>nums2 = [2]</p>
+<p>The median is 2.0</p>
+<p><strong>Example 2:</strong><br>nums1 = [1, 2]<br>nums2 = [3, 4]</p>
+<p>The median is (2 + 3)/2 = 2.5</p>
+<h2 id="Solution1"><a href="#Solution1" class="headerlink" title="Solution1"></a>Solution1</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getKth</span><span class="params">(self, A, B, k)</span>:</span></span><br><span class="line">        lenA = len(A); lenB = len(B)</span><br><span class="line">        <span class="keyword">if</span> lenA &gt; lenB: <span class="keyword">return</span> self.getKth(B, A, k)</span><br><span class="line">        <span class="keyword">if</span> lenA == <span class="number">0</span>: <span class="keyword">return</span> B[k - <span class="number">1</span>]</span><br><span class="line">        <span class="keyword">if</span> k == <span class="number">1</span>: <span class="keyword">return</span> min(A[<span class="number">0</span>], B[<span class="number">0</span>])</span><br><span class="line">        pa = min(k//<span class="number">2</span>, lenA); pb = k - pa</span><br><span class="line">        <span class="keyword">if</span> A[pa - <span class="number">1</span>] &lt;= B[pb - <span class="number">1</span>]:</span><br><span class="line">            <span class="keyword">return</span> self.getKth(A[pa:], B, pb)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> self.getKth(A, B[pb:], pa)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findMedianSortedArrays</span><span class="params">(self, A, B)</span>:</span></span><br><span class="line">        lenA = len(A); lenB = len(B)</span><br><span class="line">        <span class="keyword">if</span> (lenA + lenB) % <span class="number">2</span> == <span class="number">1</span>: </span><br><span class="line">            <span class="keyword">return</span> self.getKth(A, B, (lenA + lenB)//<span class="number">2</span> + <span class="number">1</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> (self.getKth(A, B, (lenA + lenB)//<span class="number">2</span>) + self.getKth(A, B, (lenA + lenB)//<span class="number">2</span> + <span class="number">1</span>)) * <span class="number">0.5</span></span><br></pre></td></tr></table></figure>
+<h3 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h3><p>For a sorted number <code>a</code> of length <code>n</code>, if <code>n</code> is an odd number, the median is <code>a[n / 2 + 1]</code>.  If <code>n</code> is even, the median <code>(a[n / 2] + a[n / 2 + 1]) / 2</code>.<br>If we can find the <code>Kth</code> element in the two series, we can solve the problem.<br>It may be desirable to set the number of <code>A</code> elements in the series to be <code>n</code>, and the number of elements in the series <code>B</code> to be <code>m</code>, and sort them in ascending order, and find the <code>kth</code> small element.<br>Take <code>A[k / 2]</code> <code>B[k / 2]</code> comparison,If <code>A[k / 2] &gt; B[k / 2]</code> then the element sought is inevitably not in the <code>first k / 2</code> elements of <code>B</code> (proving counter-evidence)<br>On the contrary, it must not be in the <code>first k / 2</code> elements of <code>A</code>, so we can delete the <code>first k / 2</code> elements of the A or B series, and find the remaining two series <code>k - k / 2</code> small elements, so I got the same problem with the data size becoming smaller. If <code>k / 2</code> is greater than a certain number of columns, the element sought must not be in the <code>first k / 2</code> elements of the other series , recursively solved.</p>
+<h2 id="Solution2"><a href="#Solution2" class="headerlink" title="Solution2"></a>Solution2</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findMedianSortedArrays</span><span class="params">(self, nums1, nums2)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums1: List[int]</span></span><br><span class="line"><span class="string">        :type nums2: List[int]</span></span><br><span class="line"><span class="string">        :rtype: float</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        </span><br><span class="line">        c=nums1+nums2</span><br><span class="line">        c=sorted(c)</span><br><span class="line">        n=len(c)</span><br><span class="line">        a=int((n<span class="number">-1</span>)/<span class="number">2</span>)</span><br><span class="line">        <span class="keyword">if</span> n%<span class="number">2</span>==<span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> (c[a]+c[a+<span class="number">1</span>])/<span class="number">2</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> c[a]</span><br></pre></td></tr></table></figure>
+<h3 id="Tips-1"><a href="#Tips-1" class="headerlink" title="Tips"></a>Tips</h3><p>In python, the time complexity of the function <code>len</code> is <code>O(1)</code>. The time complexity of the function <code>sort</code> is <code>O(nlog(n))</code>. <code>Timsort algorithm</code> is used for <code>sorted</code> in python.<br><img src="https://raw.githubusercontent.com/qiwsir/algorithm/master/pics/timsort1.png" alt="image"><br>So solution2 actually runs faster than solution1. </p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/a43781b9.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/a43781b9.html" itemprop="url">Leetcode_3 Longest Substring Without Repeating Characters</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-06T21:18:11+08:00">
+                2018-10-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/a43781b9.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/a43781b9.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/a43781b9.html" class="leancloud_visitors" data-flag-title="Leetcode_3 Longest Substring Without Repeating Characters">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Given a string, find the length of the longest substring without repeating characters.<br><strong>Example 1:</strong><br>Input: “abcabcbb”<br>Output: 3<br>Explanation: The answer is “abc”, with the length of 3. </p>
+<p><strong>Example 2:</strong></p>
+<p>Input: “bbbbb”<br>Output: 1<br>Explanation: The answer is “b”, with the length of 1.</p>
+<p><strong>Example 3:</strong></p>
+<p>Input: “pwwkew”<br>Output: 3<br>Explanation: The answer is “wke”, with the length of 3. </p>
+<p>Note that the answer must be a substring, “pwke” is a subsequence and not a substring.</p>
+<h2 id="Solution1"><a href="#Solution1" class="headerlink" title="Solution1"></a>Solution1</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(self, s)</span>:</span></span><br><span class="line">        seen = &#123;&#125;</span><br><span class="line">        max_len = <span class="number">0</span></span><br><span class="line">        start = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i, c <span class="keyword">in</span> enumerate(s):</span><br><span class="line">            <span class="keyword">if</span> c <span class="keyword">in</span> seen <span class="keyword">and</span> seen[c] &gt;= start:</span><br><span class="line">                <span class="keyword">if</span> i-start &gt; max_len:</span><br><span class="line">                    max_len = i-start</span><br><span class="line">                start = seen[c]+<span class="number">1</span></span><br><span class="line">            seen[c] = i</span><br><span class="line">        <span class="keyword">return</span> max(max_len, len(s)-start)</span><br></pre></td></tr></table></figure>
+<h2 id="Solution2"><a href="#Solution2" class="headerlink" title="Solution2"></a>Solution2</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(self, s)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type s: str</span></span><br><span class="line"><span class="string">        :rtype: int</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        maxnum,num,ss =<span class="number">0</span>,<span class="number">0</span>,<span class="string">''</span></span><br><span class="line">        <span class="keyword">for</span> each <span class="keyword">in</span> s:</span><br><span class="line">            <span class="keyword">if</span> each <span class="keyword">in</span> ss:</span><br><span class="line">                ss = ss.split(each)[<span class="number">-1</span>]+each</span><br><span class="line">                num =len(ss)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                num += <span class="number">1</span></span><br><span class="line">                ss += each</span><br><span class="line">                <span class="keyword">if</span> num&gt;=maxnum:</span><br><span class="line">                    maxnum = num</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> maxnum</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/4b735f76.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/4b735f76.html" itemprop="url">Leetcode_2 Add Two Numbers [Medium] (Python)</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T16:24:04+08:00">
+                2018-10-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">Leetcode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/4b735f76.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/4b735f76.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/4b735f76.html" class="leancloud_visitors" data-flag-title="Leetcode_2 Add Two Numbers [Medium] (Python)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.<br>You may assume the two numbers do not contain any leading zero, except the number 0 itself.<br><strong>Example:</strong></p>
+<blockquote>
+<p>Input: (2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)<br>Output: 7 -&gt; 0 -&gt; 8<br>Explanation: 342 + 465 = 807.</p>
+</blockquote>
+<h2 id="Solution1"><a href="#Solution1" class="headerlink" title="Solution1"></a>Solution1</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1, l2)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type l1: ListNode</span></span><br><span class="line"><span class="string">        :type l2: ListNode</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">if</span> l1==<span class="keyword">None</span> <span class="keyword">and</span> l2==<span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">None</span></span><br><span class="line">        <span class="keyword">if</span> l1==<span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">return</span> l2</span><br><span class="line">        <span class="keyword">if</span> l2==<span class="keyword">None</span>:</span><br><span class="line">            <span class="keyword">return</span> l1</span><br><span class="line">        q=ListNode(<span class="number">-1</span>)</span><br><span class="line">        p=q</span><br><span class="line">        flag=<span class="number">0</span></span><br><span class="line">        p1=l1</span><br><span class="line">        p2=l2</span><br><span class="line">        <span class="keyword">while</span> p1!=<span class="keyword">None</span> <span class="keyword">and</span> p2!=<span class="keyword">None</span>:</span><br><span class="line">            temp=ListNode(p1.val+p2.val+flag)</span><br><span class="line">            <span class="keyword">if</span> temp.val&gt;=<span class="number">10</span>:</span><br><span class="line">                temp.val=temp.val%<span class="number">10</span></span><br><span class="line">                flag=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                flag=<span class="number">0</span></span><br><span class="line">            p.next=temp</span><br><span class="line">            p=p.next</span><br><span class="line">            <span class="keyword">if</span> flag==<span class="number">1</span> <span class="keyword">and</span> p1.next==<span class="keyword">None</span> <span class="keyword">and</span> p2.next==<span class="keyword">None</span>:</span><br><span class="line">                t=ListNode(<span class="number">1</span>)</span><br><span class="line">                p.next=t</span><br><span class="line">            p1=p1.next</span><br><span class="line">            p2=p2.next</span><br><span class="line">        <span class="keyword">while</span> p1!=<span class="keyword">None</span>:</span><br><span class="line">            p1.val=p1.val+flag</span><br><span class="line">            <span class="keyword">if</span> p1.val&gt;=<span class="number">10</span>:</span><br><span class="line">                p1.val=p1.val%<span class="number">10</span></span><br><span class="line">                flag=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                flag=<span class="number">0</span></span><br><span class="line">            p.next=p1</span><br><span class="line">            p=p.next</span><br><span class="line">            <span class="keyword">if</span> flag==<span class="number">1</span> <span class="keyword">and</span> p1.next==<span class="keyword">None</span>:</span><br><span class="line">                t=ListNode(<span class="number">1</span>)</span><br><span class="line">                p.next=t</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            p1=p1.next</span><br><span class="line">        <span class="keyword">while</span> p2!=<span class="keyword">None</span>:</span><br><span class="line">            p2.val=p2.val+flag</span><br><span class="line">            <span class="keyword">if</span> p2.val&gt;=<span class="number">10</span>:</span><br><span class="line">                p2.val=p2.val%<span class="number">10</span></span><br><span class="line">                flag=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                flag=<span class="number">0</span></span><br><span class="line">            p.next=p2</span><br><span class="line">            p=p.next</span><br><span class="line">            <span class="keyword">if</span> flag==<span class="number">1</span> <span class="keyword">and</span> p2.next==<span class="keyword">None</span>:</span><br><span class="line">                t=ListNode(<span class="number">1</span>)</span><br><span class="line">                p.next=t</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            p2=p2.next</span><br><span class="line">        <span class="keyword">return</span> q.next</span><br></pre></td></tr></table></figure>
+<h2 id="Solution2"><a href="#Solution2" class="headerlink" title="Solution2"></a>Solution2</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.next = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">addTwoNumbers</span><span class="params">(self, l1, l2)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type l1: ListNode</span></span><br><span class="line"><span class="string">        :type l2: ListNode</span></span><br><span class="line"><span class="string">        :rtype: ListNode</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        prev = <span class="keyword">None</span></span><br><span class="line">        head = l1</span><br><span class="line">        carry = <span class="number">0</span></span><br><span class="line">        <span class="keyword">while</span> l1 <span class="keyword">and</span> l2:</span><br><span class="line">            n = l1.val + l2.val + carry</span><br><span class="line">            val, carry = n % <span class="number">10</span>, n // <span class="number">10</span></span><br><span class="line">            l1.val = val</span><br><span class="line">            prev, l1, l2 =l1, l1.next, l2.next <span class="comment"># Need prev after we finish the loop</span></span><br><span class="line">            </span><br><span class="line">        l = l1 <span class="keyword">or</span> l2 </span><br><span class="line">        prev.next = l <span class="comment"># to link the previous added list to the rest of the uncounted list (l1 or l2)</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">while</span> l:</span><br><span class="line">            n = l.val + carry</span><br><span class="line">            val, carry = n % <span class="number">10</span>, n // <span class="number">10</span></span><br><span class="line">            l.val = val</span><br><span class="line">            prev, l = l, l.next</span><br><span class="line">            </span><br><span class="line">        <span class="comment"># In case there is carry after last digit</span></span><br><span class="line">        <span class="keyword">if</span> carry: </span><br><span class="line">            prev.next = ListNode(carry)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> head</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/bc60cdc1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1331,1314 +2576,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/11c79d56.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/11c79d56.html" itemprop="url">Markdown introduction</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-01T08:26:35+08:00">
-                2018-10-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/11c79d56.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/11c79d56.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/11c79d56.html" class="leancloud_visitors" data-flag-title="Markdown introduction">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Markdown is a lightweight markup language that lets authors focus on writing without paying attention to style.</p>
-<h2 id="title"><a href="#title" class="headerlink" title="title"></a>title</h2><p>When writing with Markdown, you only need to add 『#』 in front of the text to create a first-level title. Similarly, to create a secondary title, a third-level title, etc., only need to increase the number of 『#』, Markdown supports a total of six titles. As follows:</p>
-<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># First level heading</span><br><span class="line">## Secondary title</span><br><span class="line">### Three-level title</span><br><span class="line">#### Four-level title</span><br><span class="line">##### Five-level title</span><br><span class="line">###### Six-level title</span><br></pre></td></tr></table></figure>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>The Markdown tag block reference is similar to the email referenced by 『&gt;』, just add 『&gt;』 at the top of the first line of the entire paragraph.<br>Block references can be nested, as long as different numbers of 『&gt;』 are added according to the level:</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt; This <span class="keyword">is</span> <span class="keyword">the</span> <span class="keyword">first</span> level <span class="keyword">reference</span>.</span><br><span class="line">&gt;</span><br><span class="line">&gt; &gt; This <span class="keyword">is</span> <span class="keyword">the</span> <span class="keyword">second</span> level <span class="keyword">reference</span>.</span><br><span class="line">&gt;</span><br><span class="line">&gt; Now go <span class="keyword">back</span> <span class="keyword">to</span> <span class="keyword">the</span> <span class="keyword">first</span> level <span class="keyword">reference</span>.</span><br></pre></td></tr></table></figure>
-<p>example</p>
-<blockquote>
-<p>This is the first level reference.</p>
-<blockquote>
-<p>This is the second level reference.</p>
-</blockquote>
-<p>Now go back to the first level reference.</p>
-</blockquote>
-<p>Other Markdown syntaxes, including titles, lists, code blocks, etc., can also be used within the referenced block:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="comment">## This is a title.</span></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 1. This is the first line of list items.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 2. This is the second line of list items.</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Give some example code:</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"></span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> <span class="built_in">return</span> shell_exec(`<span class="built_in">echo</span> <span class="variable">$input</span> | <span class="variable">$markdown_script</span>`);</span></span><br></pre></td></tr></table></figure>
-<p>example</p>
-<blockquote>
-<ol>
-<li>This is the first line of list items.</li>
-<li>This is the second line of list items.</li>
-</ol>
-<p>Give some example code:</p>
-<p>return shell_exec(<code>echo $input | $markdown_script</code>);</p>
-</blockquote>
-<h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><p>The list item tag is usually placed on the far left, and the item tag is followed by a character space.<br><em>Unordered list</em>: use an asterisk, plus or minus sign as a list mark<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> Red</span></span><br><span class="line"><span class="ruby">- Green</span></span><br><span class="line"><span class="ruby">- Blue</span></span><br></pre></td></tr></table></figure></p>
-<p>example</p>
-<ul>
-<li>Red</li>
-<li>Green</li>
-<li>Blue</li>
-</ul>
-<p><em>Ordered list</em>: use numbers followed by an English period<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">1. </span>Red</span><br><span class="line"><span class="bullet">2. </span>Green</span><br><span class="line"><span class="bullet">3. </span>Blue</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li>Red</li>
-<li>Green</li>
-<li>Blue<br>If you want to put a reference in the list item, then 『&gt;』 needs to be indented:<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">*  </span>My Porject:</span><br><span class="line"><span class="code">    &gt; code1</span></span><br><span class="line"><span class="code">    &gt; code2    </span></span><br><span class="line"><span class="code">    &gt; code3</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>example</p>
-<ul>
-<li>My Porject:<blockquote>
-<p>code1<br>code2<br>code3 </p>
-</blockquote>
-</li>
-</ul>
-<p>Agent list: Indicates whether the list is checked or not (note: there must be spaces before and after [ ])<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> [ ] <span class="keyword">not</span> selected</span></span><br><span class="line"><span class="ruby">- [x] tick</span></span><br></pre></td></tr></table></figure></p>
-<p>example</p>
-<ul>
-<li style="list-style: none"><input type="checkbox"> not selected</li>
-<li style="list-style: none"><input type="checkbox" checked> tick</li>
-</ul>
-<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><p>Just wrap your code block between “`, you don’t need to mark the code block by endless indentation. In a fenced code block, you can specify an optional language identifier, then we can Enable syntax coloring for it. For example, this can be used to color a piece of Ruby code:</p>
-<p>```ruby<br>require ‘redcarpet’<br>markdown = Redcarpet.new(“Hello World!”)<br>puts markdown.to_html<br>```</p>
-<p>example</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="string">'redcarpet'</span></span><br><span class="line">markdown = Redcarpet.new(<span class="string">"Hello World!"</span>)</span><br><span class="line">puts markdown.to_html</span><br></pre></td></tr></table></figure>
-<h2 id="Emphasize"><a href="#Emphasize" class="headerlink" title="Emphasize"></a>Emphasize</h2><p>In Markdown, you can use * and _ to indicate italics and bold.<br><em>Italic:</em><br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">*Coding*</span></span><br><span class="line"><span class="emphasis">_Coding_</span></span><br></pre></td></tr></table></figure></p>
-<p><em>Coding</em><br><em>Coding</em></p>
-<p><em>Bold:</em></p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="strong">**Coding**</span></span><br><span class="line"><span class="strong">__Coding__</span></span><br></pre></td></tr></table></figure>
-<p><strong>Coding</strong><br><strong>Coding</strong></p>
-<h2 id="Automatic-link"><a href="#Automatic-link" class="headerlink" title="Automatic link"></a>Automatic link</h2><p>Square brackets show the description, the URL is displayed in parentheses, and Markdown automatically converts it into a link, for example:<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">blog</span>](<span class="link">https://www.zenroad.club</span>)</span><br></pre></td></tr></table></figure></p>
-<p>example<br><a href="https://www.zenroad.club">blog</a></p>
-<h2 id="form"><a href="#form" class="headerlink" title="form"></a>form</h2><p>In Markdown, you can make a table, for example:</p>
-<figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">First Header |<span class="string"> Second Header </span>|<span class="string"> Third Header</span></span><br><span class="line"><span class="string">------------ </span>|<span class="string"> ------------- </span>|<span class="string"> ------------</span></span><br><span class="line"><span class="string">Content Cell </span>|<span class="string"> Content Cell  </span>|<span class="string"> Content Cell</span></span><br><span class="line"><span class="string">Content Cell </span>|<span class="string"> Content Cell  </span>|<span class="string"> Content Cell</span></span><br></pre></td></tr></table></figure>
-<p>example</p>
-<table>
-<thead>
-<tr>
-<th>First Header</th>
-<th>Second Header</th>
-<th>Third Header</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Content Cell</td>
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-<tr>
-<td>Content Cell</td>
-<td>Content Cell</td>
-<td>Content Cell</td>
-</tr>
-</tbody>
-</table>
-<p>Or you can align the contents of the table and center the content, for example:<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">First Header | Second Header | Third Header</span><br><span class="line"><span class="symbol">:-----------</span> | <span class="symbol">:-----------</span>: | -----------<span class="symbol">:</span></span><br><span class="line">Left         | Center        | Right</span><br><span class="line">Left         | Center        | Right</span><br></pre></td></tr></table></figure></p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">First Header</th>
-<th style="text-align:center">Second Header</th>
-<th style="text-align:right">Third Header</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Left</td>
-<td style="text-align:center">Center</td>
-<td style="text-align:right">Right</td>
-</tr>
-<tr>
-<td style="text-align:left">Left</td>
-<td style="text-align:center">Center</td>
-<td style="text-align:right">Right</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Dividing-line"><a href="#Dividing-line" class="headerlink" title="Dividing line"></a>Dividing line</h2><p>In Markdown, you can create split lines using more than 3 『-』 symbols, for example:<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">123</span><br><span class="line">---</span><br><span class="line">456</span><br></pre></td></tr></table></figure></p>
-<p>123</p>
-<hr>
-<p>456</p>
-<h2 id="image"><a href="#image" class="headerlink" title="image"></a>image</h2><p>Markdown uses a link-like syntax to insert images, in two forms: inline and reference.<br>The inline picture syntax is as follows:<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">Alt text</span>](<span class="link">/path/to/img.jpg</span>)</span><br><span class="line">or</span><br><span class="line">![<span class="string">Alt text</span>](<span class="link">/path/to/img.jpg "Optional title"</span>)</span><br></pre></td></tr></table></figure></p>
-<p>That is:</p>
-<ul>
-<li>An exclamation mark 『!』</li>
-<li>Next a square bracket with an alternate text for the image</li>
-<li>Then there is an ordinary parenthesis, which is the URL of the image. Finally, you can enclose it in quotation marks and add the optional 『title』 text.<br>The quote picture syntax is as follows:</li>
-</ul>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">Alt text</span>][<span class="symbol">id</span>]</span><br></pre></td></tr></table></figure>
-<p>『id』 is the name of the image reference. The image reference uses the same syntax defined by the link:</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">id</span>]: url/<span class="keyword">to</span>/image <span class="string">"Optional title attribute"</span></span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/98dacf19.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/98dacf19.html" itemprop="url">Difference between frompyfunc() and vectorize() in Numpy</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-29T21:41:04+08:00">
-                2018-09-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/98dacf19.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/98dacf19.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/98dacf19.html" class="leancloud_visitors" data-flag-title="Difference between frompyfunc() and vectorize() in Numpy">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>NumPy provides two basic objects <code>ndarray</code> (n-dimensional array) and <code>ufunc</code> (universal function), The latter refers to a function that can operate on each element in the array, which can improve the speed of the operation.<br>In order to convert ordinary functions that compute a single element into <code>ufunc</code> functions, <code>NumPy</code> provides two functions, <code>frompyfunc()</code> and <code>vectorize()</code>.By converting, the original function parameters can be accepted as <code>vector</code> input (in other words, the vector of the converted function is used as the <code>scalar</code> input function). However there is some problem.</p>
-<ul>
-<li>Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array? *</li>
-<li>Q2 What should I do when some of my input parameters should not to be vectorized? *</li>
-</ul>
-<p>Refer to the Numpy official manual for the declaration of these two functions.</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numpy.frompyfunc(func, nin, nout)</span><br><span class="line">class numpy.vectorize(pyfunc, <span class="attribute">otypes</span>=<span class="string">''</span>, <span class="attribute">doc</span>=None, <span class="attribute">excluded</span>=None, <span class="attribute">cache</span>=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>frompyfunc()</code> The input parameters of frompyfunc() are the function name, the number of input parameters, and the number of output parameters.</li>
-<li><code>vectorize()</code> Vectorize() has many output parameters, and the first two parameters are commonly used: function name and return type.<br>Note that in the document, the <code>vectorize()</code> function is essentially implemented in a loop, so it is used for convenience and not for efficiency. That is to say, <code>frompyfunc()</code> is more low-level and relatively more efficient.<h3 id="Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array"><a href="#Q1-When-my-original-function-was-originally-an-output-array-would-I-eventually-get-a-new-two-dimensional-array" class="headerlink" title="Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?"></a>Q1 When my original function was originally an output array, would I eventually get a new two-dimensional array?</h3></li>
-</ul>
-<p>code<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding: utf8</span></span><br><span class="line">import numpy as np</span><br><span class="line">def test1(x):</span><br><span class="line">    return x*np.array([0.0,1.0])</span><br><span class="line">fpf_test1 = np.frompyfunc(test1,1,1)</span><br><span class="line">vec_test1 = np.vectorize(test1)</span><br><span class="line">x = np.linspace(0,1,2)</span><br></pre></td></tr></table></figure></p>
-<p>result<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print fpf_test1(x)</span><br><span class="line">[array([ <span class="number">0.</span>,  <span class="number">0.</span>]) array([ <span class="number">0.</span>,  <span class="number">1.</span>])]</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">print vec_test1(x)</span><br><span class="line">ValueError: setting an<span class="built_in"> array </span>element with a sequence.</span><br></pre></td></tr></table></figure>
-<p>The original function output is also an array. The test results show that the use of the <code>frompyfunc()</code> function achieves the expected result, while the <code>vectorize()</code> function causes an error.</p>
-<h3 id="Q2-What-should-I-do-when-some-of-my-input-parameters-should-not-to-be-vectorized"><a href="#Q2-What-should-I-do-when-some-of-my-input-parameters-should-not-to-be-vectorized" class="headerlink" title="Q2 What should I do when some of my input parameters should not to be vectorized?"></a>Q2 What should I do when some of my input parameters should not to be vectorized?</h3><p>code<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding: utf8</span></span><br><span class="line">import numpy as np</span><br><span class="line">def test2(x,y):</span><br><span class="line">    return x[int(y)]</span><br><span class="line">fpf_test2 = np.frompyfunc(test2,2,1)</span><br><span class="line">vec_test2 = np.vectorize(test2)</span><br><span class="line">x = np.linspace(0,4,5) * 10</span><br><span class="line">y = np.linspace(0,4,5)</span><br></pre></td></tr></table></figure></p>
-<p>result<br><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> fpf_test2(<span class="keyword">x</span>,<span class="keyword">y</span>)</span><br><span class="line">TypeError: <span class="string">'float'</span> object <span class="built_in">has</span> <span class="keyword">no</span> attribute <span class="string">'__getitem__'</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> vec_test2(<span class="keyword">x</span>,<span class="keyword">y</span>)</span><br><span class="line">IndexError: invalid <span class="keyword">index</span> to <span class="keyword">scalar</span> variable.</span><br></pre></td></tr></table></figure>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vec_test2.excluded.add(<span class="number">0</span>)</span><br><span class="line">print vec_test2(x,y)</span><br><span class="line">[  <span class="number">0.</span>  <span class="number">10.</span>  <span class="number">20.</span>  <span class="number">30.</span>  <span class="number">40.</span>]</span><br></pre></td></tr></table></figure>
-<p>As you can see, when you use the function directly, since x is also treated as a parameter that requires vectorization, a type error occurs (x is ultimately treated as a scalar).<br>Using the excluded attribute of the <code>vectorize</code> function class, after adding the input parameters that do not take into account the vectorization, the correct output is obtained.</p>
-<blockquote>
-<p>The excluded attribute is only supported in versions later than NumPy 1.7.</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/c226393d.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/c226393d.html" itemprop="url">numpy split usage</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-28T20:50:32+08:00">
-                2018-09-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/c226393d.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/c226393d.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/c226393d.html" class="leancloud_visitors" data-flag-title="numpy split usage">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>numpy.split</strong><br><strong>numpy.split(ary, indices_or_sections, axis=0)</strong></p>
-<p><em>Split an array into multiple sub-arrays.</em><br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">Parameters:	</span><br><span class="line"></span><br><span class="line">ary<span class="keyword"> :</span> ndarray</span><br><span class="line"></span><br><span class="line">    Array to be divided into sub-arrays.</span><br><span class="line"></span><br><span class="line">indices_or_sections<span class="keyword"> :</span><span class="built_in"> int </span>or 1-D array</span><br><span class="line"></span><br><span class="line">    If indices_or_sections is an integer, N, the<span class="built_in"> array </span>will be divided into N equal arrays along axis. If such a split is<span class="built_in"> not </span>possible, an error is raised.</span><br><span class="line"></span><br><span class="line">    If indices_or_sections is a 1-D<span class="built_in"> array </span>of sorted integers, the entries indicate where along axis the<span class="built_in"> array </span>is split. For example, [2, 3] would, for axis=0, result in</span><br><span class="line"></span><br><span class="line">            ary[:2]</span><br><span class="line">            ary[2:3]</span><br><span class="line">            ary[3:]</span><br><span class="line"></span><br><span class="line">    If an index exceeds the dimension of the<span class="built_in"> array </span>along axis, an empty<span class="built_in"> sub-array </span>is returned correspondingly.</span><br><span class="line">axis<span class="keyword"> :</span> int, optional</span><br><span class="line"></span><br><span class="line">    The axis along which to split, default is 0.</span><br><span class="line"></span><br><span class="line">Returns:	</span><br><span class="line"></span><br><span class="line">sub-arrays<span class="keyword"> :</span> list of ndarrays</span><br><span class="line"></span><br><span class="line">    A list of sub-arrays.</span><br><span class="line"></span><br><span class="line">Raises:	</span><br><span class="line"></span><br><span class="line">ValueError</span><br><span class="line"></span><br><span class="line">    If indices_or_sections is given as an integer, but a split does<span class="built_in"> not </span>result in equal division.</span><br></pre></td></tr></table></figure></p>
-<p><strong>Example</strong><br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x = np.arange(<span class="number">9.0</span>)</span><br><span class="line">&gt;&gt;&gt; np.split(x, <span class="number">3</span>)</span><br><span class="line">[array([ <span class="number">0.</span>,  <span class="number">1.</span>,  <span class="number">2.</span>]), array([ <span class="number">3.</span>,  <span class="number">4.</span>,  <span class="number">5.</span>]), array([ <span class="number">6.</span>,  <span class="number">7.</span>,  <span class="number">8.</span>])]</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; x = np.arange(<span class="number">8.0</span>)</span><br><span class="line">&gt;&gt;&gt; np.split(x, [<span class="number">3</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">10</span>])</span><br><span class="line">[array([ <span class="number">0.</span>,  <span class="number">1.</span>,  <span class="number">2.</span>]),</span><br><span class="line"> array([ <span class="number">3.</span>,  <span class="number">4.</span>]),</span><br><span class="line"> array([ <span class="number">5.</span>]),</span><br><span class="line"> array([ <span class="number">6.</span>,  <span class="number">7.</span>]),</span><br><span class="line"> array([], dtype=float64)]</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/a9604481.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/a9604481.html" itemprop="url">查看docker运行中的命令行输出</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-24T16:32:39+08:00">
-                2018-09-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker/" itemprop="url" rel="index">
-                    <span itemprop="name">docker</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/a9604481.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/a9604481.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/a9604481.html" class="leancloud_visitors" data-flag-title="查看docker运行中的命令行输出">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>当我在用docker跑pytorch时，因为训练时间长，网络不好的时候，终端会停止输出命令行结果。为了查看命令行的输出结果。我们可以运行如下命令：<br><figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs <span class="string">[ID或者名字]</span> 可以查看容器内部的标准输出。</span><br></pre></td></tr></table></figure></p>
-<p>下面再附上常见的docker指令。<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">docker info </span><br><span class="line">sudo docker pull busybox 预构建Image (busybox是最小的Linux系统) </span><br><span class="line">docker logs 2b1b7a428627 查看容器内的输出 </span><br><span class="line">docker logs <span class="variable">$sample_job</span> 查看日志 </span><br><span class="line">docker <span class="keyword">help</span> </span><br><span class="line">docker ps 查看容器 </span><br><span class="line">docker stop <span class="variable">$sample_job</span> 停止容器 </span><br><span class="line">docker restart <span class="variable">$sample_job</span> </span><br><span class="line">docker stop <span class="variable">$sample_job</span>; </span><br><span class="line">docker <span class="keyword">rm</span> <span class="variable">$sample_job</span> </span><br><span class="line">docker images 查看镜像列表 </span><br><span class="line">docker <span class="keyword">search</span> (image-name) </span><br><span class="line">docker history (image_name) </span><br><span class="line">docker push (image_name) 将镜像推送到registry </span><br><span class="line">docker stats --<span class="keyword">help</span> 查看docker stats 的用法</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/17d589f8.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/17d589f8.html" itemprop="url">pytorch处理类别不平衡问题</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-18T19:31:54+08:00">
-                2018-09-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/17d589f8.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/17d589f8.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/17d589f8.html" class="leancloud_visitors" data-flag-title="pytorch处理类别不平衡问题">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>当训练样本不均匀时，我们可以采用过采样、欠采样、数据增强等手段来避免过拟合。今天遇到一个3d点云数据集合，样本分布极不均匀，正例与负例相差4-5个数量级。数据增强效果就不会太好了，另外过采样也不太合适，因为是空间数据，新增的点有可能会对真实分布产生未知影响。所以采用欠采样来缓解类别不平衡的问题。<br>下面的代码展示了如何使用<code>WeightedRandomSampler</code>来完成抽样。<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">numDataPoints = <span class="number">1000</span></span><br><span class="line">data_dim = <span class="number">5</span></span><br><span class="line">bs = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"># Create dummy <span class="keyword">data</span> with <span class="keyword">class</span> imbalance <span class="number">9</span> to <span class="number">1</span></span><br><span class="line"><span class="keyword">data</span> = torch.FloatTensor(numDataPoints, data_dim)</span><br><span class="line"><span class="keyword">target</span> = np.hstack((np.zeros(<span class="built_in">int</span>(numDataPoints * <span class="number">0.9</span>), dtype=np.int32),</span><br><span class="line">                    np.ones(<span class="built_in">int</span>(numDataPoints * <span class="number">0.1</span>), dtype=np.int32)))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">'target train 0/1: &#123;&#125;/&#123;&#125;'</span>.<span class="keyword">format</span>(</span><br><span class="line">    len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">0</span>)[<span class="number">0</span>]), len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">1</span>)[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == t)[<span class="number">0</span>]) for t <span class="keyword">in</span> np.unique(<span class="keyword">target</span>)])</span><br><span class="line">weight = <span class="number">1.</span> / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t <span class="keyword">in</span> <span class="keyword">target</span>])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.<span class="keyword">double</span>()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br><span class="line"></span><br><span class="line"><span class="keyword">target</span> = torch.from_numpy(<span class="keyword">target</span>).long()</span><br><span class="line">train_dataset = torch.utils.<span class="keyword">data</span>.TensorDataset(<span class="keyword">data</span>, <span class="keyword">target</span>)</span><br><span class="line"></span><br><span class="line">train_loader = DataLoader(</span><br><span class="line">    train_dataset, batch_size=bs, num_workers=<span class="number">1</span>, sampler=sampler)</span><br><span class="line"></span><br><span class="line">for i, (<span class="keyword">data</span>, <span class="keyword">target</span>) <span class="keyword">in</span> enumerate(train_loader):</span><br><span class="line">    <span class="built_in">print</span> <span class="string">"batch index &#123;&#125;, 0/1: &#123;&#125;/&#123;&#125;"</span>.<span class="keyword">format</span>(</span><br><span class="line">        i,</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">0</span>)[<span class="number">0</span>]),</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">1</span>)[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure></p>
-<p>核心部分为实际使用时替换下变量把<code>sampler</code>传递给<code>DataLoader</code>即可，注意使用了<code>sampler</code>就不能使用<code>shuffle</code>，另外需要指定<em>采样点个数</em>：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.where(target == t)[0]) for t in np.unique(target)])</span><br><span class="line">weight = 1. / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t in target])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.double()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://discuss.pytorch.org/t/how-to-handle-imbalanced-classes/11264/2" target="_blank" rel="noopener">参考</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/89b0a2ac.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/89b0a2ac.html" itemprop="url">how to handle imbalanced classes with pytorch</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-18T19:02:28+08:00">
-                2018-09-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
-                    <span itemprop="name">Machine Learning</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/89b0a2ac.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/89b0a2ac.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/89b0a2ac.html" class="leancloud_visitors" data-flag-title="how to handle imbalanced classes with pytorch">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>We can use <code>WeightedRandomSampler</code> in pytorch to handle imbalanced classes.<br>Here is a sample code.<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">numDataPoints = <span class="number">1000</span></span><br><span class="line">data_dim = <span class="number">5</span></span><br><span class="line">bs = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"># Create dummy <span class="keyword">data</span> with <span class="keyword">class</span> imbalance <span class="number">9</span> to <span class="number">1</span></span><br><span class="line"><span class="keyword">data</span> = torch.FloatTensor(numDataPoints, data_dim)</span><br><span class="line"><span class="keyword">target</span> = np.hstack((np.zeros(<span class="built_in">int</span>(numDataPoints * <span class="number">0.9</span>), dtype=np.int32),</span><br><span class="line">                    np.ones(<span class="built_in">int</span>(numDataPoints * <span class="number">0.1</span>), dtype=np.int32)))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">'target train 0/1: &#123;&#125;/&#123;&#125;'</span>.<span class="keyword">format</span>(</span><br><span class="line">    len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">0</span>)[<span class="number">0</span>]), len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">1</span>)[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == t)[<span class="number">0</span>]) for t <span class="keyword">in</span> np.unique(<span class="keyword">target</span>)])</span><br><span class="line">weight = <span class="number">1.</span> / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t <span class="keyword">in</span> <span class="keyword">target</span>])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.<span class="keyword">double</span>()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br><span class="line"></span><br><span class="line"><span class="keyword">target</span> = torch.from_numpy(<span class="keyword">target</span>).long()</span><br><span class="line">train_dataset = torch.utils.<span class="keyword">data</span>.TensorDataset(<span class="keyword">data</span>, <span class="keyword">target</span>)</span><br><span class="line"></span><br><span class="line">train_loader = DataLoader(</span><br><span class="line">    train_dataset, batch_size=bs, num_workers=<span class="number">1</span>, sampler=sampler)</span><br><span class="line"></span><br><span class="line">for i, (<span class="keyword">data</span>, <span class="keyword">target</span>) <span class="keyword">in</span> enumerate(train_loader):</span><br><span class="line">    <span class="built_in">print</span> <span class="string">"batch index &#123;&#125;, 0/1: &#123;&#125;/&#123;&#125;"</span>.<span class="keyword">format</span>(</span><br><span class="line">        i,</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">0</span>)[<span class="number">0</span>]),</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">1</span>)[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://discuss.pytorch.org/t/how-to-handle-imbalanced-classes/11264/2" target="_blank" rel="noopener">reference</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/342de388.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/342de388.html" itemprop="url">Assertion t >= 0 && t < n_classes failed</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-13T14:47:35+08:00">
-                2018-09-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/error/" itemprop="url" rel="index">
-                    <span itemprop="name">error</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/342de388.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/342de388.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/342de388.html" class="leancloud_visitors" data-flag-title="Assertion t >= 0 && t < n_classes failed">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在pytorch中遇到如下错误：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libraries<span class="regexp">/torch/</span>extra<span class="regexp">/cunn/</span>lib<span class="regexp">/THCUNN/</span>ClassNLLCriterion.<span class="string">cu:</span><span class="number">52</span>: <span class="keyword">void</span> cunn_ClassNLLCriterion_updateOutput_kernel(Dtype *, Dtype *, Dtype *, <span class="keyword">long</span> *, Dtype *, <span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>, <span class="keyword">int</span>) [with Dtype = <span class="keyword">float</span>, Acctype = <span class="keyword">float</span>]: <span class="string">block:</span> [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>], <span class="string">thread:</span> [<span class="number">2</span>,<span class="number">0</span>,<span class="number">0</span>] Assertiont &gt;= <span class="number">0</span> &amp;&amp; t &lt; n_classesfailed.</span><br></pre></td></tr></table></figure></p>
-<p>造成这个问题的原因就是在做分类任务时，训练数据中存在超出<em>分类数目</em>的标签。比如我一共设置了<code>8</code>个类，但是训练数据中的标签里出现了<code>9</code>，就会报这个错误。<br>那么问题来了，这里有一个陷阱。<br>训练数据中的标签含<code>0</code>也会报上述错误。这个就非常诡异了。一般我们都从<code>0</code>开始数，但是在<code>pytorch</code>里<code>0</code>以下的类别标签都是要报错的。所以如果类别标签从<code>0</code>开始，要给所有类别标签都加上一。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2688,7 +2630,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2710,7 +2652,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
