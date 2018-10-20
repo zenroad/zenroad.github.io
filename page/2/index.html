@@ -272,6 +272,212 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/fa48f8b1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/fa48f8b1.html" itemprop="url">MPI_Gatherv小例子</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:25:02+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mpi/" itemprop="url" rel="index">
+                    <span itemprop="name">mpi</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/fa48f8b1.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/fa48f8b1.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/fa48f8b1.html" class="leancloud_visitors" data-flag-title="MPI_Gatherv小例子">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MPI_Gatherv的作用：从一组进程中收集数据，汇总到根进程中。MPI_GATHERV扩展了MPI_GATHER的功能, 它可以从不同的进程接收不同数量的数 据,因为此时recvcounts是一个数组,除此之外,它还提供了更大的灵活性,比如它提供了一个新的参数displs,用户可以将接收的数据存放到根进程消息缓冲区的任意处.<br>MPI_GATHER 接收到的数据在接收缓冲区中是连续存放的, 而MPI_GATHERV 接收到的数据在接收缓冲区中是不连续存放的。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="built_in">MPI_Gatherv</span>(<span class="keyword">const</span> <span class="keyword">void</span> *sendbuf,<span class="keyword">int</span> sendcount,<span class="built_in">MPI_Datatype</span> sendtype,<span class="keyword">void</span> *recvbuf,<span class="keyword">const</span> <span class="keyword">int</span> *recvcounts,<span class="keyword">const</span> <span class="keyword">int</span> *displs,<span class="built_in">MPI_Datatype</span> rectype,<span class="keyword">int</span> root,<span class="built_in">MPI_Comm</span> comm)</span><br></pre></td></tr></table></figure></p>
+<p>下面展示具体代码：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Gathers into specified locations from all processes in a group</span></span><br><span class="line"><span class="meta">#include <span class="meta-string">"mpi.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main( <span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[] )&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> rank, nproc;</span><br><span class="line">    <span class="keyword">int</span> isend[<span class="number">3</span>],iscnt,irecv[<span class="number">6</span>];</span><br><span class="line">    <span class="keyword">int</span> ircnt[<span class="number">3</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;, idisp[<span class="number">3</span>] = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>&#125;;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">MPI_Init</span>( &amp;argc, &amp;argv );</span><br><span class="line">    <span class="built_in">MPI_Comm_size</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;nproc );</span><br><span class="line">    <span class="built_in">MPI_Comm_rank</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;rank );</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> ( rank == <span class="number">0</span> ) printf(<span class="string">"This program must run with 3 processes: np = 3 \n"</span>);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">3</span>; i++)</span><br><span class="line">        isend[i] = rank + <span class="number">1</span>;</span><br><span class="line">        iscnt = rank + <span class="number">1</span>;</span><br><span class="line"><span class="comment">//int MPI_Gatherv(const void *sendbuf,int sendcount,MPI_Datatype sendtype,void *recvbuf,const int *recvcounts,const int *displs,MPI_Datatype rectype,int root,MPI_Comm comm)</span></span><br><span class="line"><span class="comment">//displs</span></span><br><span class="line"><span class="comment">//integer array (of length group size). Entry i specifies the displacement relative to recvbuf at which to place the incoming data from process i (significant only at root)</span></span><br><span class="line">       <span class="built_in">MPI_Gatherv</span>( isend, iscnt, <span class="built_in">MPI_INT</span>, irecv, ircnt, idisp, </span><br><span class="line">                               <span class="built_in">MPI_INT</span>, <span class="number">0</span>, <span class="built_in">MPI_COMM_WORLD</span>);</span><br><span class="line">       <span class="keyword">if</span>(rank == <span class="number">0</span>) &#123;</span><br><span class="line">             <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">6</span>; i++)  printf(<span class="string">"irecv = %d\n"</span>, irecv[i]);</span><br><span class="line">       &#125;</span><br><span class="line">    <span class="built_in">MPI_Finalize</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/dbebb1c.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2209,683 +2415,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/86e5f9e1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/86e5f9e1.html" itemprop="url">Python regular expression</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-01T21:04:33+08:00">
-                2018-10-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python-tutorial/" itemprop="url" rel="index">
-                    <span itemprop="name">python tutorial</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/86e5f9e1.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/86e5f9e1.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/86e5f9e1.html" class="leancloud_visitors" data-flag-title="Python regular expression">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>A regular expression is a special sequence of characters that helps you easily check if a string matches a pattern.<br>Python has added the <code>re</code> module since version 1.5, which provides a <code>Perl-style</code> regular expression pattern.<br>The <code>re</code> module gives the Python language full of regular expression functionality.<br>The <code>compile</code> function generates a regular expression object based on a pattern string and optional flag parameters. This object has a set of methods for regular expression matching and replacement.<br>This chapter focuses on regular expression processing functions commonly used in Python.</p>
-<h2 id="re-match-function"><a href="#re-match-function" class="headerlink" title="re.match function"></a>re.match function</h2><p><code>re.match</code> attempts to match a pattern from the beginning of the string. If the starting position is not matched successfully, <code>match()</code> returns none.<br><strong>Function syntax:</strong></p>
-<blockquote>
-<p>re.match(pattern, string, flags=0)</p>
-</blockquote>
-<p><strong>Description of function parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description           </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pattern</td>
-<td>Matched regular expression </td>
-</tr>
-<tr>
-<td>string</td>
-<td>The string to match.  </td>
-</tr>
-<tr>
-<td>flags</td>
-<td>Flag bit, used to control how regular expressions are matched, such as whether to distinguish between uppercase and lowercase, multi-line matching</td>
-</tr>
-</tbody>
-</table>
-<p>Matches the successful <code>re.match</code> method to return a matching object, otherwise returns None.</p>
-<table>
-<thead>
-<tr>
-<th>Matching object method</th>
-<th>Description </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>group(num=0)</td>
-<td>A string that matches the entire expression, group() can enter multiple group numbers at a time, in which case it returns a tuple containing the values for those groups.</td>
-</tr>
-<tr>
-<td>groups()</td>
-<td>Returns a tuple containing all the group strings, from 1 to the included team number.</td>
-</tr>
-</tbody>
-</table>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*- </span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">print(re.match(<span class="string">'www'</span>, <span class="string">'www.mysite.com'</span>).span()) <span class="comment"># Match at the starting position</span></span><br><span class="line">print(re.match(<span class="string">'com'</span>, <span class="string">'www.mysite.com'</span>))    <span class="comment"># Does not match at the starting position</span></span><br></pre></td></tr></table></figure></p>
-<p>result<br><figure class="highlight hy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0</span>, <span class="number">3</span>)</span><br><span class="line"><span class="literal">None</span></span><br></pre></td></tr></table></figure></p>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span></span><br><span class="line"> </span><br><span class="line">matchObj = re.match( <span class="string">r'(.*) are (.*?) .*'</span>, line, re.M|re.I)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"matchObj.group() : "</span>, matchObj.group()</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"matchObj.group(1) : "</span>, matchObj.group(<span class="number">1</span>)</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"matchObj.group(2) : "</span>, matchObj.group(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"No match!!"</span></span><br></pre></td></tr></table></figure></p>
-<p>The above example execution results are as follows:<br><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">match</span>Obj.<span class="keyword">group</span>() :  Cats are smarter than dogs</span><br><span class="line"><span class="built_in">match</span>Obj.<span class="keyword">group</span>(<span class="number">1</span>) :  Cats</span><br><span class="line"><span class="built_in">match</span>Obj.<span class="keyword">group</span>(<span class="number">2</span>) :  smarter</span><br></pre></td></tr></table></figure></p>
-<h2 id="re-search-method"><a href="#re-search-method" class="headerlink" title="re.search method"></a>re.search method</h2><p>re.search scans the entire string and returns the first successful match.<br><strong>Function syntax:</strong></p>
-<blockquote>
-<p>re.search(pattern, string, flags=0)</p>
-</blockquote>
-<p><strong>Description of function parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description           </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pattern</td>
-<td>Matched regular expression </td>
-</tr>
-<tr>
-<td>string</td>
-<td>The string to match.  </td>
-</tr>
-<tr>
-<td>flags</td>
-<td>Flag bit, used to control how regular expressions are matched, such as whether to distinguish between uppercase and lowercase, multi-line matching</td>
-</tr>
-</tbody>
-</table>
-<p>Matches the successful <code>re.search</code> method to return a matching object, otherwise returns None.<br>We can use the group(num) or groups() matching object functions to get the matching expression.</p>
-<table>
-<thead>
-<tr>
-<th>Matching object method</th>
-<th>Description </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>group(num=0)</td>
-<td>A string that matches the entire expression, group() can enter multiple group numbers at a time, in which case it returns a tuple containing the values for those groups.</td>
-</tr>
-<tr>
-<td>groups()</td>
-<td>Returns a tuple containing all the group strings, from 1 to the included team number.</td>
-</tr>
-</tbody>
-</table>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*- </span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">print(re.search(<span class="string">'www'</span>, <span class="string">'www.mysite.com'</span>).span())  <span class="comment"># 在起始位置匹配</span></span><br><span class="line">print(re.search(<span class="string">'com'</span>, <span class="string">'www.mysite.com'</span>).span())         <span class="comment"># 不在起始位置匹配</span></span><br></pre></td></tr></table></figure></p>
-<p>result<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0</span>, <span class="number">3</span>)</span><br><span class="line">(<span class="number">11</span>, <span class="number">14</span>)</span><br></pre></td></tr></table></figure></p>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"> </span><br><span class="line">searchObj = re.search( <span class="string">r'(.*) are (.*?) .*'</span>, line, re.M|re.I)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">if</span> searchObj:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"searchObj.group() : "</span>, searchObj.group()</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"searchObj.group(1) : "</span>, searchObj.group(<span class="number">1</span>)</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"searchObj.group(2) : "</span>, searchObj.group(<span class="number">2</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"Nothing found!!"</span></span><br></pre></td></tr></table></figure></p>
-<p>The above example execution results are as follows:<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">searchObj.group() :  <span class="type">Cats</span> are smarter than dogs</span><br><span class="line">searchObj.group(<span class="number">1</span>) :  <span class="type">Cats</span></span><br><span class="line">searchObj.group(<span class="number">2</span>) :  <span class="type">smarter</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="The-difference-between-re-match-and-re-search"><a href="#The-difference-between-re-match-and-re-search" class="headerlink" title="The difference between re.match and re.search"></a>The difference between re.match and re.search</h2><p>re.match only matches the <code>beginning</code> of the string. If the string does not match the regular expression, the match fails, the function returns None; and re.search matches the <code>entire</code> string until a match is found.</p>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"> </span><br><span class="line">matchObj = re.match( <span class="string">r'dogs'</span>, line, re.M|re.I)</span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"match --&gt; matchObj.group() : "</span>, matchObj.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"No match!!"</span></span><br><span class="line"> </span><br><span class="line">matchObj = re.search( <span class="string">r'dogs'</span>, line, re.M|re.I)</span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"search --&gt; matchObj.group() : "</span>, matchObj.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"No match!!"</span></span><br></pre></td></tr></table></figure></p>
-<p>The above example execution results are as follows:<br><figure class="highlight erlang-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">No match!!</span><br><span class="line">search --&gt; matchObj.group() :  dogs</span><br></pre></td></tr></table></figure></p>
-<h2 id="Retrieve-and-replace"><a href="#Retrieve-and-replace" class="headerlink" title="Retrieve and replace"></a>Retrieve and replace</h2><p>Python’s re module provides re.sub for replacing matches in strings.<br><strong>grammar:</strong></p>
-<blockquote>
-<p>re.sub(pattern, repl, string, count=0, flags=0)</p>
-</blockquote>
-<p>parameter:</p>
-<ul>
-<li>pattern : The pattern string in the regular.</li>
-<li>repl : The replaced string, which can also be a function.</li>
-<li>string : The original string to be replaced by the lookup.</li>
-<li>count : The maximum number of substitutions after pattern matching. The default 0 means to replace all matches.</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">phone = <span class="string">"2004-959-559 # This a phone number"</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Remove Python comments from strings</span></span><br><span class="line">num = re.sub(<span class="string">r'#.*$'</span>, <span class="string">""</span>, phone)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"phone number is: "</span>, num</span><br><span class="line"> </span><br><span class="line"><span class="comment"># Delete non-numeric (-) strings </span></span><br><span class="line">num = re.sub(<span class="string">r'\D'</span>, <span class="string">""</span>, phone)</span><br><span class="line"><span class="keyword">print</span> <span class="string">"phone number is : "</span>, num</span><br></pre></td></tr></table></figure>
-<p>The above example execution results are as follows:<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">This <span class="keyword">a</span> phone <span class="built_in">number</span>:  <span class="number">2004</span><span class="number">-959</span><span class="number">-559</span> </span><br><span class="line">This <span class="keyword">a</span> phone <span class="built_in">number</span> :  <span class="number">2004959559</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="The-repl-argument-is-a-function"><a href="#The-repl-argument-is-a-function" class="headerlink" title="The repl argument is a function"></a>The repl argument is a function</h2><p>In the following example, multiply the matching number in the string by 2:<br>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line"><span class="comment"># multiply the matching number in the string by 2</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">double</span><span class="params">(matched)</span>:</span></span><br><span class="line">    value = int(matched.group(<span class="string">'value'</span>))</span><br><span class="line">    <span class="keyword">return</span> str(value * <span class="number">2</span>)</span><br><span class="line"> </span><br><span class="line">s = <span class="string">'A23G4HFD567'</span></span><br><span class="line">print(re.sub(<span class="string">'(?P&lt;value&gt;\d+)'</span>, double, s))</span><br></pre></td></tr></table></figure></p>
-<p>The execution output is:<br><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A<span class="number">46</span><span class="name">G8</span>HFD<span class="number">1134</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="re-compile-function"><a href="#re-compile-function" class="headerlink" title="re.compile function"></a>re.compile function</h2><p>The <code>compile</code> function is used to compile a regular expression and generate a regular expression (<code>pattern</code> ) object for use by the <code>match()</code> and <code>search()</code> functions.<br><strong>The syntax is:</strong></p>
-<blockquote>
-<p>re.compile(pattern[, flags])</p>
-</blockquote>
-<p><strong>parameter:</strong></p>
-<ul>
-<li>pattern : a regular expression in the form of a string</li>
-<li>flags : Optional, indicating matching mode, such as ignoring case, multi-line mode, etc. The specific parameters are:<ol>
-<li>re.I ignores case</li>
-<li>re.L indicates that the special character set \w, \W, \b, \B, \s, \S depends on the current environment</li>
-<li>re.M multi-line mode</li>
-<li>re.S is . and any character including line breaks (. does not include newline characters)</li>
-<li>re.U indicates a special character set \w, \W, \b, \B, \d, \D, \s, \S depends on the Unicode character attribute database</li>
-<li>re.X to increase readability, ignore spaces and comments after #</li>
-</ol>
-</li>
-</ul>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'\d+'</span>)                    <span class="comment"># Used to match at least one number</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="string">'one12twothree34four'</span>)        <span class="comment"># Lookup head, no match</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> m</span><br><span class="line"><span class="keyword">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="string">'one12twothree34four'</span>, <span class="number">2</span>, <span class="number">10</span>) <span class="comment"># Matching from the 'e' position, no match</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> m</span><br><span class="line"><span class="keyword">None</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="string">'one12twothree34four'</span>, <span class="number">3</span>, <span class="number">10</span>) <span class="comment"># Matches from the '1' position, just matching</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> m                                         <span class="comment"># Return a Match object</span></span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x10a42aac0</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">0</span>)   </span><br><span class="line"><span class="string">'12'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.start(<span class="number">0</span>)   </span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.end(<span class="number">0</span>)     </span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.span(<span class="number">0</span>)    </span><br><span class="line">(<span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure></p>
-<p>Above, when the match is successful, a <code>Match</code> object is returned, where:</p>
-<ul>
-<li>The <code>group([group1, ...])</code> method is used to obtain one or more group matching strings. When you want to get the entire matching substring, you can use group() or group(0) directly.</li>
-<li>The <code>start([group])</code> method is used to obtain the starting position of the substring matched by the group in the entire string (the index of the first character of the substring), and the default value of the parameter is 0;</li>
-<li>The <code>end([group])</code> method is used to obtain the end position of the substring matched by the packet in the entire string (index +1 of the last character of the substring), and the default value of the parameter is 0;</li>
-<li>The <code>span([group])</code> method returns <code>(start(group), end(group))</code>.</li>
-</ul>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> re</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>pattern = re.compile(<span class="string">r'([a-z]+) ([a-z]+)'</span>, re.I)   <span class="comment"># re.I means ignore case</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m = pattern.match(<span class="string">'Hello World Wide Web'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">print</span> m                               <span class="comment"># Matches successfully, returns a Match object</span></span><br><span class="line">&lt;_sre.SRE_Match object at <span class="number">0x10bea83e8</span>&gt;</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">0</span>)                            <span class="comment"># Returns the entire substring of the matching success</span></span><br><span class="line"><span class="string">'Hello World'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.span(<span class="number">0</span>)                             <span class="comment"># Returns the index of the entire substring that matched the success</span></span><br><span class="line">(<span class="number">0</span>, <span class="number">11</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">1</span>)                            <span class="comment"># Returns the substring of the first group matching success</span></span><br><span class="line"><span class="string">'Hello'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.span(<span class="number">1</span>)                             <span class="comment"># Returns the index of the substring that the first packet matches successfully</span></span><br><span class="line">(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">2</span>)                            <span class="comment"># Returns the substring of the second group matching success</span></span><br><span class="line"><span class="string">'World'</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.span(<span class="number">2</span>)                             <span class="comment"># Returns the substring of the second group matching success</span></span><br><span class="line">(<span class="number">6</span>, <span class="number">11</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.groups()                            <span class="comment"># Equivalent to (m.group(1), m.group(2), ...)</span></span><br><span class="line">(<span class="string">'Hello'</span>, <span class="string">'World'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>m.group(<span class="number">3</span>)                            <span class="comment"># There is no third grouping</span></span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">IndexError: no such group</span><br></pre></td></tr></table></figure></p>
-<h2 id="findall"><a href="#findall" class="headerlink" title="findall"></a>findall</h2><p>Find all substrings matched by the regular expression in the string and return a list. If no match is found, an empty list is returned.<br>Note: match and search are matched once and findall matches all.<br><strong>The syntax is:</strong></p>
-<blockquote>
-<p>findall(string[, pos[, endpos]])</p>
-</blockquote>
-<p><strong>parameter:</strong></p>
-<ul>
-<li>string : The string to be matched.</li>
-<li>pos : Optional parameter specifying the starting position of the string. The default is 0.</li>
-<li>endpos : An optional parameter that specifies the end position of the string. The default is the length of the string.<br>Find all the numbers in the string<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding:UTF8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">pattern = re.compile(<span class="string">r'\d+'</span>)   <span class="comment"># Find numbers</span></span><br><span class="line">result1 = pattern.findall(<span class="string">'runoob 123 google 456'</span>)</span><br><span class="line">result2 = pattern.findall(<span class="string">'run88oob123google456'</span>, <span class="number">0</span>, <span class="number">10</span>)</span><br><span class="line"> </span><br><span class="line">print(result1)</span><br><span class="line">print(result2)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>Output result:<br><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="symbol">'123</span>', <span class="symbol">'456</span>']</span><br><span class="line">[<span class="symbol">'88</span>', <span class="symbol">'12</span>']</span><br></pre></td></tr></table></figure></p>
-<h2 id="re-finditer"><a href="#re-finditer" class="headerlink" title="re.finditer"></a>re.finditer</h2><p>Similar to <code>findall</code>, find all substrings matched by the regular expression in the string and return them as an iterator.</p>
-<blockquote>
-<p>re.finditer(pattern, string, flags=0)</p>
-</blockquote>
-<p><strong>Description of function parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description           </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pattern</td>
-<td>Matched regular expression </td>
-</tr>
-<tr>
-<td>string</td>
-<td>The string to match.  </td>
-</tr>
-<tr>
-<td>flags</td>
-<td>Flag bit, used to control how regular expressions are matched, such as whether to distinguish between uppercase and lowercase, multi-line matching</td>
-</tr>
-</tbody>
-</table>
-<p>example<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: UTF-8 -*-</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"> </span><br><span class="line">it = re.finditer(<span class="string">r"\d+"</span>,<span class="string">"12a32bc43jf3"</span>) </span><br><span class="line"><span class="keyword">for</span> match <span class="keyword">in</span> it: </span><br><span class="line">    <span class="keyword">print</span> (match.group() )</span><br></pre></td></tr></table></figure></p>
-<p>Output result:<br><figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">12 </span></span><br><span class="line"><span class="symbol">32 </span></span><br><span class="line"><span class="symbol">43 </span></span><br><span class="line"><span class="number">3</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="re-split"><a href="#re-split" class="headerlink" title="re.split"></a>re.split</h2><p>The <code>split</code> method splits the string into a list according to the substring that can be matched. It is used in the following form:</p>
-<blockquote>
-<p>re.split(pattern, string[, maxsplit=0, flags=0])</p>
-</blockquote>
-<p><strong>Description of function parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description           </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>pattern</td>
-<td>Matched regular expression </td>
-</tr>
-<tr>
-<td>string</td>
-<td>The string to match.  </td>
-</tr>
-<tr>
-<td>maxsplit</td>
-<td>The number of separations, maxsplit=1 is separated once, the default is 0, and the number of times is not limited.</td>
-</tr>
-<tr>
-<td>flags</td>
-<td>Flag bit, used to control how regular expressions are matched, such as whether to distinguish between uppercase and lowercase, multi-line matching</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Regular-expression-pattern"><a href="#Regular-expression-pattern" class="headerlink" title="Regular expression pattern"></a>Regular expression pattern</h2><p>A pattern string uses a special syntax to represent a regular expression:<br>Letters and numbers represent themselves. The letters and numbers in a regular expression pattern match the same string.<br>Most letters and numbers have a different meaning when preceded by a backslash.<br>Punctuation marks match themselves only when they are escaped, otherwise they represent special meanings.<br>The backslash itself needs to be escaped with a backslash.<br>Since regular expressions usually contain backslashes, you’d better use primitive strings to represent them. Pattern elements (such as r’\t’, equivalent to ‘\t’) match the corresponding special characters.<br>The following table lists the special elements in the regular expression pattern syntax. If you use the mode while providing optional flag parameters, the meaning of some mode elements will change.</p>
-<table>
-<thead>
-<tr>
-<th>mode</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>^</td>
-<td>Match the beginning of the string</td>
-</tr>
-<tr>
-<td>$</td>
-<td>Matches the end of the string.</td>
-</tr>
-<tr>
-<td>.</td>
-<td>Matches any character except the newline character. When the <code>re.DOTALL</code> tag is specified, it can match any character that includes a newline character.</td>
-</tr>
-<tr>
-<td>[…]</td>
-<td>Used to represent a set of characters, listed separately: [amk] matches ‘a’, ‘m’ or ‘k’</td>
-</tr>
-<tr>
-<td>[^…]</td>
-<td>Characters not in []: [^abc] matches characters other than a, b, c.</td>
-</tr>
-<tr>
-<td>re*</td>
-<td>Matches zero or more expressions.</td>
-</tr>
-<tr>
-<td>re+</td>
-<td>Match one or more expressions.</td>
-</tr>
-<tr>
-<td>re?</td>
-<td>Match 0 or 1 fragment defined by the previous regular expression, non-greedy</td>
-</tr>
-<tr>
-<td>re{ n}</td>
-<td>Match exactly n previous expressions. For example, o{2} cannot match “o” in “Bob” but matches two o in “food”.</td>
-</tr>
-<tr>
-<td>re{ n,}</td>
-<td>Match n previous expressions. For example, o{2,} cannot match “o” in “Bob” but matches all o in “foooood”. “o{1,}” is equivalent to “o+”. “o{0,}” is equivalent to “o*”.</td>
-</tr>
-<tr>
-<td>re{ n, m}</td>
-<td>Match n to m times the fragment defined by the previous regular expression, greedy</td>
-</tr>
-<tr>
-<td>(re)</td>
-<td>Matches the expression in parentheses and also represents a group</td>
-</tr>
-<tr>
-<td>(?imx)</td>
-<td>Regular expressions contain three optional flags: i, m, or x . Only affect the area in parentheses.</td>
-</tr>
-<tr>
-<td>(?-imx)</td>
-<td>Regular expressions turn off i, m, or x optional flags. Only affect the area in parentheses.</td>
-</tr>
-<tr>
-<td>(?: re)</td>
-<td>Similar to (…) but does not represent a group</td>
-</tr>
-<tr>
-<td>(?imx: re)</td>
-<td>Use i, m, or x optional flags in parentheses</td>
-</tr>
-<tr>
-<td>(?-imx: re)</td>
-<td>Do not use i, m, or x optional flags in parentheses</td>
-</tr>
-<tr>
-<td>(?#…)</td>
-<td>Comment.</td>
-</tr>
-<tr>
-<td>(?= re)</td>
-<td>Forward positive delimiter. If the regular expression is included, it is represented by …, it succeeds when the current position is successfully matched, otherwise it fails. But once the included expression has been tried, the matching engine does not improve at all; the rest of the pattern tries to delimit the right side of the character.</td>
-</tr>
-<tr>
-<td>(?! re)</td>
-<td>Forward negation delimiter. Contrary to a positive delimiter; succeeds when the contained expression cannot match at the current position of the string</td>
-</tr>
-<tr>
-<td>(?&gt; re)</td>
-<td>Matching independent mode, eliminating backtracking.</td>
-</tr>
-<tr>
-<td>\w</td>
-<td>Match alphanumeric and underline</td>
-</tr>
-<tr>
-<td>\W</td>
-<td>Match non-alphanumeric and underline</td>
-</tr>
-<tr>
-<td>\s</td>
-<td>Matches any whitespace character, equivalent to [\t\n\r\f].</td>
-</tr>
-<tr>
-<td>\S</td>
-<td>Match any non-null character</td>
-</tr>
-<tr>
-<td>\d</td>
-<td>Match any number, equivalent to [0-9].</td>
-</tr>
-<tr>
-<td>\D</td>
-<td>Match any non-number</td>
-</tr>
-<tr>
-<td>\A</td>
-<td>Match string start</td>
-</tr>
-<tr>
-<td>\Z</td>
-<td>Matches the end of the string. If there is a newline, it only matches the ending string before the newline.</td>
-</tr>
-<tr>
-<td>\z</td>
-<td>Match string end</td>
-</tr>
-<tr>
-<td>\G</td>
-<td>Matches the location where the last match was completed.</td>
-</tr>
-<tr>
-<td>\b</td>
-<td>Matches a word boundary, which is the position between a word and a space. For example, ‘er\b’ can match ‘er’ in “never” but not ‘er’ in “verb”.</td>
-</tr>
-<tr>
-<td>\B</td>
-<td>Match non-word boundaries. ‘er\B’ matches ‘er’ in “verb” but does not match ‘er’ in “never”.</td>
-</tr>
-<tr>
-<td>\n, \t,</td>
-<td>Matches a newline character. Matches a tab. </td>
-</tr>
-<tr>
-<td>\1…\9</td>
-<td>Matches the content of the nth packet.</td>
-</tr>
-<tr>
-<td>\10</td>
-<td>Matches the contents of the nth packet if it matches. Otherwise it refers to the expression of the octal character code.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="Regular-expression-instance"><a href="#Regular-expression-instance" class="headerlink" title="Regular expression instance"></a>Regular expression instance</h2><p><strong>Character matching</strong></p>
-<table>
-<thead>
-<tr>
-<th>Instance</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>python</td>
-<td>Match “python”.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Character class</strong></p>
-<table>
-<thead>
-<tr>
-<th>Instance</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>[Pp]ython</td>
-<td>Match “Python” or “python”</td>
-</tr>
-<tr>
-<td>rub[ye]</td>
-<td>Match “ruby” or “rube”</td>
-</tr>
-<tr>
-<td>[aeiou]</td>
-<td>Match any letter in brackets</td>
-</tr>
-<tr>
-<td>[0-9]</td>
-<td>Match any number. Similar to [0123456789]</td>
-</tr>
-<tr>
-<td>[a-z]</td>
-<td>Match any lowercase letters</td>
-</tr>
-<tr>
-<td>[A-Z]</td>
-<td>Match any uppercase letter</td>
-</tr>
-<tr>
-<td>[a-zA-Z0-9]</td>
-<td>Match any letters and numbers</td>
-</tr>
-<tr>
-<td>[^aeiou]</td>
-<td>All characters except the aeiou letter</td>
-</tr>
-<tr>
-<td>[^0-9]</td>
-<td>Match characters other than numbers </td>
-</tr>
-</tbody>
-</table>
-<p><strong>Special character class</strong></p>
-<table>
-<thead>
-<tr>
-<th>Instance</th>
-<th>description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>.</td>
-<td>Matches any single character except “\n”. To match any character that includes ‘\n’, use a pattern like ‘[.\n]’.</td>
-</tr>
-<tr>
-<td>\d</td>
-<td>Matches a numeric character. Equivalent to [0-9].</td>
-</tr>
-<tr>
-<td>\D</td>
-<td>Matches a non-numeric character. Equivalent to [^0-9].</td>
-</tr>
-<tr>
-<td>\s</td>
-<td>Matches any whitespace characters, including spaces, tabs, page breaks, and more. Equivalent to [ \f\n\r\t\v].</td>
-</tr>
-<tr>
-<td>\S</td>
-<td>Matches any non-whitespace characters. Equivalent to [^ \f\n\r\t\v].</td>
-</tr>
-<tr>
-<td>\w</td>
-<td>Matches any word character that includes an underscore. Equivalent to ‘[A-Za-z0-9_]’.</td>
-</tr>
-<tr>
-<td>\W</td>
-<td>Matches any non-word characters. Equivalent to ‘[^A-Za-z0-9_]’.</td>
-</tr>
-</tbody>
-</table>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2940,7 +2469,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2951,7 +2480,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>

@@ -272,6 +272,252 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/26dfb48.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/26dfb48.html" itemprop="url">numpy 合并矩阵</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-20T08:50:33+08:00">
+                2018-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/numpy/" itemprop="url" rel="index">
+                    <span itemprop="name">numpy</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/26dfb48.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/26dfb48.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/26dfb48.html" class="leancloud_visitors" data-flag-title="numpy 合并矩阵">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>我们在处理数据的过程中，会经常遇到多维数组拼接的问题。<br>常见的情况有以下几种（下面以*.shape代指张量大小）：</p>
+<ul>
+<li>沿某一维度扩展，比如a.shape == [32,3,5000] b.shape == [32,1,5000]，我们需要把a,b合并成新的张量c，其中c.shape == [32,4,5000]；</li>
+<li>增加新的列，比如a.shape == [32,3,5000]，b.shape == [32,5000]，我们需要把a,b合并成新的张量c，其中c.shape == [32,4,5000]；<br>简言之，第一种情况可以使用<code>numpy</code>下的<code>concatenate</code>实现，第二种情况我们可以用<code>expand_dims</code>先拓展维度再按第一种情况处理来实现。下面具体说明其用法。<h2 id="一-concatenate的用法"><a href="#一-concatenate的用法" class="headerlink" title="一  concatenate的用法"></a>一  concatenate的用法</h2>函数原型：</li>
+<li>numpy.concatenate((a1, a2, …), axis=0, out=None)<br>Join a sequence of arrays along an existing axis.<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Parameters:	</span><br><span class="line"></span><br><span class="line">a1, a2, … : <span class="keyword">sequence</span> <span class="keyword">of</span> array_like</span><br><span class="line"></span><br><span class="line">    The arrays must have the same shape, <span class="keyword">except</span> <span class="keyword">in</span> the dimension corresponding <span class="keyword">to</span> axis (the first, <span class="keyword">by</span> <span class="keyword">default</span>).</span><br><span class="line">axis : int, optional</span><br><span class="line"></span><br><span class="line">    The axis along which the arrays will be joined. <span class="keyword">If</span> axis <span class="keyword">is</span> None, arrays are flattened before use. <span class="keyword">Default</span> <span class="keyword">is</span> <span class="number">0</span>.</span><br><span class="line"><span class="keyword">out</span> : ndarray, optional</span><br><span class="line"></span><br><span class="line">    <span class="keyword">If</span> provided, the destination <span class="keyword">to</span> place the <span class="keyword">result</span>. The shape must be correct, <span class="keyword">matching</span> that <span class="keyword">of</span> what concatenate would have returned <span class="keyword">if</span> no <span class="keyword">out</span> argument were specified.</span><br><span class="line"></span><br><span class="line">Returns:	</span><br><span class="line"></span><br><span class="line">res : ndarray</span><br><span class="line"></span><br><span class="line">    The concatenated <span class="keyword">array</span>.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>需要注意的地方有以下问题:</p>
+<ul>
+<li>能够拼接的张量必须具有相同的形状，待拼接的维度除外。也就是说a.shape == [32,3,5000] b.shape == [32,1,5000] ab是可沿axis=1拼接的。a.shape == [32,3,5000]，b.shape == [32,5000] ab是无法拼接的。<br>举例如下：<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = np.array([[<span class="number">5</span>, <span class="number">6</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.concatenate((a, b), axis=<span class="number">0</span>)</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line">       [<span class="number">5</span>, <span class="number">6</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.concatenate((a, b.T), axis=<span class="number">1</span>)</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">5</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">4</span>, <span class="number">6</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.concatenate((a, b), axis=<span class="keyword">None</span>)</span><br><span class="line">array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="二-column-stack的用法"><a href="#二-column-stack的用法" class="headerlink" title="二 column_stack的用法"></a>二 column_stack的用法</h2><p>看这个名字我们就大概知道，这个函数是用来新增列的。<br>函数原型：</p>
+<ul>
+<li>numpy.column_stack(tup)<br>Stack 1-D arrays as columns into a 2-D array.<br>Take a sequence of 1-D arrays and stack them as columns to make a single 2-D array. 2-D arrays are stacked as-is, just like with hstack. 1-D arrays are turned into 2-D columns first.<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Parameters:	</span><br><span class="line"></span><br><span class="line">tup<span class="keyword"> :</span> sequence of 1-D<span class="built_in"> or </span>2-D arrays.</span><br><span class="line"></span><br><span class="line">    Arrays to stack. All of them must have the same first dimension.</span><br><span class="line"></span><br><span class="line">Returns:	</span><br><span class="line"></span><br><span class="line">stacked<span class="keyword"> :</span> 2-D array</span><br><span class="line"></span><br><span class="line">    The<span class="built_in"> array </span>formed by stacking the given arrays.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这里的函数说明指出，我们传入一个<code>tuple</code>然后得到合并的二维数组。其实这个说法很模糊。我们先看一个例子。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array((<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = np.array((<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.column_stack((a,b))</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">4</span>]])</span><br></pre></td></tr></table></figure></p>
+<p>我们再看一下，上文指出输入是<code>tuple</code>，那么我们再看一个例子：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">a = np.zeros((<span class="number">32</span>,<span class="number">3</span>,<span class="number">1000</span>))</span><br><span class="line">b = np.zeros((<span class="number">32</span>,<span class="number">1</span>,<span class="number">1000</span>))</span><br><span class="line">c = np.zeros((<span class="number">32</span>,<span class="number">1</span>,<span class="number">1000</span>))</span><br><span class="line"></span><br><span class="line">print(a.shape)</span><br><span class="line">print(b.shape)</span><br><span class="line">print(c.shape)</span><br><span class="line">d = np.column_stack((a,b,c))</span><br><span class="line"></span><br><span class="line">print(d.shape)</span><br></pre></td></tr></table></figure></p>
+<p>结果如下：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">32</span>, <span class="number">3</span>, <span class="number">1000</span>)</span><br><span class="line">(<span class="number">32</span>, <span class="number">1</span>, <span class="number">1000</span>)</span><br><span class="line">(<span class="number">32</span>, <span class="number">1</span>, <span class="number">1000</span>)</span><br><span class="line">(<span class="number">32</span>, <span class="number">5</span>, <span class="number">1000</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="三-vstack的用法"><a href="#三-vstack的用法" class="headerlink" title="三 vstack的用法"></a>三 vstack的用法</h2><p>函数原型：</p>
+<ul>
+<li>numpy.vstack(tup)<br>Stack arrays in sequence vertically (row wise).<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Parameters:	</span><br><span class="line"></span><br><span class="line">tup<span class="keyword"> :</span> sequence of ndarrays</span><br><span class="line"></span><br><span class="line">    The arrays must have the same shape along all but the first axis. 1-D arrays must have the same length.</span><br><span class="line"></span><br><span class="line">Returns:	</span><br><span class="line"></span><br><span class="line">stacked<span class="keyword"> :</span> ndarray</span><br><span class="line"></span><br><span class="line">    The<span class="built_in"> array </span>formed by stacking the given arrays, will be at least 2-D.</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>我们直接看例子吧！<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = np.array([<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.vstack((a,b))</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]])</span><br></pre></td></tr></table></figure></p>
+<p>也就说对于0-1维度而言，这个函数沿着<code>axis=0</code>拼接。原先a.shape == [1,3] b.shape == [1,3]，拼接后变为[2,3]<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array([[<span class="number">1</span>], [<span class="number">2</span>], [<span class="number">3</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = np.array([[<span class="number">2</span>], [<span class="number">3</span>], [<span class="number">4</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.vstack((a,b))</span><br><span class="line">array([[<span class="number">1</span>],</span><br><span class="line">       [<span class="number">2</span>],</span><br><span class="line">       [<span class="number">3</span>],</span><br><span class="line">       [<span class="number">2</span>],</span><br><span class="line">       [<span class="number">3</span>],</span><br><span class="line">       [<span class="number">4</span>]])</span><br></pre></td></tr></table></figure></p>
+<h2 id="四-hstack的用法"><a href="#四-hstack的用法" class="headerlink" title="四 hstack的用法"></a>四 hstack的用法</h2><p>函数原型：</p>
+<ul>
+<li>numpy.hstack(tup)<br>我们直接看例子！<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array((<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = np.array((<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.hstack((a,b))</span><br><span class="line">array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>a = np.array([[<span class="number">1</span>],[<span class="number">2</span>],[<span class="number">3</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>b = np.array([[<span class="number">2</span>],[<span class="number">3</span>],[<span class="number">4</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>np.hstack((a,b))</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">2</span>],</span><br><span class="line">       [<span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">       [<span class="number">3</span>, <span class="number">4</span>]])</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>对于0-1维度而言，这个函数沿着<code>axis=2</code>拼接。原先a.shape == [1,3] b.shape == [1,3]，拼接后变为[1,6]。</p>
+<h2 id="expand-dims的用法"><a href="#expand-dims的用法" class="headerlink" title="expand_dims的用法"></a>expand_dims的用法</h2><p>函数原型：</p>
+<ul>
+<li>numpy.expand_dims(a, axis)<br>Expand the shape of an array.</li>
+</ul>
+<p>Insert a new axis that will appear at the axis position in the expanded array shape.<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Parameters:	</span><br><span class="line"></span><br><span class="line">a : <span class="type">array_like</span></span><br><span class="line"></span><br><span class="line">    Input <span class="keyword">array</span>.</span><br><span class="line">axis : <span class="type">int</span></span><br><span class="line"></span><br><span class="line">    Position <span class="keyword">in</span> the expanded axes where the <span class="keyword">new</span> axis <span class="keyword">is</span> placed.</span><br><span class="line"></span><br><span class="line">Returns:	</span><br><span class="line"></span><br><span class="line">res : <span class="type">ndarray</span></span><br><span class="line"></span><br><span class="line">    Output <span class="keyword">array</span>. The number <span class="keyword">of</span> dimensions <span class="keyword">is</span> one greater than that <span class="keyword">of</span> the input <span class="keyword">array</span>.</span><br></pre></td></tr></table></figure></p>
+<p>我们先构造一个长度为2的向量：<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = np.array([<span class="number">1</span>,<span class="number">2</span>])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x.shape</span><br><span class="line">(<span class="number">2</span>,)</span><br></pre></td></tr></table></figure></p>
+<p>我们添加新的列，也就是说在<code>axis=0</code>增加一列。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = np.expand_dims(x, axis=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">2</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y.shape</span><br><span class="line">(<span class="number">1</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<p>现在我们可以看到，矩阵大小变为了(1,2)<br>我们沿<code>axis=1</code>增加一行。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = np.expand_dims(x, axis=<span class="number">1</span>)  <span class="comment"># Equivalent to x[:,np.newaxis]</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y</span><br><span class="line">array([[<span class="number">1</span>],</span><br><span class="line">       [<span class="number">2</span>]])</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y.shape</span><br><span class="line">(<span class="number">2</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>现在我们可以看到，矩阵大小变为了(2,1)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/6e8fa964.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2078,212 +2324,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/fa48f8b1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/fa48f8b1.html" itemprop="url">MPI_Gatherv小例子</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:25:02+08:00">
-                2018-10-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mpi/" itemprop="url" rel="index">
-                    <span itemprop="name">mpi</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/fa48f8b1.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/fa48f8b1.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/fa48f8b1.html" class="leancloud_visitors" data-flag-title="MPI_Gatherv小例子">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>MPI_Gatherv的作用：从一组进程中收集数据，汇总到根进程中。MPI_GATHERV扩展了MPI_GATHER的功能, 它可以从不同的进程接收不同数量的数 据,因为此时recvcounts是一个数组,除此之外,它还提供了更大的灵活性,比如它提供了一个新的参数displs,用户可以将接收的数据存放到根进程消息缓冲区的任意处.<br>MPI_GATHER 接收到的数据在接收缓冲区中是连续存放的, 而MPI_GATHERV 接收到的数据在接收缓冲区中是不连续存放的。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="built_in">MPI_Gatherv</span>(<span class="keyword">const</span> <span class="keyword">void</span> *sendbuf,<span class="keyword">int</span> sendcount,<span class="built_in">MPI_Datatype</span> sendtype,<span class="keyword">void</span> *recvbuf,<span class="keyword">const</span> <span class="keyword">int</span> *recvcounts,<span class="keyword">const</span> <span class="keyword">int</span> *displs,<span class="built_in">MPI_Datatype</span> rectype,<span class="keyword">int</span> root,<span class="built_in">MPI_Comm</span> comm)</span><br></pre></td></tr></table></figure></p>
-<p>下面展示具体代码：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Gathers into specified locations from all processes in a group</span></span><br><span class="line"><span class="meta">#include <span class="meta-string">"mpi.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main( <span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[] )&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> rank, nproc;</span><br><span class="line">    <span class="keyword">int</span> isend[<span class="number">3</span>],iscnt,irecv[<span class="number">6</span>];</span><br><span class="line">    <span class="keyword">int</span> ircnt[<span class="number">3</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;, idisp[<span class="number">3</span>] = &#123;<span class="number">0</span>,<span class="number">1</span>,<span class="number">3</span>&#125;;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">MPI_Init</span>( &amp;argc, &amp;argv );</span><br><span class="line">    <span class="built_in">MPI_Comm_size</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;nproc );</span><br><span class="line">    <span class="built_in">MPI_Comm_rank</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;rank );</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> ( rank == <span class="number">0</span> ) printf(<span class="string">"This program must run with 3 processes: np = 3 \n"</span>);</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">3</span>; i++)</span><br><span class="line">        isend[i] = rank + <span class="number">1</span>;</span><br><span class="line">        iscnt = rank + <span class="number">1</span>;</span><br><span class="line"><span class="comment">//int MPI_Gatherv(const void *sendbuf,int sendcount,MPI_Datatype sendtype,void *recvbuf,const int *recvcounts,const int *displs,MPI_Datatype rectype,int root,MPI_Comm comm)</span></span><br><span class="line"><span class="comment">//displs</span></span><br><span class="line"><span class="comment">//integer array (of length group size). Entry i specifies the displacement relative to recvbuf at which to place the incoming data from process i (significant only at root)</span></span><br><span class="line">       <span class="built_in">MPI_Gatherv</span>( isend, iscnt, <span class="built_in">MPI_INT</span>, irecv, ircnt, idisp, </span><br><span class="line">                               <span class="built_in">MPI_INT</span>, <span class="number">0</span>, <span class="built_in">MPI_COMM_WORLD</span>);</span><br><span class="line">       <span class="keyword">if</span>(rank == <span class="number">0</span>) &#123;</span><br><span class="line">             <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;<span class="number">6</span>; i++)  printf(<span class="string">"irecv = %d\n"</span>, irecv[i]);</span><br><span class="line">       &#125;</span><br><span class="line">    <span class="built_in">MPI_Finalize</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2338,7 +2378,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2349,7 +2389,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
