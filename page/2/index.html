@@ -272,6 +272,214 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/8fbf1da1.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/8fbf1da1.html" itemprop="url">MPI_Comm_group与MPI_Comm_create_group小例子</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:27:14+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mpi/" itemprop="url" rel="index">
+                    <span itemprop="name">mpi</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/8fbf1da1.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/8fbf1da1.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/8fbf1da1.html" class="leancloud_visitors" data-flag-title="MPI_Comm_group与MPI_Comm_create_group小例子">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>函数原型<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MPI_Comm_group</span>(</span><br><span class="line">	<span class="built_in">MPI_Comm</span> comm,</span><br><span class="line">	<span class="built_in">MPI_Group</span>* group)</span><br></pre></td></tr></table></figure></p>
+<p>group 和communicator类似，但是缺少上下文所以无法实现进程间通信，只能获取组间的rank以及size。<br>MPI_Comm_create_group是与group相关的最常用函数之一，它可以利用一个group对象创建新的通信域。<br>函数原型：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MPI_Comm_create_group</span>(</span><br><span class="line">	<span class="built_in">MPI_Comm</span> comm,</span><br><span class="line">	<span class="built_in">MPI_Group</span> group,</span><br><span class="line">	<span class="keyword">int</span> tag,</span><br><span class="line">	<span class="built_in">MPI_Comm</span>* newcomm)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>MPI_Group_incl函数：挑选组内特定rank进程构建新的group<br>函数原型：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MPI_Group_incl</span>(</span><br><span class="line">	<span class="built_in">MPI_Group</span> group,</span><br><span class="line">	<span class="keyword">int</span> n,</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> ranks[],</span><br><span class="line">	<span class="built_in">MPI_Group</span>* newgroup)</span><br></pre></td></tr></table></figure></p>
+<p>下面展示一个实例：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get the rank and size in the original communicator</span></span><br><span class="line"><span class="keyword">int</span> world_rank, world_size;</span><br><span class="line"><span class="built_in">MPI_Comm_rank</span>(<span class="built_in">MPI_COMM_WORLD</span>, &amp;world_rank);</span><br><span class="line"><span class="built_in">MPI_Comm_size</span>(<span class="built_in">MPI_COMM_WORLD</span>, &amp;world_size);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get the group of processes in MPI_COMM_WORLD</span></span><br><span class="line"><span class="built_in">MPI_Group</span> world_group;</span><br><span class="line"><span class="built_in">MPI_Comm_group</span>(<span class="built_in">MPI_COMM_WORLD</span>, &amp;world_group);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n = <span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ranks[<span class="number">7</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Construct a group containing all of the prime ranks in world_group</span></span><br><span class="line"><span class="built_in">MPI_Group</span> prime_group;</span><br><span class="line"><span class="built_in">MPI_Group_incl</span>(world_group, <span class="number">7</span>, ranks, &amp;prime_group);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a new communicator based on the group</span></span><br><span class="line"><span class="built_in">MPI_Comm</span> prime_comm;</span><br><span class="line"><span class="built_in">MPI_Comm_create_group</span>(<span class="built_in">MPI_COMM_WORLD</span>, prime_group, <span class="number">0</span>, &amp;prime_comm);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> prime_rank = <span class="number">-1</span>, prime_size = <span class="number">-1</span>;</span><br><span class="line"><span class="comment">// If this rank isn't in the new communicator, it will be</span></span><br><span class="line"><span class="comment">// MPI_COMM_NULL. Using MPI_COMM_NULL for MPI_Comm_rank or</span></span><br><span class="line"><span class="comment">// MPI_Comm_size is erroneous</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">MPI_COMM_NULL</span> != prime_comm) &#123;</span><br><span class="line">	<span class="built_in">MPI_Comm_rank</span>(prime_comm, &amp;prime_rank);</span><br><span class="line">	<span class="built_in">MPI_Comm_size</span>(prime_comm, &amp;prime_size);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printf(<span class="string">"WORLD RANK/SIZE: %d/%d \t PRIME RANK/SIZE: %d/%d\n"</span>,</span><br><span class="line">	world_rank, world_size, prime_rank, prime_size);</span><br><span class="line"></span><br><span class="line"><span class="built_in">MPI_Group_free</span>(&amp;world_group);</span><br><span class="line"><span class="built_in">MPI_Group_free</span>(&amp;prime_group);</span><br><span class="line"><span class="built_in">MPI_Comm_free</span>(&amp;prime_comm);</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/4de3a9e8.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2134,230 +2342,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/bc60cdc1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/bc60cdc1.html" itemprop="url">Leetcode Two Sum [easy] (Python)</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T21:25:18+08:00">
-                2018-10-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Leetcode/" itemprop="url" rel="index">
-                    <span itemprop="name">Leetcode</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/bc60cdc1.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/bc60cdc1.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/bc60cdc1.html" class="leancloud_visitors" data-flag-title="Leetcode Two Sum [easy] (Python)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Description"><a href="#Description" class="headerlink" title="Description"></a>Description</h2><p>Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
-<p>You may assume that each input would have exactly one solution, and you may not use the same element twice.<br><strong>Example:</strong></p>
-<blockquote>
-<p>Given nums = [2, 7, 11, 15], target = 9,<br>Because nums[0] + nums[1] = 2 + 7 = 9,<br>return [0, 1].</p>
-</blockquote>
-<h2 id="Solution1"><a href="#Solution1" class="headerlink" title="Solution1"></a>Solution1</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums) - <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>, len(nums)):</span><br><span class="line">                <span class="keyword">if</span> nums[i] + nums[j] == target:</span><br><span class="line">                    <span class="keyword">return</span> [i, j]</span><br></pre></td></tr></table></figure>
-<p>Intuitive ideas, violent solutions, two cycles. low efficiency.</p>
-<h2 id="Solution2"><a href="#Solution2" class="headerlink" title="Solution2"></a>Solution2</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        keys = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">            <span class="keyword">if</span> target - nums[i] <span class="keyword">in</span> keys:</span><br><span class="line">                <span class="keyword">return</span> [keys[target - nums[i]], i]</span><br><span class="line">            <span class="keyword">if</span> nums[i] <span class="keyword">not</span> <span class="keyword">in</span> keys:</span><br><span class="line">                keys[nums[i]] = i</span><br></pre></td></tr></table></figure>
-<h2 id="Solution3"><a href="#Solution3" class="headerlink" title="Solution3"></a>Solution3</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">twoSum</span><span class="params">(self, nums, target)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :type nums: List[int]</span></span><br><span class="line"><span class="string">        :type target: int</span></span><br><span class="line"><span class="string">        :rtype: List[int]</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        collected = &#123;&#125;</span><br><span class="line">        <span class="keyword">for</span> idx,val <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">            diff = target - val</span><br><span class="line">            <span class="keyword">if</span> diff <span class="keyword">in</span> collected:</span><br><span class="line">                <span class="keyword">return</span> [collected[diff], idx]</span><br><span class="line">            collected[val] = idx</span><br></pre></td></tr></table></figure>
-<h2 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h2><p>enumerate()</p>
-<h3 id="description"><a href="#description" class="headerlink" title="description"></a>description</h3><p>The enumerate() function is used to combine a traversable data object (such as a list, tuple, or string) into an index sequence, listing both data and data subscripts, typically used in a for loop.</p>
-<h4 id="grammar"><a href="#grammar" class="headerlink" title="grammar"></a>grammar</h4><p>以下是 enumerate() 方法的语法:</p>
-<blockquote>
-<p>enumerate(sequence, [start=0])</p>
-</blockquote>
-<h4 id="parameter"><a href="#parameter" class="headerlink" title="parameter"></a>parameter</h4><ul>
-<li>Sequence – A sequence, iterator, or other support iterative object.</li>
-<li>Start – the starting position of the subscript.</li>
-</ul>
-<h4 id="return-value"><a href="#return-value" class="headerlink" title="return value"></a>return value</h4><p>Returns the enumerate object.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2412,7 +2396,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2423,7 +2407,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2434,7 +2418,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>

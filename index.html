@@ -272,6 +272,222 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/e2a4f947.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/e2a4f947.html" itemprop="url">sherwood算法</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-21T09:27:55+08:00">
+                2018-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/e2a4f947.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/e2a4f947.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/e2a4f947.html" class="leancloud_visitors" data-flag-title="sherwood算法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre><code>在一般输入数据的程序里，输入多多少少会影响到算法的计算复杂度。这时可用舍伍德算法消除算法所需计算时间与输入实例间的这种联系。联系例子，在快速排序中，我们是以第一个元素为基准开始排序时，为了避免这样的情况，可以用舍伍德算法解决，也就是使第一个基准元素是随机的。
+当然，舍伍德算法也不是万能的。有时也会遇到这样的情况，即所给的确定性算法无法直接改造成舍伍德型算法。此时可借助于随机预处理技术，不改变原有的确定性算法，仅对其输入进行随机洗牌，同样可收到舍伍德算法的效果。
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/8842375-810bf7a48aa57e6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">dlogRH</span>(g, a, p) &#123; <span class="comment">// 求logg,pa, a = gx mod p，求x</span></span><br><span class="line">	    <span class="comment">// Sherwood算法</span></span><br><span class="line">	    <span class="selector-tag">r</span> ← <span class="selector-tag">uniform</span>(<span class="number">0</span>..p-<span class="number">2</span>);</span><br><span class="line">	    <span class="selector-tag">b</span> ← <span class="selector-tag">ModularExponent</span>(g, r, p); <span class="comment">//求幂模b=gr mod p</span></span><br><span class="line">	    <span class="selector-tag">c</span> ← <span class="selector-tag">ba</span> <span class="selector-tag">mod</span> <span class="selector-tag">p</span>; <span class="comment">//((gr modp)(gxmodp))modp=gr+xmodp=c</span></span><br><span class="line">	    <span class="selector-tag">y</span> ← <span class="selector-tag">logg</span>,<span class="selector-tag">pc</span>; <span class="comment">// 使用确定性算法求logp,gc, y=r+x</span></span><br><span class="line">	    <span class="selector-tag">return</span> (y-r) <span class="selector-tag">mod</span> (p-<span class="number">1</span>); <span class="comment">// 求x</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>Log g,p (st mod p) = (log g,p s + log g,p t) mod (p - 1)</li>
+<li>Log g,p (g ^r mod p) = r, 0 &lt;= r &lt;= p – 2<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">dlogRH(g, a p) &#123;           <span class="comment">// 求 log g,p a, a = g^x mod p,求 x          Sherwood算法</span></span><br><span class="line">     r ← <span class="keyword">uniform</span>(<span class="number">0.</span>.p<span class="number">-2</span>);</span><br><span class="line">    b ← ModularExponent(g, r, p);    <span class="comment">//求幂模 b=g^r mod p,定理 1 真数的一部分</span></span><br><span class="line">    c ← ba <span class="built_in">mod</span> p;        <span class="comment">//((g^r modp)(g^x modp))modp=g ^(r+x)modp=c, 定理 2 中的真数</span></span><br><span class="line">    y ← <span class="built_in">log</span> g,p c;            <span class="comment">// 使用确定性算法求 log p,g c, y=r+x,定理 2</span></span><br><span class="line">    <span class="keyword">return</span> (y-r)<span class="built_in">mod</span>(p<span class="number">-1</span>);      <span class="comment">//求x,定理1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>在这里,唯一耗费时间的是 b ← ModularExponent(g, r, p),它的执行时间与a,p 的取值无关,只与随机取出的 r 有关</p>
+<p>写一Sherwood算法搜索有序表<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">15</span>;</span><br><span class="line"><span class="keyword">int</span> val[N] = &#123; RAND_MAX, <span class="number">2</span>, <span class="number">3</span>, <span class="number">13</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">21</span>, <span class="number">8</span>, <span class="number">29</span>, <span class="number">87</span>, <span class="number">56</span>, <span class="number">69</span>, <span class="number">72</span>, <span class="number">83</span>, <span class="number">45</span> &#125;; <span class="comment">//N==15</span></span><br><span class="line"><span class="keyword">int</span> ptr[N] = &#123; <span class="number">4</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">14</span>, <span class="number">0</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">9</span>, <span class="number">10</span> &#125;;</span><br><span class="line"><span class="keyword">int</span> ComCount = <span class="number">0</span>; <span class="comment">//用于Search算法查找需要的次数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//设x≥val[i]且x在表中，则从位置i开始查找x的算法</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Search</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> i)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ComCount = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (x &gt; val[i])</span><br><span class="line">	&#123;</span><br><span class="line">		i = ptr[i];</span><br><span class="line">		++ComCount;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//在表val[1..n]中从最小值开始查找x的算法为：</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">A</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> Search(x, ptr[<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//在val数组的前sqrt(n)个元素中找y&lt;=x的最大整数y，从y开始查找。</span></span><br><span class="line"><span class="comment">//在这里假设了val的元素是均匀分散的</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">B</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = ptr[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">int</span> max = val[i];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= (<span class="keyword">int</span>)<span class="built_in">sqrt</span>((<span class="keyword">double</span>)N); ++j)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> y = val[j];</span><br><span class="line">		<span class="keyword">if</span> (max &lt; y &amp;&amp; y &lt;= x)</span><br><span class="line">		&#123;</span><br><span class="line">			i = j;</span><br><span class="line">			max = y;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> Search(x, i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//随机选择val数组中的一个数做为开始，随机sqrt(n)次，选取y&lt;=x的最大整数y，从y开始查找，</span></span><br><span class="line"><span class="comment">//此算法比B算法有更好的平均性能</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">C</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = ptr[<span class="number">0</span>];</span><br><span class="line">	<span class="keyword">int</span> max = val[i];</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= (<span class="keyword">int</span>)<span class="built_in">sqrt</span>((<span class="keyword">double</span>)N); ++j)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> k = rand() % N;</span><br><span class="line">		<span class="keyword">int</span> y = val[k];</span><br><span class="line">		<span class="keyword">if</span> (max &lt; y &amp;&amp; y &lt;= x)</span><br><span class="line">		&#123;</span><br><span class="line">			i = k;</span><br><span class="line">			max = y;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> Search(x, i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//随机选一个指针位置(0~n-1)开始查找，本例n=8</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">D</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i = rand() % N; <span class="comment">//C++ 从零开始，最后不必加1 </span></span><br><span class="line">	<span class="keyword">int</span> y = val[i];</span><br><span class="line">	<span class="keyword">if</span> (x &lt; y)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> Search(x, ptr[<span class="number">0</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (x &gt; y)&#123;</span><br><span class="line">		<span class="keyword">return</span> Search(x, ptr[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">return</span> i;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> totalA = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> totalB = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> totalC = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> totalD = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">//对有序表中的元素逐个进行查找，得出所用的总比较次数。</span></span><br><span class="line">	<span class="function"><span class="keyword">int</span> <span class="title">temp</span><span class="params">(<span class="number">1</span>)</span></span>;</span><br><span class="line">	<span class="keyword">while</span> (ptr[i] != <span class="number">0</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		A(val[ptr[i]]);</span><br><span class="line">		totalA += ComCount;</span><br><span class="line">		B(val[ptr[i]]);</span><br><span class="line">		totalB += ComCount;</span><br><span class="line">		C(val[ptr[i]]);</span><br><span class="line">		totalC += ComCount;</span><br><span class="line">		D(val[ptr[i]]);</span><br><span class="line">		totalD += ComCount;</span><br><span class="line">		i = ptr[i];</span><br><span class="line">		temp++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"对有序表中的元素逐个进行查找，得出所用的总比较次数。\n遍历的元素表中的个数N="</span> &lt;&lt; temp &lt;&lt; <span class="built_in">endl</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"算法A比较总次数:"</span> &lt;&lt; totalA &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"算法B比较总次数:"</span> &lt;&lt; totalB &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"算法C比较总次数:"</span> &lt;&lt; totalC &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">"算法D比较总次数:"</span> &lt;&lt; totalD &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	system(<span class="string">"pause"</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/8842375-24e9f19cf5329452.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/4d03daff.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2146,214 +2362,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/8fbf1da1.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/8fbf1da1.html" itemprop="url">MPI_Comm_group与MPI_Comm_create_group小例子</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:27:14+08:00">
-                2018-10-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mpi/" itemprop="url" rel="index">
-                    <span itemprop="name">mpi</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/8fbf1da1.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/8fbf1da1.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/8fbf1da1.html" class="leancloud_visitors" data-flag-title="MPI_Comm_group与MPI_Comm_create_group小例子">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>函数原型<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MPI_Comm_group</span>(</span><br><span class="line">	<span class="built_in">MPI_Comm</span> comm,</span><br><span class="line">	<span class="built_in">MPI_Group</span>* group)</span><br></pre></td></tr></table></figure></p>
-<p>group 和communicator类似，但是缺少上下文所以无法实现进程间通信，只能获取组间的rank以及size。<br>MPI_Comm_create_group是与group相关的最常用函数之一，它可以利用一个group对象创建新的通信域。<br>函数原型：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MPI_Comm_create_group</span>(</span><br><span class="line">	<span class="built_in">MPI_Comm</span> comm,</span><br><span class="line">	<span class="built_in">MPI_Group</span> group,</span><br><span class="line">	<span class="keyword">int</span> tag,</span><br><span class="line">	<span class="built_in">MPI_Comm</span>* newcomm)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>MPI_Group_incl函数：挑选组内特定rank进程构建新的group<br>函数原型：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">MPI_Group_incl</span>(</span><br><span class="line">	<span class="built_in">MPI_Group</span> group,</span><br><span class="line">	<span class="keyword">int</span> n,</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">int</span> ranks[],</span><br><span class="line">	<span class="built_in">MPI_Group</span>* newgroup)</span><br></pre></td></tr></table></figure></p>
-<p>下面展示一个实例：<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get the rank and size in the original communicator</span></span><br><span class="line"><span class="keyword">int</span> world_rank, world_size;</span><br><span class="line"><span class="built_in">MPI_Comm_rank</span>(<span class="built_in">MPI_COMM_WORLD</span>, &amp;world_rank);</span><br><span class="line"><span class="built_in">MPI_Comm_size</span>(<span class="built_in">MPI_COMM_WORLD</span>, &amp;world_size);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get the group of processes in MPI_COMM_WORLD</span></span><br><span class="line"><span class="built_in">MPI_Group</span> world_group;</span><br><span class="line"><span class="built_in">MPI_Comm_group</span>(<span class="built_in">MPI_COMM_WORLD</span>, &amp;world_group);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n = <span class="number">7</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ranks[<span class="number">7</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Construct a group containing all of the prime ranks in world_group</span></span><br><span class="line"><span class="built_in">MPI_Group</span> prime_group;</span><br><span class="line"><span class="built_in">MPI_Group_incl</span>(world_group, <span class="number">7</span>, ranks, &amp;prime_group);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create a new communicator based on the group</span></span><br><span class="line"><span class="built_in">MPI_Comm</span> prime_comm;</span><br><span class="line"><span class="built_in">MPI_Comm_create_group</span>(<span class="built_in">MPI_COMM_WORLD</span>, prime_group, <span class="number">0</span>, &amp;prime_comm);</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> prime_rank = <span class="number">-1</span>, prime_size = <span class="number">-1</span>;</span><br><span class="line"><span class="comment">// If this rank isn't in the new communicator, it will be</span></span><br><span class="line"><span class="comment">// MPI_COMM_NULL. Using MPI_COMM_NULL for MPI_Comm_rank or</span></span><br><span class="line"><span class="comment">// MPI_Comm_size is erroneous</span></span><br><span class="line"><span class="keyword">if</span> (<span class="built_in">MPI_COMM_NULL</span> != prime_comm) &#123;</span><br><span class="line">	<span class="built_in">MPI_Comm_rank</span>(prime_comm, &amp;prime_rank);</span><br><span class="line">	<span class="built_in">MPI_Comm_size</span>(prime_comm, &amp;prime_size);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">printf(<span class="string">"WORLD RANK/SIZE: %d/%d \t PRIME RANK/SIZE: %d/%d\n"</span>,</span><br><span class="line">	world_rank, world_size, prime_rank, prime_size);</span><br><span class="line"></span><br><span class="line"><span class="built_in">MPI_Group_free</span>(&amp;world_group);</span><br><span class="line"><span class="built_in">MPI_Group_free</span>(&amp;prime_group);</span><br><span class="line"><span class="built_in">MPI_Comm_free</span>(&amp;prime_comm);</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2408,7 +2416,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2419,7 +2427,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2430,7 +2438,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
