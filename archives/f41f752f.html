@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/easyicon_net_512.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/animals_horse_flame_outline_32px_543552_easyicon.net.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/animals_horse_flame_outline_16px.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/easyicon_net_512.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="keras," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="继上篇对于Keras的初步探讨之后，我将给出一个例子讲解如何利用Keras用于处理图像分类问题，今天我们先探讨一下识别验证码的问题。 一、探讨内容1、数据来源2、模型搭建3、优化问题二、数据来源在本文中，我打算对验证码进行识别，有一个python包——captcha，利用它可生成验证码。当然使用前需要先导入相关packages。  sudo pip3 install  captcha  123im">
+<meta name="keywords" content="keras">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Keras初探（二）——识别验证码">
+<meta property="og:url" content="https://www.zenroad.club/archives/f41f752f.html">
+<meta property="og:site_name" content="Zenroad&#39;s Blog">
+<meta property="og:description" content="继上篇对于Keras的初步探讨之后，我将给出一个例子讲解如何利用Keras用于处理图像分类问题，今天我们先探讨一下识别验证码的问题。 一、探讨内容1、数据来源2、模型搭建3、优化问题二、数据来源在本文中，我打算对验证码进行识别，有一个python包——captcha，利用它可生成验证码。当然使用前需要先导入相关packages。  sudo pip3 install  captcha  123im">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8842375-4c88bcb359866c12.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8842375-de23719c2bf39776.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8842375-405f63e66a0d8e76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/8842375-f74543e6e2496f30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-10-21T01:50:20.126Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Keras初探（二）——识别验证码">
+<meta name="twitter:description" content="继上篇对于Keras的初步探讨之后，我将给出一个例子讲解如何利用Keras用于处理图像分类问题，今天我们先探讨一下识别验证码的问题。 一、探讨内容1、数据来源2、模型搭建3、优化问题二、数据来源在本文中，我打算对验证码进行识别，有一个python包——captcha，利用它可生成验证码。当然使用前需要先导入相关packages。  sudo pip3 install  captcha  123im">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/8842375-4c88bcb359866c12.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'zfish'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://www.zenroad.club/archives/f41f752f.html"/>
+
+
+
+
+
+  <title>Keras初探（二）——识别验证码 | Zenroad's Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-124399545-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zenroad's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/archives/c61c6fd.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/f41f752f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Keras初探（二）——识别验证码</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-21T09:49:41+08:00">
+                2018-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keras/" itemprop="url" rel="index">
+                    <span itemprop="name">keras</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/f41f752f.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/f41f752f.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/f41f752f.html" class="leancloud_visitors" data-flag-title="Keras初探（二）——识别验证码">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>继上篇对于Keras的初步探讨之后，我将给出一个例子讲解如何利用Keras用于处理图像分类问题，今天我们先探讨一下识别验证码的问题。</p>
+<h2 id="一、探讨内容"><a href="#一、探讨内容" class="headerlink" title="一、探讨内容"></a>一、探讨内容</h2><h6 id="1、数据来源"><a href="#1、数据来源" class="headerlink" title="1、数据来源"></a>1、数据来源</h6><h6 id="2、模型搭建"><a href="#2、模型搭建" class="headerlink" title="2、模型搭建"></a>2、模型搭建</h6><h6 id="3、优化问题"><a href="#3、优化问题" class="headerlink" title="3、优化问题"></a>3、优化问题</h6><h2 id="二、数据来源"><a href="#二、数据来源" class="headerlink" title="二、数据来源"></a>二、数据来源</h2><p>在本文中，我打算对验证码进行识别，有一个python包——captcha，利用它可生成验证码。当然使用前需要先导入相关packages。</p>
+<blockquote>
+<p>sudo pip3 install  captcha</p>
+</blockquote>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="title">from</span> captcha.image <span class="keyword">import</span> ImageCaptcha</span><br></pre></td></tr></table></figure>
+<p>这里可以设置验证码的大小为28*28，字体大小24。比如下面两张图片，第一张是5，第二张是6。干扰相对较大。<br><img src="https://upload-images.jianshu.io/upload_images/8842375-4c88bcb359866c12.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image1_5.jpg"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8842375-de23719c2bf39776.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image2_6.jpg"><br>下面给出完整代码<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> captcha.image <span class="keyword">import</span> ImageCaptcha</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_captcha</span><span class="params">(text)</span>:</span></span><br><span class="line">    </span><br><span class="line">    capt= ImageCaptcha(width=<span class="number">28</span>,height=<span class="number">28</span>,font_sizes = [<span class="number">24</span>])</span><br><span class="line">    image = capt.generate_image(text)</span><br><span class="line">    image = np.array(image,dtype=np.uint8)</span><br><span class="line">    <span class="keyword">return</span> image</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    output_dir = <span class="string">'./datasets/images/'</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5000</span>):</span><br><span class="line">        label = np.random.randint(<span class="number">0</span>,<span class="number">10</span>)</span><br><span class="line">        image = generate_captcha(str(label))</span><br><span class="line">        image_name = <span class="string">'image&#123;&#125;_&#123;&#125;.jpg'</span>.format(i+<span class="number">1</span>,label)</span><br><span class="line">        output_path = output_dir +image_name</span><br><span class="line">        cv2.imwrite(output_path,image)</span><br></pre></td></tr></table></figure></p>
+<p>保存文件为gendata.py，运行文件后生成5000张验证码图片。这里只是实验性质，所以验证码图片数量较少，大家自己做实验的时候可以适当增加一些图片数量。</p>
+<h2 id="三、模型搭建"><a href="#三、模型搭建" class="headerlink" title="三、模型搭建"></a>三、模型搭建</h2><p>一开始我们可以搭建一个非常简单的LeNet来进行验证和测试。保存下列文件命名为lenet.py<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># import the necessary packages</span></span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> keras.layers.convolutional <span class="keyword">import</span> Conv2D</span><br><span class="line"><span class="keyword">from</span> keras.layers.convolutional <span class="keyword">import</span> MaxPooling2D</span><br><span class="line"><span class="keyword">from</span> keras.layers.core <span class="keyword">import</span> Activation</span><br><span class="line"><span class="keyword">from</span> keras.layers.core <span class="keyword">import</span> Flatten</span><br><span class="line"><span class="keyword">from</span> keras.layers.core <span class="keyword">import</span> Dense</span><br><span class="line"><span class="keyword">from</span> keras <span class="keyword">import</span> backend <span class="keyword">as</span> K</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LeNet</span>:</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">build</span><span class="params">(width, height, depth, classes)</span>:</span></span><br><span class="line">        <span class="comment"># initialize the model</span></span><br><span class="line">        model = Sequential()</span><br><span class="line">        inputShape = (height, width, depth)</span><br><span class="line">        <span class="comment"># if we are using "channels last", update the input shape</span></span><br><span class="line">        <span class="keyword">if</span> K.image_data_format() == <span class="string">"channels_first"</span>:   <span class="comment">#for tensorflow</span></span><br><span class="line">            inputShape = (depth, height, width)</span><br><span class="line">        <span class="comment"># first set of CONV =&gt; RELU =&gt; POOL layers</span></span><br><span class="line">        model.add(Conv2D(<span class="number">20</span>, (<span class="number">5</span>, <span class="number">5</span>),padding=<span class="string">"same"</span>,input_shape=inputShape))</span><br><span class="line">        model.add(Activation(<span class="string">"relu"</span>))</span><br><span class="line">        model.add(MaxPooling2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>), strides=(<span class="number">2</span>, <span class="number">2</span>)))</span><br><span class="line">        <span class="comment">#second set of CONV =&gt; RELU =&gt; POOL layers</span></span><br><span class="line">        model.add(Conv2D(<span class="number">50</span>, (<span class="number">5</span>, <span class="number">5</span>), padding=<span class="string">"same"</span>))</span><br><span class="line">        model.add(Activation(<span class="string">"relu"</span>))</span><br><span class="line">        model.add(MaxPooling2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>), strides=(<span class="number">2</span>, <span class="number">2</span>)))</span><br><span class="line">        <span class="comment"># first (and only) set of FC =&gt; RELU layers</span></span><br><span class="line">        model.add(Flatten())</span><br><span class="line">        model.add(Dense(<span class="number">500</span>))</span><br><span class="line">        model.add(Activation(<span class="string">"relu"</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># softmax classifier</span></span><br><span class="line">        model.add(Dense(classes))</span><br><span class="line">        model.add(Activation(<span class="string">"softmax"</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># return the constructed network architecture</span></span><br><span class="line">        <span class="keyword">return</span> model</span><br></pre></td></tr></table></figure></p>
+<p>接着我们加载数据，每张图片对应的数字是放在文件名’_’之后。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_data</span><span class="params">(images_path)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(images_path):</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">'images_path is not exist.'</span>)</span><br><span class="line"></span><br><span class="line">    images = []</span><br><span class="line">    labels = []</span><br><span class="line">    images_path = os.path.join(images_path,<span class="string">'*.jpg'</span>)</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> image_file <span class="keyword">in</span> glob.glob(images_path):</span><br><span class="line">        count +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> count % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'Load&#123;&#125; images .'</span>.format(count))</span><br><span class="line">        image = cv2.imread(image_file)</span><br><span class="line">        image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)</span><br><span class="line">        image = cv2.resize(image, (norm_size, norm_size))</span><br><span class="line">        label = int(image_file.split(<span class="string">'_'</span>)[<span class="number">-1</span>].split(<span class="string">'.'</span>)[<span class="number">0</span>])</span><br><span class="line">        images.append(image)</span><br><span class="line">        labels.append(label)</span><br><span class="line">    images = np.array(images)</span><br><span class="line">    labels = np.array(labels)</span><br><span class="line"></span><br><span class="line">    (trainX, testX, trainY, testY) = train_test_split(images,</span><br><span class="line">            labels, test_size=<span class="number">0.25</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># convert the labels from integers to vectors</span></span><br><span class="line">    trainY = to_categorical(trainY, num_classes=CLASS_NUM)</span><br><span class="line">    testY = to_categorical(testY, num_classes=CLASS_NUM)   </span><br><span class="line">    <span class="keyword">return</span> trainX,trainY,testX,testY</span><br></pre></td></tr></table></figure></p>
+<p>经过处理我们得到训练集和测试集。我们先放出来完整代码train.py，然后我们在代码基础上加以修改。运行命令如下</p>
+<blockquote>
+<p>  python3 train.py -d images/ -m my.model</p>
+</blockquote>
+<p>其中images/ 为验证码存放目录，my.model为模型保存位置。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line">matplotlib.use(<span class="string">"Agg"</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># import the necessary packages</span></span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing.image <span class="keyword">import</span> ImageDataGenerator</span><br><span class="line"><span class="keyword">from</span> keras.optimizers <span class="keyword">import</span> Adam</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing.image <span class="keyword">import</span> img_to_array</span><br><span class="line"><span class="keyword">from</span> keras.utils <span class="keyword">import</span> to_categorical</span><br><span class="line"><span class="comment">#from imutils import paths</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'..'</span>)</span><br><span class="line"><span class="keyword">from</span> lenet <span class="keyword">import</span> LeNet</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">args_parse</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># construct the argument parse and parse the arguments</span></span><br><span class="line">    ap = argparse.ArgumentParser()</span><br><span class="line">    ap.add_argument(<span class="string">"-d"</span>, <span class="string">"--dataset"</span>, required=<span class="keyword">True</span>,</span><br><span class="line">        help=<span class="string">"path to input dataset"</span>)</span><br><span class="line">    ap.add_argument(<span class="string">"-m"</span>, <span class="string">"--model"</span>, required=<span class="keyword">True</span>,</span><br><span class="line">        help=<span class="string">"path to output model"</span>)</span><br><span class="line">    ap.add_argument(<span class="string">"-p"</span>, <span class="string">"--plot"</span>, type=str, default=<span class="string">"plot.png"</span>,</span><br><span class="line">        help=<span class="string">"path to output accuracy/loss plot"</span>)</span><br><span class="line">    args = vars(ap.parse_args()) </span><br><span class="line">    <span class="keyword">return</span> args</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">args = args_parse()</span><br><span class="line"></span><br><span class="line"><span class="comment"># initialize the number of epochs to train for, initial learning rate,</span></span><br><span class="line"><span class="comment"># and batch size</span></span><br><span class="line">EPOCHS = <span class="number">200</span></span><br><span class="line">INIT_LR = <span class="number">1e-2</span></span><br><span class="line">BS = <span class="number">128</span></span><br><span class="line">CLASS_NUM = <span class="number">10</span></span><br><span class="line">norm_size = <span class="number">32</span></span><br><span class="line"><span class="comment"># initialize the data and labels</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_data</span><span class="params">(images_path)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(images_path):</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">'images_path is not exist.'</span>)</span><br><span class="line"></span><br><span class="line">    images = []</span><br><span class="line">    labels = []</span><br><span class="line">    images_path = os.path.join(images_path,<span class="string">'*.jpg'</span>)</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> image_file <span class="keyword">in</span> glob.glob(images_path):</span><br><span class="line">        count +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> count % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'Load&#123;&#125; images .'</span>.format(count))</span><br><span class="line">        image = cv2.imread(image_file)</span><br><span class="line">        image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)</span><br><span class="line">        image = cv2.resize(image, (norm_size, norm_size))</span><br><span class="line">        label = int(image_file.split(<span class="string">'_'</span>)[<span class="number">-1</span>].split(<span class="string">'.'</span>)[<span class="number">0</span>])</span><br><span class="line">        images.append(image)</span><br><span class="line">        labels.append(label)</span><br><span class="line">    images = np.array(images)</span><br><span class="line">    labels = np.array(labels)</span><br><span class="line"></span><br><span class="line">    (trainX, testX, trainY, testY) = train_test_split(images,</span><br><span class="line">            labels, test_size=<span class="number">0.25</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># convert the labels from integers to vectors</span></span><br><span class="line">    trainY = to_categorical(trainY, num_classes=CLASS_NUM)</span><br><span class="line">    testY = to_categorical(testY, num_classes=CLASS_NUM)   </span><br><span class="line">    <span class="keyword">return</span> trainX,trainY,testX,testY</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(aug,trainX,trainY,testX,testY,args)</span>:</span></span><br><span class="line">    <span class="comment"># initialize the model</span></span><br><span class="line">    print(<span class="string">"[INFO] compiling model..."</span>)</span><br><span class="line">    model = LeNet.build(width=norm_size, height=norm_size, depth=<span class="number">3</span>, classes=CLASS_NUM)</span><br><span class="line">    opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)</span><br><span class="line"><span class="comment">#    opt = Adam(lr=INIT_LR)</span></span><br><span class="line">    model.compile(loss=<span class="string">"categorical_crossentropy"</span>, optimizer=opt,</span><br><span class="line">        metrics=[<span class="string">"accuracy"</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># train the network</span></span><br><span class="line">    print(<span class="string">"[INFO] training network..."</span>)</span><br><span class="line">    H = model.fit_generator(aug.flow(trainX, trainY, batch_size=BS),</span><br><span class="line">        validation_data=(testX, testY), steps_per_epoch=len(trainX) // BS,</span><br><span class="line">        epochs=EPOCHS, verbose=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># save the model to disk</span></span><br><span class="line">    print(<span class="string">"[INFO] serializing network..."</span>)</span><br><span class="line">    model.save(args[<span class="string">"model"</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># plot the training loss and accuracy</span></span><br><span class="line">    plt.style.use(<span class="string">"ggplot"</span>)</span><br><span class="line">    plt.figure()</span><br><span class="line">    N = EPOCHS</span><br><span class="line">    plt.plot(np.arange(<span class="number">0</span>, N), H.history[<span class="string">"loss"</span>], label=<span class="string">"train_loss"</span>)</span><br><span class="line">    plt.plot(np.arange(<span class="number">0</span>, N), H.history[<span class="string">"val_loss"</span>], label=<span class="string">"val_loss"</span>)</span><br><span class="line">    plt.plot(np.arange(<span class="number">0</span>, N), H.history[<span class="string">"acc"</span>], label=<span class="string">"train_acc"</span>)</span><br><span class="line">    plt.plot(np.arange(<span class="number">0</span>, N), H.history[<span class="string">"val_acc"</span>], label=<span class="string">"val_acc"</span>)</span><br><span class="line">    plt.title(<span class="string">"Training Loss and Accuracy on Invoice classifier"</span>)</span><br><span class="line">    plt.xlabel(<span class="string">"Epoch #"</span>)</span><br><span class="line">    plt.ylabel(<span class="string">"Loss/Accuracy"</span>)</span><br><span class="line">    plt.legend(loc=<span class="string">"lower left"</span>)</span><br><span class="line">    plt.savefig(args[<span class="string">"plot"</span>])</span><br><span class="line">    </span><br><span class="line"><span class="comment">#python train.py --dataset ../../invoice_all/train  --model invoice.model</span></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    args = args_parse()</span><br><span class="line">    file_path = args[<span class="string">"dataset"</span>]</span><br><span class="line">    trainX,trainY,testX,testY = get_data(file_path)</span><br><span class="line">    <span class="comment"># construct the image generator for data augmentation</span></span><br><span class="line">    aug = ImageDataGenerator(rotation_range=<span class="number">30</span>, width_shift_range=<span class="number">0.1</span>,</span><br><span class="line">        height_shift_range=<span class="number">0.1</span>, shear_range=<span class="number">0.2</span>, zoom_range=<span class="number">0.2</span>,</span><br><span class="line">        horizontal_flip=<span class="keyword">True</span>, fill_mode=<span class="string">"nearest"</span>)</span><br><span class="line">    train(aug,trainX,trainY,testX,testY,args)</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、优化模型"><a href="#四、优化模型" class="headerlink" title="四、优化模型"></a>四、优化模型</h2><p>我们可以根据每次生成的图片观察训练效果，这张图是已经经过若干次修改后的结果，正确率大概为0.80，从下图可以看到val_loss的抖动还是比较大，这是由于两个原因：一是初始的学习率比较大,二是因为在本例中我采用了dropout，而dropoutrate设置得太高了（0.25）所以我们需要修改。<img src="https://upload-images.jianshu.io/upload_images/8842375-405f63e66a0d8e76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="plot.png"></p>
+<h2 id="4-1-采用BatchNormalization"><a href="#4-1-采用BatchNormalization" class="headerlink" title="4.1 采用BatchNormalization"></a>4.1 采用BatchNormalization</h2><p>BatchNormalization()真是非常好用，把它放在卷积层和池化层之间能非常有效地提升性能。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model.add(Conv2D(<span class="number">30</span>, (<span class="number">2</span>, <span class="number">2</span>), padding=<span class="string">"same"</span>))</span><br><span class="line">        model.add(BatchNormalization())</span><br><span class="line">        model.add(Activation(<span class="string">"relu"</span>))</span><br><span class="line">        model.add(MaxPooling2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>), strides=(<span class="number">2</span>, <span class="number">2</span>)))</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-2-学习率衰减策略"><a href="#4-2-学习率衰减策略" class="headerlink" title="4.2 学习率衰减策略"></a>4.2 学习率衰减策略</h2><p>其实我们在一开始尝试的时候完全没必要设置学习率衰减策略。我们大可以尝试使用或大或小的学习率观察结果。随后我们可以让学习率随轮数衰减，以达到微调的效果。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)</span><br><span class="line"><span class="comment">#    opt = Adam(lr=INIT_LR)</span></span><br><span class="line">    model.compile(loss=<span class="string">"categorical_crossentropy"</span>, optimizer=opt,</span><br><span class="line">        metrics=[<span class="string">"accuracy"</span>])</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-3-dropout"><a href="#4-3-dropout" class="headerlink" title="4.3 dropout"></a>4.3 dropout</h2><p>使用了batchnormal再使用dropout效果可能不太明显。我们可以在最后的全连接层处使用dropout，在卷积层中间使用dropout会导致结果不可预测。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model.add(Dense(<span class="number">200</span>))</span><br><span class="line">model.add(Dropout(droprate))</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-4-数据扩充"><a href="#4-4-数据扩充" class="headerlink" title="4.4 数据扩充"></a>4.4 数据扩充</h2><p>我们把图片变形扭曲增加数据源<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aug = ImageDataGenerator(rotation_range=<span class="number">30</span>, width_shift_range=<span class="number">0.1</span>,</span><br><span class="line">        height_shift_range=<span class="number">0.1</span>, shear_range=<span class="number">0.2</span>, zoom_range=<span class="number">0.2</span>,</span><br><span class="line">        horizontal_flip=<span class="keyword">True</span>, fill_mode=<span class="string">"nearest"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>现在的结果如下图所示，由于训练轮数（200）不是特别多，所以效果还不是很好正确率大概在85%。有兴趣的朋友可以在此基础上加以修改一下。<br><img src="https://upload-images.jianshu.io/upload_images/8842375-f74543e6e2496f30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="plot.png"><br>完整代码参见<br><a href="https://github.com/bugsba/Keras_example/tree/master/example1" target="_blank" rel="noopener">code</a></p>
+
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    <div>
+
+    <div style="text-align:center;color: #ccc;font-size:16px;">-------------End of the article<i class="fa fa-paw"></i>Thank you for reading-------------</div>
+
+</div>
+
+    
+    </div>
+    <div>    
+ 
+ 
+    <ul class="post-copyright">
+      <li class="post-copyright-author">
+          <strong>Author of this article：</strong>zfish
+      </li>
+      <li class="post-copyright-link">
+        <strong>Link to this article：</strong>
+        <a href="/archives/f41f752f.html" title="Keras初探（二）——识别验证码">archives/f41f752f.html</a>
+      </li>
+      <li class="post-copyright-license">
+        <strong>Copyright Notice： </strong>
+        All articles in this blog, except for special statements, please indicate the source!
+      </li>
+    </ul>
+  
+</div>
+
+    <div>
+      
+        
+
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/keras/" rel="tag"># keras</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/archives/81716051.html" rel="next" title="Keras初探（一）">
+                <i class="fa fa-chevron-left"></i> Keras初探（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg"
+                alt="zfish" />
+            
+              <p class="site-author-name" itemprop="name">zfish</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、探讨内容"><span class="nav-number">1.</span> <span class="nav-text">一、探讨内容</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1、数据来源"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">1、数据来源</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2、模型搭建"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">2、模型搭建</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3、优化问题"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">3、优化问题</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、数据来源"><span class="nav-number">2.</span> <span class="nav-text">二、数据来源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、模型搭建"><span class="nav-number">3.</span> <span class="nav-text">三、模型搭建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、优化模型"><span class="nav-number">4.</span> <span class="nav-text">四、优化模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-采用BatchNormalization"><span class="nav-number">5.</span> <span class="nav-text">4.1 采用BatchNormalization</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-学习率衰减策略"><span class="nav-number">6.</span> <span class="nav-text">4.2 学习率衰减策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-dropout"><span class="nav-number">7.</span> <span class="nav-text">4.3 dropout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-4-数据扩充"><span class="nav-number">8.</span> <span class="nav-text">4.4 数据扩充</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">true</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count"></span>
+  
+</div>
+
+
+
+  <div class="footer-custom">混日子真开心</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://zenroad.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://www.zenroad.club/archives/f41f752f.html';
+          this.page.identifier = 'archives/f41f752f.html';
+          this.page.title = 'Keras初探（二）——识别验证码';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://zenroad.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("bmCOyEe5IhQR4sFPnsQeHsNv-gzGzoHsz", "bEku6VeTlemx57pQPypQdwvV");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"pluginModelPath":"assets/","model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"right","width":80,"height":180},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

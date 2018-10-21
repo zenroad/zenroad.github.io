@@ -272,6 +272,212 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/89b0a2ac.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/89b0a2ac.html" itemprop="url">how to handle imbalanced classes with pytorch</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-18T19:02:28+08:00">
+                2018-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Machine-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Machine Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/89b0a2ac.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/89b0a2ac.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/89b0a2ac.html" class="leancloud_visitors" data-flag-title="how to handle imbalanced classes with pytorch">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>We can use <code>WeightedRandomSampler</code> in pytorch to handle imbalanced classes.<br>Here is a sample code.<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">numDataPoints = <span class="number">1000</span></span><br><span class="line">data_dim = <span class="number">5</span></span><br><span class="line">bs = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"># Create dummy <span class="keyword">data</span> with <span class="keyword">class</span> imbalance <span class="number">9</span> to <span class="number">1</span></span><br><span class="line"><span class="keyword">data</span> = torch.FloatTensor(numDataPoints, data_dim)</span><br><span class="line"><span class="keyword">target</span> = np.hstack((np.zeros(<span class="built_in">int</span>(numDataPoints * <span class="number">0.9</span>), dtype=np.int32),</span><br><span class="line">                    np.ones(<span class="built_in">int</span>(numDataPoints * <span class="number">0.1</span>), dtype=np.int32)))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">'target train 0/1: &#123;&#125;/&#123;&#125;'</span>.<span class="keyword">format</span>(</span><br><span class="line">    len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">0</span>)[<span class="number">0</span>]), len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == <span class="number">1</span>)[<span class="number">0</span>]))</span><br><span class="line"></span><br><span class="line">class_sample_count = np.array(</span><br><span class="line">    [len(np.<span class="keyword">where</span>(<span class="keyword">target</span> == t)[<span class="number">0</span>]) for t <span class="keyword">in</span> np.unique(<span class="keyword">target</span>)])</span><br><span class="line">weight = <span class="number">1.</span> / class_sample_count</span><br><span class="line">samples_weight = np.array([weight[t] for t <span class="keyword">in</span> <span class="keyword">target</span>])</span><br><span class="line"></span><br><span class="line">samples_weight = torch.from_numpy(samples_weight)</span><br><span class="line">samples_weight = samples_weight.<span class="keyword">double</span>()</span><br><span class="line">sampler = WeightedRandomSampler(samples_weight, len(samples_weight))</span><br><span class="line"></span><br><span class="line"><span class="keyword">target</span> = torch.from_numpy(<span class="keyword">target</span>).long()</span><br><span class="line">train_dataset = torch.utils.<span class="keyword">data</span>.TensorDataset(<span class="keyword">data</span>, <span class="keyword">target</span>)</span><br><span class="line"></span><br><span class="line">train_loader = DataLoader(</span><br><span class="line">    train_dataset, batch_size=bs, num_workers=<span class="number">1</span>, sampler=sampler)</span><br><span class="line"></span><br><span class="line">for i, (<span class="keyword">data</span>, <span class="keyword">target</span>) <span class="keyword">in</span> enumerate(train_loader):</span><br><span class="line">    <span class="built_in">print</span> <span class="string">"batch index &#123;&#125;, 0/1: &#123;&#125;/&#123;&#125;"</span>.<span class="keyword">format</span>(</span><br><span class="line">        i,</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">0</span>)[<span class="number">0</span>]),</span><br><span class="line">        len(np.<span class="keyword">where</span>(<span class="keyword">target</span>.numpy() == <span class="number">1</span>)[<span class="number">0</span>]))</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://discuss.pytorch.org/t/how-to-handle-imbalanced-classes/11264/2" target="_blank" rel="noopener">reference</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/342de388.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2116,227 +2322,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/1d0202a.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/1d0202a.html" itemprop="url">Install android on VMware</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T19:39:03+08:00">
-                2018-08-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/software/" itemprop="url" rel="index">
-                    <span itemprop="name">software</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/1d0202a.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/1d0202a.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/1d0202a.html" class="leancloud_visitors" data-flag-title="Install android on VMware">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Download-Android-x86"><a href="#Download-Android-x86" class="headerlink" title="Download Android x86"></a>Download Android x86</h1><p>Here is the site offer downloadlinks <a href="http://www.android-x86.org/download" target="_blank" rel="noopener">android-86</a>.I tried to use the 7.1 version but it had some problem about GUI. I end up using the old version<a href="http://bdownload.fosshub.com/programs/android-x86_64-6.0-r3.iso" target="_blank" rel="noopener">Android-x86 6.0-r3 live and installation iso (64-bit) </a></p>
-<h1 id="Intall-on-VMware"><a href="#Intall-on-VMware" class="headerlink" title="Intall on VMware"></a>Intall on VMware</h1><p>The installation process is similar to other version of the operating system.You can refer to <a href="https://www.tactig.com/install-android-nougat-vmware/" target="_blank" rel="noopener">this article</a>.</p>
-<h1 id="Solution-of-No-GUI"><a href="#Solution-of-No-GUI" class="headerlink" title="Solution of No GUI"></a>Solution of No GUI</h1><p>You have to edit <code>menu.lst file</code>.</p>
-<ol>
-<li>boot in debug mode (usually the second option in boot menu)</li>
-<li>when booting stops (for me it just hangs there with flashing cursor and without any prompt) enter <code>mount -o remount,rw /mnt</code></li>
-<li>enter <code>cd /mnt/grub</code></li>
-<li>enter <code>vi menu.lst</code></li>
-<li>press <code>Shift+a</code></li>
-<li>right under the first boot entry find the line starting with kernel <strong>*</strong> (your line might look different; it depends on Android version; in general just find the line that starts with kernel).At the end of the line type <code>vga=834 nomodeset xforcevesa</code></li>
-<li>press <code>ESC</code> then <code>:wq</code> - these commands will save the file and quit vi</li>
-<li>enter <code>cd /</code></li>
-<li>enter <code>umount /mnt</code></li>
-<li>enter <code>reboot -f</code></li>
-</ol>
-<p>You can replace the <code>vga=xxx</code> by any number you want for your screen resolution. Also tested that 832 works fine (gives 800x600 resolution).</p>
-<p>You can find all the VESA modes when you use the iso file and pick the boot option to boot in VESA mode - it will show the list with all modes (numbers are in hex and there is also a redundant letter in front of some modes - ignore it) and you can test them there immediately to see if it works and is good to use in this menu.lst fix, but you have to convert it from hex to dec first using any hex-&gt;dec converter.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2391,7 +2376,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>

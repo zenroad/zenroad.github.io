@@ -272,6 +272,232 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/f41f752f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/f41f752f.html" itemprop="url">Keras初探（二）——识别验证码</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-21T09:49:41+08:00">
+                2018-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keras/" itemprop="url" rel="index">
+                    <span itemprop="name">keras</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/f41f752f.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/f41f752f.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/f41f752f.html" class="leancloud_visitors" data-flag-title="Keras初探（二）——识别验证码">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>继上篇对于Keras的初步探讨之后，我将给出一个例子讲解如何利用Keras用于处理图像分类问题，今天我们先探讨一下识别验证码的问题。</p>
+<h2 id="一、探讨内容"><a href="#一、探讨内容" class="headerlink" title="一、探讨内容"></a>一、探讨内容</h2><h6 id="1、数据来源"><a href="#1、数据来源" class="headerlink" title="1、数据来源"></a>1、数据来源</h6><h6 id="2、模型搭建"><a href="#2、模型搭建" class="headerlink" title="2、模型搭建"></a>2、模型搭建</h6><h6 id="3、优化问题"><a href="#3、优化问题" class="headerlink" title="3、优化问题"></a>3、优化问题</h6><h2 id="二、数据来源"><a href="#二、数据来源" class="headerlink" title="二、数据来源"></a>二、数据来源</h2><p>在本文中，我打算对验证码进行识别，有一个python包——captcha，利用它可生成验证码。当然使用前需要先导入相关packages。</p>
+<blockquote>
+<p>sudo pip3 install  captcha</p>
+</blockquote>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="title">from</span> captcha.image <span class="keyword">import</span> ImageCaptcha</span><br></pre></td></tr></table></figure>
+<p>这里可以设置验证码的大小为28*28，字体大小24。比如下面两张图片，第一张是5，第二张是6。干扰相对较大。<br><img src="https://upload-images.jianshu.io/upload_images/8842375-4c88bcb359866c12.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image1_5.jpg"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/8842375-de23719c2bf39776.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image2_6.jpg"><br>下面给出完整代码<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> captcha.image <span class="keyword">import</span> ImageCaptcha</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generate_captcha</span><span class="params">(text)</span>:</span></span><br><span class="line">    </span><br><span class="line">    capt= ImageCaptcha(width=<span class="number">28</span>,height=<span class="number">28</span>,font_sizes = [<span class="number">24</span>])</span><br><span class="line">    image = capt.generate_image(text)</span><br><span class="line">    image = np.array(image,dtype=np.uint8)</span><br><span class="line">    <span class="keyword">return</span> image</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    output_dir = <span class="string">'./datasets/images/'</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5000</span>):</span><br><span class="line">        label = np.random.randint(<span class="number">0</span>,<span class="number">10</span>)</span><br><span class="line">        image = generate_captcha(str(label))</span><br><span class="line">        image_name = <span class="string">'image&#123;&#125;_&#123;&#125;.jpg'</span>.format(i+<span class="number">1</span>,label)</span><br><span class="line">        output_path = output_dir +image_name</span><br><span class="line">        cv2.imwrite(output_path,image)</span><br></pre></td></tr></table></figure></p>
+<p>保存文件为gendata.py，运行文件后生成5000张验证码图片。这里只是实验性质，所以验证码图片数量较少，大家自己做实验的时候可以适当增加一些图片数量。</p>
+<h2 id="三、模型搭建"><a href="#三、模型搭建" class="headerlink" title="三、模型搭建"></a>三、模型搭建</h2><p>一开始我们可以搭建一个非常简单的LeNet来进行验证和测试。保存下列文件命名为lenet.py<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># import the necessary packages</span></span><br><span class="line"><span class="keyword">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="keyword">from</span> keras.layers.convolutional <span class="keyword">import</span> Conv2D</span><br><span class="line"><span class="keyword">from</span> keras.layers.convolutional <span class="keyword">import</span> MaxPooling2D</span><br><span class="line"><span class="keyword">from</span> keras.layers.core <span class="keyword">import</span> Activation</span><br><span class="line"><span class="keyword">from</span> keras.layers.core <span class="keyword">import</span> Flatten</span><br><span class="line"><span class="keyword">from</span> keras.layers.core <span class="keyword">import</span> Dense</span><br><span class="line"><span class="keyword">from</span> keras <span class="keyword">import</span> backend <span class="keyword">as</span> K</span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LeNet</span>:</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">build</span><span class="params">(width, height, depth, classes)</span>:</span></span><br><span class="line">        <span class="comment"># initialize the model</span></span><br><span class="line">        model = Sequential()</span><br><span class="line">        inputShape = (height, width, depth)</span><br><span class="line">        <span class="comment"># if we are using "channels last", update the input shape</span></span><br><span class="line">        <span class="keyword">if</span> K.image_data_format() == <span class="string">"channels_first"</span>:   <span class="comment">#for tensorflow</span></span><br><span class="line">            inputShape = (depth, height, width)</span><br><span class="line">        <span class="comment"># first set of CONV =&gt; RELU =&gt; POOL layers</span></span><br><span class="line">        model.add(Conv2D(<span class="number">20</span>, (<span class="number">5</span>, <span class="number">5</span>),padding=<span class="string">"same"</span>,input_shape=inputShape))</span><br><span class="line">        model.add(Activation(<span class="string">"relu"</span>))</span><br><span class="line">        model.add(MaxPooling2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>), strides=(<span class="number">2</span>, <span class="number">2</span>)))</span><br><span class="line">        <span class="comment">#second set of CONV =&gt; RELU =&gt; POOL layers</span></span><br><span class="line">        model.add(Conv2D(<span class="number">50</span>, (<span class="number">5</span>, <span class="number">5</span>), padding=<span class="string">"same"</span>))</span><br><span class="line">        model.add(Activation(<span class="string">"relu"</span>))</span><br><span class="line">        model.add(MaxPooling2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>), strides=(<span class="number">2</span>, <span class="number">2</span>)))</span><br><span class="line">        <span class="comment"># first (and only) set of FC =&gt; RELU layers</span></span><br><span class="line">        model.add(Flatten())</span><br><span class="line">        model.add(Dense(<span class="number">500</span>))</span><br><span class="line">        model.add(Activation(<span class="string">"relu"</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># softmax classifier</span></span><br><span class="line">        model.add(Dense(classes))</span><br><span class="line">        model.add(Activation(<span class="string">"softmax"</span>))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># return the constructed network architecture</span></span><br><span class="line">        <span class="keyword">return</span> model</span><br></pre></td></tr></table></figure></p>
+<p>接着我们加载数据，每张图片对应的数字是放在文件名’_’之后。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_data</span><span class="params">(images_path)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(images_path):</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">'images_path is not exist.'</span>)</span><br><span class="line"></span><br><span class="line">    images = []</span><br><span class="line">    labels = []</span><br><span class="line">    images_path = os.path.join(images_path,<span class="string">'*.jpg'</span>)</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> image_file <span class="keyword">in</span> glob.glob(images_path):</span><br><span class="line">        count +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> count % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'Load&#123;&#125; images .'</span>.format(count))</span><br><span class="line">        image = cv2.imread(image_file)</span><br><span class="line">        image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)</span><br><span class="line">        image = cv2.resize(image, (norm_size, norm_size))</span><br><span class="line">        label = int(image_file.split(<span class="string">'_'</span>)[<span class="number">-1</span>].split(<span class="string">'.'</span>)[<span class="number">0</span>])</span><br><span class="line">        images.append(image)</span><br><span class="line">        labels.append(label)</span><br><span class="line">    images = np.array(images)</span><br><span class="line">    labels = np.array(labels)</span><br><span class="line"></span><br><span class="line">    (trainX, testX, trainY, testY) = train_test_split(images,</span><br><span class="line">            labels, test_size=<span class="number">0.25</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># convert the labels from integers to vectors</span></span><br><span class="line">    trainY = to_categorical(trainY, num_classes=CLASS_NUM)</span><br><span class="line">    testY = to_categorical(testY, num_classes=CLASS_NUM)   </span><br><span class="line">    <span class="keyword">return</span> trainX,trainY,testX,testY</span><br></pre></td></tr></table></figure></p>
+<p>经过处理我们得到训练集和测试集。我们先放出来完整代码train.py，然后我们在代码基础上加以修改。运行命令如下</p>
+<blockquote>
+<p>  python3 train.py -d images/ -m my.model</p>
+</blockquote>
+<p>其中images/ 为验证码存放目录，my.model为模型保存位置。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line">matplotlib.use(<span class="string">"Agg"</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment"># import the necessary packages</span></span><br><span class="line"><span class="keyword">import</span> glob</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing.image <span class="keyword">import</span> ImageDataGenerator</span><br><span class="line"><span class="keyword">from</span> keras.optimizers <span class="keyword">import</span> Adam</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> keras.preprocessing.image <span class="keyword">import</span> img_to_array</span><br><span class="line"><span class="keyword">from</span> keras.utils <span class="keyword">import</span> to_categorical</span><br><span class="line"><span class="comment">#from imutils import paths</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> argparse</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> cv2</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">sys.path.append(<span class="string">'..'</span>)</span><br><span class="line"><span class="keyword">from</span> lenet <span class="keyword">import</span> LeNet</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">args_parse</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># construct the argument parse and parse the arguments</span></span><br><span class="line">    ap = argparse.ArgumentParser()</span><br><span class="line">    ap.add_argument(<span class="string">"-d"</span>, <span class="string">"--dataset"</span>, required=<span class="keyword">True</span>,</span><br><span class="line">        help=<span class="string">"path to input dataset"</span>)</span><br><span class="line">    ap.add_argument(<span class="string">"-m"</span>, <span class="string">"--model"</span>, required=<span class="keyword">True</span>,</span><br><span class="line">        help=<span class="string">"path to output model"</span>)</span><br><span class="line">    ap.add_argument(<span class="string">"-p"</span>, <span class="string">"--plot"</span>, type=str, default=<span class="string">"plot.png"</span>,</span><br><span class="line">        help=<span class="string">"path to output accuracy/loss plot"</span>)</span><br><span class="line">    args = vars(ap.parse_args()) </span><br><span class="line">    <span class="keyword">return</span> args</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">args = args_parse()</span><br><span class="line"></span><br><span class="line"><span class="comment"># initialize the number of epochs to train for, initial learning rate,</span></span><br><span class="line"><span class="comment"># and batch size</span></span><br><span class="line">EPOCHS = <span class="number">200</span></span><br><span class="line">INIT_LR = <span class="number">1e-2</span></span><br><span class="line">BS = <span class="number">128</span></span><br><span class="line">CLASS_NUM = <span class="number">10</span></span><br><span class="line">norm_size = <span class="number">32</span></span><br><span class="line"><span class="comment"># initialize the data and labels</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_data</span><span class="params">(images_path)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(images_path):</span><br><span class="line">        <span class="keyword">raise</span> ValueError(<span class="string">'images_path is not exist.'</span>)</span><br><span class="line"></span><br><span class="line">    images = []</span><br><span class="line">    labels = []</span><br><span class="line">    images_path = os.path.join(images_path,<span class="string">'*.jpg'</span>)</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> image_file <span class="keyword">in</span> glob.glob(images_path):</span><br><span class="line">        count +=<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> count % <span class="number">100</span> == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">'Load&#123;&#125; images .'</span>.format(count))</span><br><span class="line">        image = cv2.imread(image_file)</span><br><span class="line">        image = cv2.cvtColor(image,cv2.COLOR_BGR2RGB)</span><br><span class="line">        image = cv2.resize(image, (norm_size, norm_size))</span><br><span class="line">        label = int(image_file.split(<span class="string">'_'</span>)[<span class="number">-1</span>].split(<span class="string">'.'</span>)[<span class="number">0</span>])</span><br><span class="line">        images.append(image)</span><br><span class="line">        labels.append(label)</span><br><span class="line">    images = np.array(images)</span><br><span class="line">    labels = np.array(labels)</span><br><span class="line"></span><br><span class="line">    (trainX, testX, trainY, testY) = train_test_split(images,</span><br><span class="line">            labels, test_size=<span class="number">0.25</span>, random_state=<span class="number">42</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># convert the labels from integers to vectors</span></span><br><span class="line">    trainY = to_categorical(trainY, num_classes=CLASS_NUM)</span><br><span class="line">    testY = to_categorical(testY, num_classes=CLASS_NUM)   </span><br><span class="line">    <span class="keyword">return</span> trainX,trainY,testX,testY</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(aug,trainX,trainY,testX,testY,args)</span>:</span></span><br><span class="line">    <span class="comment"># initialize the model</span></span><br><span class="line">    print(<span class="string">"[INFO] compiling model..."</span>)</span><br><span class="line">    model = LeNet.build(width=norm_size, height=norm_size, depth=<span class="number">3</span>, classes=CLASS_NUM)</span><br><span class="line">    opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)</span><br><span class="line"><span class="comment">#    opt = Adam(lr=INIT_LR)</span></span><br><span class="line">    model.compile(loss=<span class="string">"categorical_crossentropy"</span>, optimizer=opt,</span><br><span class="line">        metrics=[<span class="string">"accuracy"</span>])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># train the network</span></span><br><span class="line">    print(<span class="string">"[INFO] training network..."</span>)</span><br><span class="line">    H = model.fit_generator(aug.flow(trainX, trainY, batch_size=BS),</span><br><span class="line">        validation_data=(testX, testY), steps_per_epoch=len(trainX) // BS,</span><br><span class="line">        epochs=EPOCHS, verbose=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># save the model to disk</span></span><br><span class="line">    print(<span class="string">"[INFO] serializing network..."</span>)</span><br><span class="line">    model.save(args[<span class="string">"model"</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># plot the training loss and accuracy</span></span><br><span class="line">    plt.style.use(<span class="string">"ggplot"</span>)</span><br><span class="line">    plt.figure()</span><br><span class="line">    N = EPOCHS</span><br><span class="line">    plt.plot(np.arange(<span class="number">0</span>, N), H.history[<span class="string">"loss"</span>], label=<span class="string">"train_loss"</span>)</span><br><span class="line">    plt.plot(np.arange(<span class="number">0</span>, N), H.history[<span class="string">"val_loss"</span>], label=<span class="string">"val_loss"</span>)</span><br><span class="line">    plt.plot(np.arange(<span class="number">0</span>, N), H.history[<span class="string">"acc"</span>], label=<span class="string">"train_acc"</span>)</span><br><span class="line">    plt.plot(np.arange(<span class="number">0</span>, N), H.history[<span class="string">"val_acc"</span>], label=<span class="string">"val_acc"</span>)</span><br><span class="line">    plt.title(<span class="string">"Training Loss and Accuracy on Invoice classifier"</span>)</span><br><span class="line">    plt.xlabel(<span class="string">"Epoch #"</span>)</span><br><span class="line">    plt.ylabel(<span class="string">"Loss/Accuracy"</span>)</span><br><span class="line">    plt.legend(loc=<span class="string">"lower left"</span>)</span><br><span class="line">    plt.savefig(args[<span class="string">"plot"</span>])</span><br><span class="line">    </span><br><span class="line"><span class="comment">#python train.py --dataset ../../invoice_all/train  --model invoice.model</span></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    args = args_parse()</span><br><span class="line">    file_path = args[<span class="string">"dataset"</span>]</span><br><span class="line">    trainX,trainY,testX,testY = get_data(file_path)</span><br><span class="line">    <span class="comment"># construct the image generator for data augmentation</span></span><br><span class="line">    aug = ImageDataGenerator(rotation_range=<span class="number">30</span>, width_shift_range=<span class="number">0.1</span>,</span><br><span class="line">        height_shift_range=<span class="number">0.1</span>, shear_range=<span class="number">0.2</span>, zoom_range=<span class="number">0.2</span>,</span><br><span class="line">        horizontal_flip=<span class="keyword">True</span>, fill_mode=<span class="string">"nearest"</span>)</span><br><span class="line">    train(aug,trainX,trainY,testX,testY,args)</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、优化模型"><a href="#四、优化模型" class="headerlink" title="四、优化模型"></a>四、优化模型</h2><p>我们可以根据每次生成的图片观察训练效果，这张图是已经经过若干次修改后的结果，正确率大概为0.80，从下图可以看到val_loss的抖动还是比较大，这是由于两个原因：一是初始的学习率比较大,二是因为在本例中我采用了dropout，而dropoutrate设置得太高了（0.25）所以我们需要修改。<img src="https://upload-images.jianshu.io/upload_images/8842375-405f63e66a0d8e76.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="plot.png"></p>
+<h2 id="4-1-采用BatchNormalization"><a href="#4-1-采用BatchNormalization" class="headerlink" title="4.1 采用BatchNormalization"></a>4.1 采用BatchNormalization</h2><p>BatchNormalization()真是非常好用，把它放在卷积层和池化层之间能非常有效地提升性能。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">model.add(Conv2D(<span class="number">30</span>, (<span class="number">2</span>, <span class="number">2</span>), padding=<span class="string">"same"</span>))</span><br><span class="line">        model.add(BatchNormalization())</span><br><span class="line">        model.add(Activation(<span class="string">"relu"</span>))</span><br><span class="line">        model.add(MaxPooling2D(pool_size=(<span class="number">2</span>, <span class="number">2</span>), strides=(<span class="number">2</span>, <span class="number">2</span>)))</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-2-学习率衰减策略"><a href="#4-2-学习率衰减策略" class="headerlink" title="4.2 学习率衰减策略"></a>4.2 学习率衰减策略</h2><p>其实我们在一开始尝试的时候完全没必要设置学习率衰减策略。我们大可以尝试使用或大或小的学习率观察结果。随后我们可以让学习率随轮数衰减，以达到微调的效果。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)</span><br><span class="line"><span class="comment">#    opt = Adam(lr=INIT_LR)</span></span><br><span class="line">    model.compile(loss=<span class="string">"categorical_crossentropy"</span>, optimizer=opt,</span><br><span class="line">        metrics=[<span class="string">"accuracy"</span>])</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-3-dropout"><a href="#4-3-dropout" class="headerlink" title="4.3 dropout"></a>4.3 dropout</h2><p>使用了batchnormal再使用dropout效果可能不太明显。我们可以在最后的全连接层处使用dropout，在卷积层中间使用dropout会导致结果不可预测。<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">model.add(Dense(<span class="number">200</span>))</span><br><span class="line">model.add(Dropout(droprate))</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-4-数据扩充"><a href="#4-4-数据扩充" class="headerlink" title="4.4 数据扩充"></a>4.4 数据扩充</h2><p>我们把图片变形扭曲增加数据源<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aug = ImageDataGenerator(rotation_range=<span class="number">30</span>, width_shift_range=<span class="number">0.1</span>,</span><br><span class="line">        height_shift_range=<span class="number">0.1</span>, shear_range=<span class="number">0.2</span>, zoom_range=<span class="number">0.2</span>,</span><br><span class="line">        horizontal_flip=<span class="keyword">True</span>, fill_mode=<span class="string">"nearest"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>现在的结果如下图所示，由于训练轮数（200）不是特别多，所以效果还不是很好正确率大概在85%。有兴趣的朋友可以在此基础上加以修改一下。<br><img src="https://upload-images.jianshu.io/upload_images/8842375-f74543e6e2496f30.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="plot.png"><br>完整代码参见<br><a href="https://github.com/bugsba/Keras_example/tree/master/example1" target="_blank" rel="noopener">code</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/81716051.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2172,215 +2398,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/1ccf9d8f.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/1ccf9d8f.html" itemprop="url">MPI_Isend与MPI_Irecv小例子</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:32:02+08:00">
-                2018-10-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mpi/" itemprop="url" rel="index">
-                    <span itemprop="name">mpi</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/1ccf9d8f.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/1ccf9d8f.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/1ccf9d8f.html" class="leancloud_visitors" data-flag-title="MPI_Isend与MPI_Irecv小例子">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>与MPI_Send与MPI_Recv不同，MPI_Isend与MPI_Irecv均为非阻塞式通信。<br>函数原型：<br>MPI_Isend<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="built_in">MPI_Isend</span>(<span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">int</span> count, <span class="built_in">MPI_Datatype</span> datatype, <span class="keyword">int</span> dest, <span class="keyword">int</span> tag,<span class="built_in">MPI_Comm</span> comm, <span class="built_in">MPI_Request</span> *request)</span><br></pre></td></tr></table></figure></p>
-<p>输入参数：<br>buf：发送缓冲区的首地址<br>count：需要发送的字节数<br>datatype：每个发送元素的数据类型<br>dest：目标的rank（id）<br>tag：消息标识（integer）<br>comm：通信域<br>输出参数：<br>request:communication request (handle)</p>
-<p>MPI_Irecv<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="built_in">MPI_Irecv</span>(<span class="keyword">void</span> *buf, <span class="keyword">int</span> count, <span class="built_in">MPI_Datatype</span> datatype, <span class="keyword">int</span> source,</span><br><span class="line"><span class="keyword">int</span> tag, <span class="built_in">MPI_Comm</span> comm, <span class="built_in">MPI_Request</span> *request)</span><br></pre></td></tr></table></figure></p>
-<p>输出参数：<br>buf：接收缓冲区的首地址<br>count：接收缓冲区存放字节数(integer)<br>datatype：每个接收元素的数据类型<br>source：发送者的rank (integer)<br>tag：消息标识（integer）<br>comm：通信域<br>输出参数：<br>request：communication request (handle)</p>
-<p>request 返回的非阻塞通信对象（用于TEST/WAIT使用）。<br>由于非阻塞通信在调用后不用等待通信完全结束就可以返回，所以非阻塞通信的返回并不意味着通信的完成。在返回后，用户还需要检测甚至等待通信的完成。MPI提供了下面的函数来完成这些目的。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#include <span class="meta-string">"mpi.h"</span></span></span><br><span class="line"><span class="keyword">int</span> main( <span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[] )&#123;</span><br><span class="line">    <span class="keyword">int</span> rank, nproc;</span><br><span class="line">    <span class="keyword">int</span> isbuf, irbuf, count;</span><br><span class="line">    <span class="built_in">MPI_Request</span> request;</span><br><span class="line">    <span class="built_in">MPI_Status</span> status;</span><br><span class="line">    <span class="keyword">int</span> TAG = <span class="number">100</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">MPI_Init</span>( &amp;argc, &amp;argv );</span><br><span class="line">    <span class="built_in">MPI_Comm_size</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;nproc );</span><br><span class="line">    <span class="built_in">MPI_Comm_rank</span>( <span class="built_in">MPI_COMM_WORLD</span>, &amp;rank );</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(rank == <span class="number">0</span>) &#123;</span><br><span class="line">         isbuf = <span class="number">9</span>;</span><br><span class="line">         <span class="built_in">MPI_Isend</span>( &amp;isbuf, <span class="number">1</span>, <span class="built_in">MPI_INT</span>, <span class="number">1</span>, TAG, <span class="built_in">MPI_COMM_WORLD</span>, &amp;request );</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(rank == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="built_in">MPI_Irecv</span>( &amp;irbuf, <span class="number">1</span>, <span class="built_in">MPI_INT</span>, <span class="number">0</span>, TAG, <span class="built_in">MPI_COMM_WORLD</span>, &amp;request);</span><br><span class="line">        <span class="built_in">MPI_Wait</span>(&amp;request, &amp;status);</span><br><span class="line">        <span class="built_in">MPI_Get_count</span>(&amp;status, <span class="built_in">MPI_INT</span>, &amp;count);</span><br><span class="line">        printf( <span class="string">"irbuf = %d source = %d tag = %d count = %d\n"</span>, </span><br><span class="line">                   irbuf, status.MPI_SOURCE, status.MPI_TAG, count);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">MPI_Finalize</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2435,7 +2452,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
