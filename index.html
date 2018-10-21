@@ -272,6 +272,235 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/81716051.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zfish">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zenroad's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/archives/81716051.html" itemprop="url">Keras初探（一）</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-21T09:38:36+08:00">
+                2018-10-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/keras/" itemprop="url" rel="index">
+                    <span itemprop="name">keras</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/archives/81716051.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="archives/81716051.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/archives/81716051.html" class="leancloud_visitors" data-flag-title="Keras初探（一）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>尝试写一下Keras的一些东西，算是必要的时候能备忘一下吧！希望大家多提提意见。</p>
+<h2 id="一、安装Keras"><a href="#一、安装Keras" class="headerlink" title="一、安装Keras"></a>一、安装Keras</h2><p>Keras并不能直接用于构建模型，它需要后端支持。<br>Keras 可以基于两个Backend，一个是 Theano，一个是 Tensorflow。如果我们选择Theano作为Keras的Backend， 那么Keras就用 Theano 在底层搭建你需要的神经网络；同样，如果选择 Tensorflow ，Keras 就使用 Tensorflow 在底层搭建神经网络。<br>所以我们需要先安装tensorflow，其实安装tensorflow还是蛮简单的，这里不多说了。<br>安装Keras其实就是一句话嘛！<br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip3 <span class="keyword">install</span> keras</span><br></pre></td></tr></table></figure></p>
+<p>要修改后端就修改~/.keras/keras.json文件中的backend。<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="attr">"image_dim_ordering"</span>: <span class="string">"tf"</span>,</span><br><span class="line">	<span class="attr">"epsilon"</span>: <span class="number">1e-07</span>,</span><br><span class="line">	<span class="attr">"floatx"</span>: <span class="string">"float32"</span>,</span><br><span class="line">	<span class="attr">"backend"</span>: <span class="string">"theano"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么开始喽！</p>
+<h2 id="二、预置知识"><a href="#二、预置知识" class="headerlink" title="二、预置知识"></a>二、预置知识</h2><p>我们需要学习一些机器学习和python的基础知识，下面给两个链接，有兴趣的同学可以先去看看。<br><a href="https://elitedatascience.com/learn-machine-learning" target="_blank" rel="noopener">Understanding of essential machine learning concepts</a><br><a href="https://elitedatascience.com/learn-python-for-data-science" target="_blank" rel="noopener">Python programming skills</a><br>其实根据我的经验，一遍动手做，一遍查文档学得会比较快。</p>
+<h2 id="三、超简单的Keras例子"><a href="#三、超简单的Keras例子" class="headerlink" title="三、超简单的Keras例子"></a>三、超简单的Keras例子</h2><p>这个例子共分为5个步骤：</p>
+<blockquote>
+<p>1、加载数据<br>2、定义模型<br>3、编译模型<br>4、训练模型<br>5、评估模型</p>
+</blockquote>
+<p>我们一步步来。</p>
+<h3 id="3-1-实验数据"><a href="#3-1-实验数据" class="headerlink" title="3.1 实验数据"></a>3.1 实验数据</h3><p>我们的研究对象是UCI上面的一个数据集。<br>Pima Indians onset of diabetes dataset</p>
+<ul>
+<li><a href="https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.data.csv" target="_blank" rel="noopener">Dataset File</a></li>
+<li><a href="https://raw.githubusercontent.com/jbrownlee/Datasets/master/pima-indians-diabetes.names" target="_blank" rel="noopener">Dataset Details</a><br>我们把数据下载下来之后保存为<br>pima-indians-diabetes.csv<br>我们先加载一下要用到的包。<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">from</span> keras.models <span class="keyword">import</span> Sequential</span><br><span class="line"><span class="title">from</span> keras.layers <span class="keyword">import</span> Dense</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np </span><br><span class="line"><span class="title">np</span>.random.seed(<span class="number">2018</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>接着我们加载实验数据，数据分为9列，其中第九列是0或1，表示患病与否。<br>我们使用numpy的loadtxt加载数据，具体参见之前的教程。这里注意一下切片操作，X = dataset[:,0:8]，是不含第9列的，即取到[8]之前（0-7列）。而Y = dataset[:,8]取得就是第九列。<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#load prima indians dataset</span></span><br><span class="line"><span class="attr">dataset</span> = np.loadtxt(<span class="string">"pima-indians-diabetes.csv"</span>, delimiter=<span class="string">","</span>)</span><br><span class="line"><span class="comment">#split into input (X) and output (Y) variables</span></span><br><span class="line"><span class="attr">X</span> = dataset[:,<span class="number">0</span>:<span class="number">8</span>]</span><br><span class="line"><span class="attr">Y</span> = dataset[:,<span class="number">8</span>]</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-2定义模型"><a href="#3-2定义模型" class="headerlink" title="3.2定义模型"></a>3.2定义模型</h3><p>我们来定义一个非常简单的模型。这个模型是一些layers一个接一个连接在一起。先来确定一下输入inputs。我们把input_dim设置为8，一共八个参数嘛。后面的工作很简单，因为在Sequential model中dense会默认设置除第一层外的各层的inputs，毕竟是全连接嘛！<br><figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># create <span class="keyword">model</span></span><br><span class="line"><span class="keyword">model</span> = Sequential()</span><br><span class="line"><span class="keyword">model</span>.add(Dense(<span class="number">12</span>,input_dim = <span class="number">8</span>,activation = <span class="string">'relu'</span>))</span><br><span class="line"><span class="keyword">model</span>.add(Dense(<span class="number">10</span>,activation = <span class="string">'relu'</span>))</span><br><span class="line"><span class="keyword">model</span>.add(Dense(<span class="number">8</span>,activation = <span class="string">'relu'</span>))</span><br><span class="line"><span class="keyword">model</span>.add(Dense(<span class="number">1</span>,activation = <span class="string">'sigmoid'</span>))</span><br></pre></td></tr></table></figure></p>
+<p>我们定义了四层layer，除最后一层外我们都采用relu激活函数，这样收敛较快（sigmod函数两端都很平，梯度太小了）。</p>
+<h3 id="3-3编译模型"><a href="#3-3编译模型" class="headerlink" title="3.3编译模型"></a>3.3编译模型</h3><p>Keras编译模型非常简单，只需要一句话。<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">Compile</span> model</span></span><br><span class="line">model.compile(loss=<span class="string">'binary_crossentropy'</span>,optimizer=<span class="string">'adam'</span>,metrics=[<span class="string">'accuracy'</span>])</span><br></pre></td></tr></table></figure></p>
+<p>这里我们设置优化器为adam。</p>
+<h3 id="3-4训练模型"><a href="#3-4训练模型" class="headerlink" title="3.4训练模型"></a>3.4训练模型</h3><p>训练模型使用fit函数。<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Fit the model</span></span><br><span class="line">model.fit<span class="params">(X,Y,<span class="attr">epochs</span>=150,<span class="attr">batch_size</span>=10)</span></span><br></pre></td></tr></table></figure></p>
+<p>我们把轮数设为150，batch_size为每次处理record数量，内存大可以多设置些。</p>
+<h3 id="3-5评估模型"><a href="#3-5评估模型" class="headerlink" title="3.5评估模型"></a>3.5评估模型</h3><p>简便起见，这里我们仍然使用X，Y作为评估数据，实际操作事可以利用sklearn的数据集划分。<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#evaluate the model</span></span><br><span class="line">scores = model.evaluate(X,Y)</span><br><span class="line"><span class="builtin-name">print</span>(<span class="string">"\n%s:%.2f%%"</span> % (model.metrics_names[1],scores[1]<span class="number">*100</span>))</span><br></pre></td></tr></table></figure></p>
+<h2 id="四、完整代码"><a href="#四、完整代码" class="headerlink" title="四、完整代码"></a>四、完整代码</h2><p>连注释在内一共20多行代码，可谓非常简单了。希望这个简单的例子可以帮助大家入门。<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">from</span> keras.models import Sequential</span><br><span class="line"><span class="built_in">from</span> keras.layers import Dense</span><br><span class="line">import numpy <span class="keyword">as</span> np </span><br><span class="line">np.<span class="built_in">random</span>.seed(<span class="number">2018</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#load prima indians dataset</span></span><br><span class="line">dataset = np.loadtxt(<span class="string">"pima-indians-diabetes.csv"</span>, delimiter=<span class="string">","</span>)</span><br><span class="line"><span class="comment">#split into input (X) and output (Y) variables</span></span><br><span class="line">X = dataset[:,<span class="number">0</span>:<span class="number">8</span>]</span><br><span class="line">Y = dataset[:,<span class="number">8</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># create model</span></span><br><span class="line">model = Sequential()</span><br><span class="line">model.<span class="built_in">add</span>(Dense(<span class="number">12</span>,input_dim = <span class="number">8</span>,activation = <span class="string">'relu'</span>))</span><br><span class="line">model.<span class="built_in">add</span>(Dense(<span class="number">10</span>,activation = <span class="string">'relu'</span>))</span><br><span class="line">model.<span class="built_in">add</span>(Dense(<span class="number">8</span>,activation = <span class="string">'relu'</span>))</span><br><span class="line">model.<span class="built_in">add</span>(Dense(<span class="number">1</span>,activation = <span class="string">'sigmoid'</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#Compile model</span></span><br><span class="line">model.compile(loss=<span class="string">'binary_crossentropy'</span>,optimizer=<span class="string">'adam'</span>,metrics=[<span class="string">'accuracy'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">#Fit the model</span></span><br><span class="line">model.fit(X,Y,epochs=<span class="number">150</span>,batch_size=<span class="number">10</span>)</span><br><span class="line"><span class="comment">#evaluate the model</span></span><br><span class="line">scores = model.evaluate(X,Y)</span><br><span class="line">print(<span class="string">"\n%s:%.2f%%"</span> % (model.metrics_names[<span class="number">1</span>],scores[<span class="number">1</span>]*<span class="number">100</span>))</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+    <div>
+    
+    </div>
+    <div>    
+ 
+ 
+</div>
+
+    <div>
+      
+    </div>
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/e2a4f947.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2152,220 +2381,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://www.zenroad.club/archives/37a58e4d.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zfish">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://user-images.githubusercontent.com/42510101/44462550-8049a900-a647-11e8-8e3b-47c5814a59a5.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Zenroad's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/archives/37a58e4d.html" itemprop="url">MPI_Send与MPI_Recv小例子</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T20:30:54+08:00">
-                2018-10-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/mpi/" itemprop="url" rel="index">
-                    <span itemprop="name">mpi</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/archives/37a58e4d.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="archives/37a58e4d.html" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/archives/37a58e4d.html" class="leancloud_visitors" data-flag-title="MPI_Send与MPI_Recv小例子">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">Visitors&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Words count in article&#58;</span>
-                
-                <span title="Words count in article">
-                  
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>函数原型<br>MPI_Send<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="built_in">MPI_Send</span>(<span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">int</span> count, <span class="built_in">MPI_Datatype</span> datatype, <span class="keyword">int</span> dest, <span class="keyword">int</span> tag, <span class="built_in">MPI_Comm</span> comm)</span><br></pre></td></tr></table></figure></p>
-<p>参数：<br>buf：发送缓冲区的首地址<br>count：需要发送的字节数<br>datatype：每个发送元素的数据类型<br>dest：目标的rank（id）<br>tag：消息标识（integer）<br>comm：通信域</p>
-<p>MPI_Recv<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> <span class="built_in">MPI_Recv</span>(<span class="keyword">void</span> *buf, <span class="keyword">int</span> count, <span class="built_in">MPI_Datatype</span> datatype, <span class="keyword">int</span> source, <span class="keyword">int</span> tag,<span class="built_in">MPI_Comm</span> comm, <span class="built_in">MPI_Status</span> *status)</span><br></pre></td></tr></table></figure></p>
-<p>输出参数：<br>buf：接收缓冲区的首地址<br>status：status对象(Status)<br>输入参数：<br>count：接收缓冲区最多存放字节数(integer)<br>datatype：每个接收元素的数据类型<br>source：发送者的rank (integer)<br>tag：消息标识（integer）<br>comm：通信域</p>
-<p>先将字符串拷贝到发送缓冲区message中，然后调用MPI_Send语句将它发出，用strlen(message)指定消息的长度，用MPI_CHAR指定消息的数据类型1，指明发往进程1， 使用的消息标识是99 ，MPI_COMM_WORLD是包含本进程进程0 和接收消息的进程进程1 的通信域，发送方和接收方必须在同一个通信域中，由通信域来统一协调和控制消息的发送和接收。<br>进程1直接执行接收消息的操作，这里它使用message作为接收缓冲区，由此可见，对于同一个变量在发送进程和接收进程中的作用是不同的，它指定接收消息的最大长度为20 ，消息的数据类型为MPI_CHAR字符型，接收的消息来自进程0 ，而接收消息携带的标识必须为99，使用的通信域也是MPI_COMM_WORLD， 接收完成后的各种状态信息存放在status中，接收完成后它直接将接收到的字符串打印在屏幕上。<br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#include<span class="meta-string">"mpi.h"</span></span></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc,<span class="keyword">char</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">       <span class="keyword">char</span> message[<span class="number">20</span>]=<span class="string">""</span>;</span><br><span class="line">       <span class="keyword">int</span> myrank;</span><br><span class="line">       <span class="built_in">MPI_Status</span> status;</span><br><span class="line">       <span class="built_in">MPI_Init</span>(&amp;argc,&amp;argv);</span><br><span class="line">       <span class="built_in">MPI_Comm_rank</span>(<span class="built_in">MPI_COMM_WORLD</span>,&amp;myrank);</span><br><span class="line">       <span class="keyword">if</span>(myrank==<span class="number">0</span>)</span><br><span class="line">       &#123;</span><br><span class="line">              strcpy(message,<span class="string">"Hello,process 1"</span>);</span><br><span class="line">              <span class="built_in">MPI_Send</span>(message,strlen(message),<span class="built_in">MPI_CHAR</span>,<span class="number">1</span>,<span class="number">99</span>,<span class="built_in">MPI_COMM_WORLD</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">else</span> <span class="keyword">if</span>(myrank==<span class="number">1</span>)</span><br><span class="line">       &#123;</span><br><span class="line">              <span class="built_in">MPI_Recv</span>(message,<span class="number">20</span>,<span class="built_in">MPI_CHAR</span>,<span class="number">0</span>,<span class="number">99</span>,<span class="built_in">MPI_COMM_WORLD</span>,&amp;status);</span><br><span class="line">              printf(<span class="string">"received:%s/n"</span>,message);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="built_in">MPI_Finalize</span>();            </span><br><span class="line">       <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-    <div>
-    
-    </div>
-    <div>    
- 
- 
-</div>
-
-    <div>
-      
-    </div>
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2415,7 +2435,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -2426,7 +2446,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">categories</span>
                 </a>
               </div>
@@ -2437,7 +2457,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
